@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `wca`;
+-- CREATE DATABASE IF NOT EXISTS `test-suite`;
+
+GRANT ALL ON *.* TO 'root'@'%';
+
+
