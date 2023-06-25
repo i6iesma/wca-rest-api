@@ -1,6 +1,5 @@
 <?php
 
-use App\Infrastructure\AMQP\AMQPStreamConnectionFactory;
 use App\Infrastructure\Console\ConsoleCommandContainer;
 use App\Infrastructure\Environment\Environment;
 use App\Infrastructure\Environment\Settings;
@@ -12,6 +11,8 @@ use Doctrine\ORM\ORMSetup;
 use Dotenv\Dotenv;
 use Lcobucci\Clock\Clock;
 use Lcobucci\Clock\SystemClock;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Symfony\Component\Console\Application;
@@ -58,17 +59,9 @@ return [
     },
     // Settings.
     Settings::class => DI\factory([Settings::class, 'load']),
-    // AMQP.
-    AMQPStreamConnectionFactory::class => function (Settings $settings) {
-        $rabbitMqConfig = $settings->get('amqp.rabbitmq');
-
-        return new AMQPStreamConnectionFactory(
-            $rabbitMqConfig['host'],
-            $rabbitMqConfig['port'],
-            $rabbitMqConfig['username'],
-            $rabbitMqConfig['password'],
-            $rabbitMqConfig['vhost']
-        );
-    },
     ServerRequestFactoryInterface::class => \DI\get(ServerRequestFactory::class),
+    // File system.
+    Filesystem::class => DI\autowire()->constructorParameter('adapter', new LocalFilesystemAdapter(
+        Settings::getAppRoot()
+    )),
 ];
