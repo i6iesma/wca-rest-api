@@ -16,7 +16,10 @@ readonly class ApiFileWriter
         string $fileName,
         string $contents,
     ): void {
-        $this->filesystem->write('/api/'.trim($fileName, '/'), $contents);
+        $this->filesystem->write(
+            sprintf('/api/%s.json', trim($fileName, '/')),
+            $contents
+        );
     }
 
     public function writeWithPagination(
@@ -25,7 +28,8 @@ readonly class ApiFileWriter
         string $contents,
     ): void {
         $this->filesystem->write(
-            sprintf('/api/%s-page-%s', trim($fileName, '/'), $pagination->getPageNumber()),
-            $contents);
+            sprintf('/api/%s-page-%s.json', trim($fileName, '/'), $pagination->getPageNumber()),
+            $contents
+        );
     }
 }

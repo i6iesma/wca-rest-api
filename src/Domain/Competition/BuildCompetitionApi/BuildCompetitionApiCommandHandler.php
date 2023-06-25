@@ -8,8 +8,6 @@ use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
 use App\Infrastructure\Overview\Pagination;
-use App\Infrastructure\Overview\Sorting\Sorting;
-use App\Infrastructure\Overview\Sorting\SortingDirection;
 use App\Infrastructure\Serialization\Json;
 
 #[AsCommandHandler]
@@ -27,7 +25,6 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
         $overview = $this->competitionRepository->findAll(
             Pagination::default(),
-            Sorting::with('id', SortingDirection::ASCENDING)
         );
 
         $this->apiFileWriter->write('competition', Json::encode($overview));
@@ -36,7 +33,6 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
         do {
             $overview = $this->competitionRepository->findAll(
                 $pagination,
-                Sorting::with('id', SortingDirection::ASCENDING)
             );
 
             $this->apiFileWriter->writeWithPagination(
@@ -44,7 +40,15 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 $pagination,
                 Json::encode($overview)
             );
+
+            /** @var \App\Domain\Competition\Competition $item */
+            foreach ($overview->getItems() as $item) {
+                $this->apiFileWriter->write('competition/'.$item->getId(), Json::encode($item));
+            }
+
             $pagination = $pagination->next();
         } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
+
+        $this->apiFileWriter->write('competition/3', Json::encode($overview));
     }
 }

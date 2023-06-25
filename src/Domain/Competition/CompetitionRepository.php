@@ -4,7 +4,6 @@ namespace App\Domain\Competition;
 
 use App\Infrastructure\Overview\Overview;
 use App\Infrastructure\Overview\Pagination;
-use App\Infrastructure\Overview\Sorting\Sorting;
 use App\Infrastructure\ValueObject\Country;
 use App\Infrastructure\ValueObject\Geography\Coordinates;
 use App\Infrastructure\ValueObject\Time\DateRange;
@@ -20,7 +19,6 @@ readonly class CompetitionRepository
 
     public function findAll(
         Pagination $pagination,
-        Sorting $sorting,
     ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -29,43 +27,47 @@ readonly class CompetitionRepository
             ->innerJoin('comp', 'Countries', 'c', 'comp.countryId = c.id')
             ->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit())
-            ->orderBy(
-                $sorting->getSortableFieldName(),
-                $sorting->getSortingDirection()->toSql()
-            );
+            ->addOrderBy('year', 'DESC')
+            ->addOrderBy('month', 'DESC')
+            ->addOrderBy('day', 'DESC');
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
         $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
 
-        $overview = Overview::empty($pagination, $sorting, $total);
+        $overview = Overview::empty($pagination, $total);
         foreach ($results as $result) {
-            $overview->addItem(Competition::fromState(
-                $result['id'],
-                $result['name'],
-                $result['cityName'],
-                Country::fromIso2Code($result['iso2']),
-                DateRange::fromFromDateAndTillDate(
-                    SerializableDateTime::fromString(''),
-                    SerializableDateTime::fromString('')
-                ),
-                $result['cancelled'],
-                explode(' ', $result['eventSpecs']),
-                $result['wcaDelegate'],
-                Venue::fromValues(
-                    $result['venue'],
-                    $result['venueAddress'],
-                    $result['venueDetails'],
-                    Coordinates::fromIntegers(
-                        $result['latitude'],
-                        $result['longitude'],
-                    )
-                ),
-                $result['organiser'],
-                $result['information'],
-                $result['external_website'],
-            ));
+            $overview->addItem($this->buildResult($result));
         }
 
         return $overview;
+    }
+
+    private function buildResult(array $result): Competition
+    {
+        return Competition::fromState(
+            $result['id'],
+            $result['name'],
+            $result['cityName'],
+            Country::fromIso2Code($result['iso2']),
+            DateRange::fromFromDateAndTillDate(
+                SerializableDateTime::fromString($result['year'].'-'.$result['month'].'-'.$result['day']),
+                SerializableDateTime::fromString($result['year'].'-'.$result['endMonth'].'-'.$result['endDay']),
+            ),
+            $result['cancelled'],
+            explode(' ', $result['eventSpecs']),
+            $result['wcaDelegate'],
+            Venue::fromValues(
+                $result['venue'],
+                $result['venueAddress'],
+                $result['venueDetails'],
+                Coordinates::fromIntegers(
+                    $result['latitude'],
+                    $result['longitude'],
+                )
+            ),
+            $result['organiser'],
+            $result['information'],
+            $result['external_website'],
+        );
     }
 }

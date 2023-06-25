@@ -71,4 +71,9 @@ readonly class Competition implements Item
             'externalWebsite' => $this->externalWebsite,
         ];
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

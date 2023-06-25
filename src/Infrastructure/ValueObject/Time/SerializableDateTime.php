@@ -16,7 +16,7 @@ class SerializableDateTime extends \DateTimeImmutable implements \JsonSerializab
 
     public function jsonSerialize(): string
     {
-        return $this->iso();
+        return $this->format('Y-m-d');
     }
 
     public function iso(): string
