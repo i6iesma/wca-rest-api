@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Domain\Country\BuildCountryApi;
+namespace App\Domain\Event\BuildEventApi;
 
 use App\Domain\ApiFileWriter;
-use App\Domain\Country\CountryRepository;
+use App\Domain\Event\EventRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
 use App\Infrastructure\Serialization\Json;
 
 #[AsCommandHandler]
-readonly class BuildCountryApiCommandHandler implements CommandHandler
+readonly class BuildEventApiCommandHandler implements CommandHandler
 {
     public function __construct(
-        private CountryRepository $countryRepository,
+        private EventRepository $eventRepository,
         private ApiFileWriter $apiFileWriter
     ) {
     }
 
     public function handle(DomainCommand $command): void
     {
-        assert($command instanceof BuildCountryApi);
+        assert($command instanceof BuildEventApi);
 
-        $overview = $this->countryRepository->findAll();
-        $this->apiFileWriter->write('country', Json::encode($overview));
+        $overview = $this->eventRepository->findAll();
+        $this->apiFileWriter->write('event', Json::encode($overview));
     }
 }

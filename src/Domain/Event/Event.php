@@ -13,6 +13,18 @@ readonly class Event implements Item
     ) {
     }
 
+    public static function fromState(
+        string $id,
+        string $name,
+        string $format,
+    ): self {
+        return new self(
+            $id,
+            $name,
+            $format
+        );
+    }
+
     public function jsonSerialize(): array
     {
         return [
