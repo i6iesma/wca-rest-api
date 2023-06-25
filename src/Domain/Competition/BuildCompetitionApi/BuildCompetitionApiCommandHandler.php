@@ -61,5 +61,16 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 Json::encode($overview)
             );
         }
+
+        foreach (range(1980, (int) date('Y') + 1) as $year) {
+            $overview = $this->competitionRepository->findByYear($year);
+            if ($overview->isEmpty()) {
+                continue;
+            }
+            $this->apiFileWriter->write(
+                'competition/year/'.$year,
+                Json::encode($overview)
+            );
+        }
     }
 }

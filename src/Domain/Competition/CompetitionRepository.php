@@ -70,6 +70,33 @@ readonly class CompetitionRepository
         return $overview;
     }
 
+    public function findByYear(int $year): Overview
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+
+        $queryBuilder->select('SQL_CALC_FOUND_ROWS comp.*, c.iso2')
+            ->from('Competitions', 'comp')
+            ->innerJoin('comp', 'Countries', 'c', 'comp.countryId = c.id')
+            ->andWhere('comp.year = :year')
+            ->setParameter('year', $year)
+            ->addOrderBy('year', 'DESC')
+            ->addOrderBy('month', 'DESC')
+            ->addOrderBy('day', 'DESC');
+
+        $results = $queryBuilder->executeQuery()->fetchAllAssociative();
+        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
+
+        $overview = Overview::empty(
+            $total > 1000 ? Pagination::fromPageNumberAndSize(1, $total) : Pagination::default(),
+            $total
+        );
+        foreach ($results as $result) {
+            $overview->addItem($this->buildResult($result));
+        }
+
+        return $overview;
+    }
+
     private function buildResult(array $result): Competition
     {
         return Competition::fromState(
