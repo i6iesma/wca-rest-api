@@ -5,3 +5,4 @@ var
 .env
 .php-cs-fixer.cache
 .phpunit.result.cache
+wca-export
