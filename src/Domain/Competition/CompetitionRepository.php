@@ -59,7 +59,10 @@ readonly class CompetitionRepository
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
         $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
 
-        $overview = Overview::empty(Pagination::default(), $total);
+        $overview = Overview::empty(
+            $total > 1000 ? Pagination::fromPageNumberAndSize(1, $total) : Pagination::default(),
+            $total
+        );
         foreach ($results as $result) {
             $overview->addItem($this->buildResult($result));
         }
