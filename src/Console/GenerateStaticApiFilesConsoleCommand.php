@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
+use App\Domain\Country\BuildCountryApi\BuildCountryApi;
 use App\Infrastructure\CQRS\CommandBus;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -20,6 +21,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->commandBus->dispatch(new BuildCountryApi());
         $this->commandBus->dispatch(new BuildCompetitionApi());
 
         return Command::SUCCESS;
