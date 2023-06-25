@@ -2,9 +2,23 @@
 
 namespace App\Domain\Event;
 
-class Event implements \JsonSerializable
+use App\Infrastructure\Overview\Item;
+
+readonly class Event implements Item
 {
+    private function __construct(
+        private string $id,
+        private string $name,
+        private string $format,
+    ) {
+    }
+
     public function jsonSerialize(): array
     {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'format' => $this->format,
+        ];
     }
 }

@@ -18,9 +18,9 @@ readonly class Pagination implements \JsonSerializable
         return new self(($pageNumber - 1) * $pageSize, $pageSize);
     }
 
-    public static function fromOffsetAndLimit(int $offset = 0): self
+    public static function fromOffsetAndLimit(int $offset, int $limit): self
     {
-        return new self($offset, 1000);
+        return new self($offset, $limit);
     }
 
     public static function default(): Pagination

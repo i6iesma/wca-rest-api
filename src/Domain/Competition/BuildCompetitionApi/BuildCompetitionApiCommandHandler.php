@@ -25,7 +25,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildCompetitionApi);
 
-        $overview = $this->competitionRepository->findAll(
+        $overview = $this->competitionRepository->findOneBy(
             Pagination::default(),
         );
 
@@ -33,7 +33,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
         $pagination = Pagination::default();
         do {
-            $overview = $this->competitionRepository->findAll(
+            $overview = $this->competitionRepository->findOneBy(
                 $pagination,
             );
 
@@ -55,7 +55,10 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
         /** @var \App\Domain\Country\Country $country */
         foreach ($countries->getItems() as $country) {
-            $overview = $this->competitionRepository->findByCountry($country);
+            $overview = $this->competitionRepository->findOneBy(
+                Pagination::fromOffsetAndLimit(0, 10000),
+                $country
+            );
             $this->apiFileWriter->write(
                 'competition/country/'.$country->getIso2Code(),
                 Json::encode($overview)
@@ -63,7 +66,11 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
         }
 
         foreach (range(1980, (int) date('Y') + 1) as $year) {
-            $overview = $this->competitionRepository->findByYear($year);
+            $overview = $this->competitionRepository->findOneBy(
+                Pagination::fromOffsetAndLimit(0, 10000),
+                null,
+                $year
+            );
             if ($overview->isEmpty()) {
                 continue;
             }

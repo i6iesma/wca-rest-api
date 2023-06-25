@@ -18,8 +18,10 @@ readonly class CompetitionRepository
     ) {
     }
 
-    public function findAll(
+    public function findOneBy(
         Pagination $pagination,
+        Country $country = null,
+        int $year = null,
     ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -32,64 +34,31 @@ readonly class CompetitionRepository
             ->addOrderBy('month', 'DESC')
             ->addOrderBy('day', 'DESC');
 
-        $results = $queryBuilder->executeQuery()->fetchAllAssociative();
-        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
-
-        $overview = Overview::empty($pagination, $total);
-        foreach ($results as $result) {
-            $overview->addItem($this->buildResult($result));
+        if ($country) {
+            $queryBuilder->andWhere('c.iso2 = :iso2')
+                ->setParameter('iso2', $country->getIso2Code());
         }
 
-        return $overview;
-    }
-
-    public function findByCountry(Country $country): Overview
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-
-        $queryBuilder->select('SQL_CALC_FOUND_ROWS comp.*, c.iso2')
-            ->from('Competitions', 'comp')
-            ->innerJoin('comp', 'Countries', 'c', 'comp.countryId = c.id')
-            ->andWhere('c.iso2 = :iso2')
-            ->setParameter('iso2', $country->getIso2Code())
-            ->addOrderBy('year', 'DESC')
-            ->addOrderBy('month', 'DESC')
-            ->addOrderBy('day', 'DESC');
-
-        $results = $queryBuilder->executeQuery()->fetchAllAssociative();
-        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
-
-        $overview = Overview::empty(
-            $total > 1000 ? Pagination::fromPageNumberAndSize(1, $total) : Pagination::default(),
-            $total
-        );
-        foreach ($results as $result) {
-            $overview->addItem($this->buildResult($result));
+        if ($year) {
+            $queryBuilder->andWhere('comp.year = :year')
+                ->setParameter('year', $year);
         }
 
-        return $overview;
-    }
-
-    public function findByYear(int $year): Overview
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-
-        $queryBuilder->select('SQL_CALC_FOUND_ROWS comp.*, c.iso2')
-            ->from('Competitions', 'comp')
-            ->innerJoin('comp', 'Countries', 'c', 'comp.countryId = c.id')
-            ->andWhere('comp.year = :year')
-            ->setParameter('year', $year)
-            ->addOrderBy('year', 'DESC')
-            ->addOrderBy('month', 'DESC')
-            ->addOrderBy('day', 'DESC');
-
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
         $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
 
+        if (0 === count($results)) {
+            return Overview::empty(Pagination::default());
+        }
+
         $overview = Overview::empty(
-            $total > 1000 ? Pagination::fromPageNumberAndSize(1, $total) : Pagination::default(),
+            count($results) == $pagination->getPageSize() ? $pagination : $pagination::fromPageNumberAndSize(
+                $pagination->getPageNumber(),
+                count($results)
+            ),
             $total
         );
+
         foreach ($results as $result) {
             $overview->addItem($this->buildResult($result));
         }
