@@ -6,21 +6,23 @@ readonly class Pagination implements \JsonSerializable
 {
     private function __construct(
         private int $offset = 0,
-        private int $limit = 100)
+        private int $limit = 1000)
     {
         if ($this->limit < 1) {
             throw new \InvalidArgumentException('Invalid limit: '.$this->limit);
         }
     }
 
-    public static function fromPageNumberAndSize(int $pageNumber = 1, int $pageSize = 100): self
+    public static function fromPageNumberAndSize(int $pageNumber = 1): self
     {
+        $pageSize = 1000;
+
         return new self(($pageNumber - 1) * $pageSize, $pageSize);
     }
 
-    public static function fromOffsetAndLimit(int $offset = 0, int $limit = 100): self
+    public static function fromOffsetAndLimit(int $offset = 0): self
     {
-        return new self($offset, $limit);
+        return new self($offset, 1000);
     }
 
     public static function default(): Pagination
@@ -59,10 +61,5 @@ readonly class Pagination implements \JsonSerializable
             'page' => $this->getPageNumber(),
             'size' => $this->getPageSize(),
         ];
-    }
-
-    public function toSqlLimit(): string
-    {
-        return ' LIMIT '.$this->getLimit().' OFFSET '.$this->getOffset();
     }
 }

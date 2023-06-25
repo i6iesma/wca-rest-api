@@ -5,19 +5,19 @@ namespace App\Infrastructure\Overview\Sorting;
 readonly class Sorting implements \JsonSerializable
 {
     private function __construct(
-        private SortableField $sortableFieldName,
+        private string $sortableFieldName,
         private SortingDirection $sortingDirection)
     {
     }
 
-    public static function with(SortableField $fieldName, SortingDirection $sortingDirection): self
+    public static function with(string $fieldName, SortingDirection $sortingDirection): self
     {
         return new self($fieldName, $sortingDirection);
     }
 
     public function getSortableFieldName(): string
     {
-        return $this->sortableFieldName->value;
+        return $this->sortableFieldName;
     }
 
     public function getSortingDirection(): SortingDirection

@@ -18,7 +18,7 @@ class Overview implements \JsonSerializable
     public static function empty(
         Pagination $pagination,
         Sorting $sorting = null,
-        int $total = 0, ): Overview
+        int $total = 0): Overview
     {
         return new self($pagination, $total, $sorting);
     }
@@ -30,7 +30,6 @@ class Overview implements \JsonSerializable
             'sorting' => $this->getSorting(),
             'total' => $this->getTotal(),
             'items' => $this->items,
-            'search' => $this->getSearch(),
         ];
     }
 

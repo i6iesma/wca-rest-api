@@ -17,8 +17,8 @@ readonly class Competition implements Item
         private bool $isCanceled,
         private array $events,
         private string $wcaDelegate,
-        private string $organiser,
         private Venue $venue,
+        private ?string $organiser = null,
         private ?string $information = null,
         private ?string $externalWebsite = null,
     ) {
@@ -33,8 +33,8 @@ readonly class Competition implements Item
         bool $isCanceled,
         array $events,
         string $wcaDelegate,
-        string $organiser,
         Venue $venue,
+        string $organiser = null,
         string $information = null,
         string $externalWebsite = null,
     ): self {
@@ -47,8 +47,8 @@ readonly class Competition implements Item
             $isCanceled,
             $events,
             $wcaDelegate,
-            $organiser,
             $venue,
+            $organiser,
             $information,
             $externalWebsite,
         );

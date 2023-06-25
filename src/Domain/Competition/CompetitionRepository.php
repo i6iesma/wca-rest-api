@@ -7,8 +7,6 @@ use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Overview\Sorting\Sorting;
 use App\Infrastructure\ValueObject\Country;
 use App\Infrastructure\ValueObject\Geography\Coordinates;
-use App\Infrastructure\ValueObject\Geography\Latitude;
-use App\Infrastructure\ValueObject\Geography\Longitude;
 use App\Infrastructure\ValueObject\Time\DateRange;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use Doctrine\DBAL\Connection;
@@ -28,7 +26,7 @@ readonly class CompetitionRepository
 
         $queryBuilder->select('SQL_CALC_FOUND_ROWS comp.*, c.iso2')
             ->from('Competitions', 'comp')
-            ->innerJoin('c', 'Countries', 'comp', 'comp.countryId = c.id')
+            ->innerJoin('comp', 'Countries', 'c', 'comp.countryId = c.id')
             ->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit())
             ->orderBy(
@@ -53,16 +51,16 @@ readonly class CompetitionRepository
                 $result['cancelled'],
                 explode(' ', $result['eventSpecs']),
                 $result['wcaDelegate'],
-                $result['organiser'],
                 Venue::fromValues(
                     $result['venue'],
                     $result['venueAddress'],
                     $result['venueDetails'],
-                    Coordinates::fromLatitudeAndLongitude(
-                        Latitude::fromString($result['latitude']),
-                        Longitude::fromString($result['longitude']),
+                    Coordinates::fromIntegers(
+                        $result['latitude'],
+                        $result['longitude'],
                     )
                 ),
+                $result['organiser'],
                 $result['information'],
                 $result['external_website'],
             ));

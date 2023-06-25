@@ -21,15 +21,6 @@ return [
         // Path where Slim will cache the container, compiler passes, ...
         'cache_dir' => Settings::getAppRoot().'/var/cache/slim',
     ],
-    'amqp' => [
-        'rabbitmq' => [
-            'host' => $_ENV['RABBITMQ_HOST'],
-            'port' => $_ENV['RABBITMQ_PORT'],
-            'username' => $_ENV['RABBITMQ_USER'],
-            'password' => $_ENV['RABBITMQ_PASS'],
-            'vhost' => $_ENV['RABBITMQ_VHOST'],
-        ],
-    ],
     'doctrine' => [
         // Enables or disables Doctrine metadata caching
         // for either performance or convenience during development.
@@ -53,24 +44,6 @@ return [
             'dbname' => $_ENV['DATABASE_NAME'],
             'user' => $_ENV['DATABASE_USER'],
             'password' => $_ENV['DATABASE_PASSWORD'],
-        ],
-        'migrations' => [
-            'table_storage' => [
-                'table_name' => 'doctrine_migration_versions',
-                'version_column_name' => 'version',
-                'version_column_length' => 1024,
-                'executed_at_column_name' => 'executed_at',
-                'execution_time_column_name' => 'execution_time',
-            ],
-            'migrations_paths' => [
-                'App\Migrations' => Settings::getAppRoot().'/migrations',
-            ],
-            'all_or_nothing' => true,
-            'transactional' => true,
-            'check_database_platform' => true,
-            'organize_migrations' => 'none',
-            'connection' => null,
-            'em' => null,
         ],
     ],
 ];
