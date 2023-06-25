@@ -13,10 +13,8 @@ readonly class Pagination implements \JsonSerializable
         }
     }
 
-    public static function fromPageNumberAndSize(int $pageNumber = 1): self
+    public static function fromPageNumberAndSize(int $pageNumber, int $pageSize): self
     {
-        $pageSize = 1000;
-
         return new self(($pageNumber - 1) * $pageSize, $pageSize);
     }
 

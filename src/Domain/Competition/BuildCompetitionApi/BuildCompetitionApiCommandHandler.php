@@ -4,6 +4,7 @@ namespace App\Domain\Competition\BuildCompetitionApi;
 
 use App\Domain\ApiFileWriter;
 use App\Domain\Competition\CompetitionRepository;
+use App\Domain\Country\CountryRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
@@ -15,6 +16,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 {
     public function __construct(
         private CompetitionRepository $competitionRepository,
+        private CountryRepository $countryRepository,
         private ApiFileWriter $apiFileWriter
     ) {
     }
@@ -49,6 +51,15 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             $pagination = $pagination->next();
         } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
 
-        $this->apiFileWriter->write('competition/3', Json::encode($overview));
+        $countries = $this->countryRepository->findAll();
+
+        /** @var \App\Domain\Country\Country $country */
+        foreach ($countries->getItems() as $country) {
+            $overview = $this->competitionRepository->findByCountry($country);
+            $this->apiFileWriter->write(
+                'competition/country/'.$country->getIso2Code(),
+                Json::encode($overview)
+            );
+        }
     }
 }

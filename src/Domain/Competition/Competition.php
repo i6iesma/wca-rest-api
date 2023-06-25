@@ -2,8 +2,8 @@
 
 namespace App\Domain\Competition;
 
+use App\Domain\Country\Iso2Code;
 use App\Infrastructure\Overview\Item;
-use App\Infrastructure\ValueObject\Country;
 use App\Infrastructure\ValueObject\Time\DateRange;
 
 readonly class Competition implements Item
@@ -12,7 +12,7 @@ readonly class Competition implements Item
         private string $id,
         private string $name,
         private string $city,
-        private Country $country,
+        private Iso2Code $country,
         private DateRange $date,
         private bool $isCanceled,
         private array $events,
@@ -28,7 +28,7 @@ readonly class Competition implements Item
         string $id,
         string $name,
         string $city,
-        Country $country,
+        Iso2Code $country,
         DateRange $date,
         bool $isCanceled,
         array $events,

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infrastructure\ValueObject;
+namespace App\Domain\Country;
 
 use App\Infrastructure\ValueObject\String\NonEmptyStringLiteral;
 
-readonly class Country extends NonEmptyStringLiteral
+readonly class Iso2Code extends NonEmptyStringLiteral
 {
     public function __construct(
         string $string,
@@ -12,12 +12,12 @@ readonly class Country extends NonEmptyStringLiteral
         parent::__construct($string);
     }
 
-    public static function fromIso2Code(string $iso2): self
+    public static function fromString(string $string): static
     {
-        if (2 != strlen($iso2)) {
+        if (2 != strlen($string)) {
             throw new \InvalidArgumentException('Invalid ISO2 code');
         }
 
-        return new self($iso2);
+        return new self($string);
     }
 }
