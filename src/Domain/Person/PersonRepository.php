@@ -6,6 +6,7 @@ use App\Domain\Competition\Competition;
 use App\Domain\Competition\CompetitionRepository;
 use App\Domain\Country\Iso2Code;
 use App\Domain\Rank\RankRepository;
+use App\Domain\Result\ResultRepository;
 use App\Infrastructure\Overview\Overview;
 use App\Infrastructure\Overview\Pagination;
 use Doctrine\DBAL\Connection;
@@ -16,6 +17,7 @@ readonly class PersonRepository
         private Connection $connection,
         private RankRepository $rankRepository,
         private CompetitionRepository $competitionRepository,
+        private ResultRepository $resultRepository,
     ) {
     }
 
@@ -52,7 +54,8 @@ readonly class PersonRepository
                 $result['name'],
                 Iso2Code::fromString($result['iso2']),
                 array_map(fn (Competition $competition) => $competition->getId(), $this->competitionRepository->findByPerson($result['id'])),
-                $this->rankRepository->findByPerson($result['id'])
+                $this->rankRepository->findByPerson($result['id']),
+                $this->resultRepository->findByPerson($result['id'])
             ));
         }
 

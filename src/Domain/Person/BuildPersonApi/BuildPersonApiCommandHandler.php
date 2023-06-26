@@ -28,5 +28,26 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
         );
 
         $this->apiFileWriter->write('persons', Json::encode($overview));
+
+        $pagination = Pagination::default();
+        do {
+            $overview = $this->personRepository->findOneBy(
+                $pagination,
+            );
+
+            $this->apiFileWriter->writeWithPagination(
+                'persons',
+                $pagination,
+                Json::encode($overview)
+            );
+
+            /** @var \App\Domain\Person\Person $item */
+            foreach ($overview->getItems() as $item) {
+                $this->apiFileWriter->write('person/'.$item->getId(), Json::encode($item));
+                $this->apiFileWriter->write('person/'.$item->getSlug(), Json::encode($item));
+            }
+
+            $pagination = $pagination->next();
+        } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
     }
 }

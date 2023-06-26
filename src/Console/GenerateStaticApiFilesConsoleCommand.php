@@ -6,6 +6,7 @@ use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
 use App\Domain\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Event\BuildEventApi\BuildEventApi;
 use App\Domain\Person\BuildPersonApi\BuildPersonApi;
+use App\Domain\Version\UpdateApiVersion\UpdateApiVersion;
 use App\Infrastructure\CQRS\CommandBus;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -33,6 +34,8 @@ class GenerateStaticApiFilesConsoleCommand extends Command
         $this->commandBus->dispatch(new BuildCompetitionApi());
         $output->writeln('Building person API...');
         $this->commandBus->dispatch(new BuildPersonApi());
+        $output->writeln('Updating API version...');
+        $this->commandBus->dispatch(new UpdateApiVersion());
 
         return Command::SUCCESS;
     }

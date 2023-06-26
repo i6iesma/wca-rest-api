@@ -5,7 +5,8 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('var')
     ->exclude('vendor')
     ->exclude('docker')
-    ->exclude('bin');
+    ->exclude('bin')
+    ->exclude('api');
 
 return (new PhpCsFixer\Config)
     ->setRules([
