@@ -1,5 +1,5 @@
-api/countries.json
-api/events.json
+* api/countries.json
+* api/events.json
 
 * api/competitions{-page-[0-9]}.json
 * api/competitions/country/{ISO2}.json
