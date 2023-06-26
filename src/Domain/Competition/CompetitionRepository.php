@@ -66,6 +66,22 @@ readonly class CompetitionRepository
         return $overview;
     }
 
+    public function findByPerson(string $personId): array
+    {
+        $query = '
+            SELECT comp.*, c.iso2
+            FROM Competitions comp
+            INNER JOIN Countries c ON comp.countryId = c.id
+            WHERE comp.id IN (SELECT DISTINCT competitionId FROM Results WHERE personId = :personId)
+        ';
+
+        $results = $this->connection->executeQuery($query, [
+            'personId' => $personId,
+        ])->fetchAllAssociative();
+
+        return array_map(fn (array $result) => $this->buildResult($result), $results);
+    }
+
     private function buildResult(array $result): Competition
     {
         return Competition::fromState(

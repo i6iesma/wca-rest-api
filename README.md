@@ -8,7 +8,7 @@ api/competition/{id}.json
 
 TODO
 ----
-api/person{-page-[0-9]}.json
+api/persons{-page-[0-9]}.json
 api/person/{id or name}.json
 
 TODO: Fetch this from readme.
