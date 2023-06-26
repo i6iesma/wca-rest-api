@@ -23,6 +23,6 @@ readonly class BuildEventApiCommandHandler implements CommandHandler
         assert($command instanceof BuildEventApi);
 
         $overview = $this->eventRepository->findAll();
-        $this->apiFileWriter->write('event', Json::encode($overview));
+        $this->apiFileWriter->write('events', Json::encode($overview));
     }
 }

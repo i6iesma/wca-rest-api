@@ -23,6 +23,6 @@ readonly class BuildCountryApiCommandHandler implements CommandHandler
         assert($command instanceof BuildCountryApi);
 
         $overview = $this->countryRepository->findAll();
-        $this->apiFileWriter->write('country', Json::encode($overview));
+        $this->apiFileWriter->write('countries', Json::encode($overview));
     }
 }

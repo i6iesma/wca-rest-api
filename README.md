@@ -1,10 +1,15 @@
-api/country.json
-api/event.json
+api/countries.json
+api/events.json
 
-api/competition{-page-[0-9]}.json
+api/competitions{-page-[0-9]}.json
+api/competitions/country/{ISO2}.json
+api/competitions/year/{year}.json
 api/competition/{id}.json
-api/competition/country/{ISO2}.json
-api/competition/year/{year}.json
+
+TODO
+----
+api/person{-page-[0-9]}.json
+api/person/{id or name}.json
 
 TODO: Fetch this from readme.
 

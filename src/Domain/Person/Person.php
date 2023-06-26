@@ -26,8 +26,10 @@ readonly class Person implements Item
             'numberOfCompetitions' => count($this->competitions),
             'competitions' => $this->competitions,
             'rank' => [
-                'single' => $this->single,
-                'average' => $this->average,
+                'singles' => $this->single,
+                'averages' => $this->average,
+            ],
+            'results' => [
             ],
         ];
     }

@@ -29,7 +29,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             Pagination::default(),
         );
 
-        $this->apiFileWriter->write('competition', Json::encode($overview));
+        $this->apiFileWriter->write('competitions', Json::encode($overview));
 
         $pagination = Pagination::default();
         do {
@@ -38,7 +38,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             );
 
             $this->apiFileWriter->writeWithPagination(
-                'competition',
+                'competitions',
                 $pagination,
                 Json::encode($overview)
             );
@@ -60,7 +60,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 $country
             );
             $this->apiFileWriter->write(
-                'competition/country/'.$country->getIso2Code(),
+                'competitions/country/'.$country->getIso2Code(),
                 Json::encode($overview)
             );
         }
@@ -75,7 +75,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 continue;
             }
             $this->apiFileWriter->write(
-                'competition/year/'.$year,
+                'competitions/year/'.$year,
                 Json::encode($overview)
             );
         }
