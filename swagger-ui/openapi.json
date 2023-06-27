@@ -127,6 +127,176 @@
           }
         }
       }
+    },
+    "/api/competitions/country/{country}.json": {
+      "get": {
+        "tags": [
+          "competition"
+        ],
+        "summary": "Fetch all competitions for a given country",
+        "description": "Fetch all competitions for a given country",
+        "operationId": "getCompetitionsByCountry",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "description": "The country to filter the competitions on. For a list of valid countries, check `/api/countries.json`",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "BE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competitions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/competitions/year/{year}.json": {
+      "get": {
+        "tags": [
+          "competition"
+        ],
+        "summary": "Fetch all competitions for a given year",
+        "description": "Fetch all competitions for a given year",
+        "operationId": "getCompetitionsByYear",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "description": "The year to filter the competitions on.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": "2023"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competitions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/persons{-page-[0-9]}.json": {
+      "get": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Fetch all persons",
+        "description": "Fetch all persons",
+        "operationId": "getPersons",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Page that needs to be fetched",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-page-1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Persons"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/person/{id}.json": {
+      "get": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Fetch a person by a given id",
+        "description": "Fetch a person by a given id",
+        "operationId": "getPersonById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the person to fetch",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "2005AUST01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/person/{name}.json": {
+      "get": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Fetch a person by a given name",
+        "description": "Fetch a person by a given name",
+        "operationId": "getPersonByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name (slug) of the person to fetch",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "john-doe"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -257,6 +427,167 @@
           }
         }
       },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "2005AUST01"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "slug": {
+            "type": "string",
+            "example": "john-doe"
+          },
+          "country": {
+            "type": "string",
+            "example": "US"
+          },
+          "numberOfCompetitions": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "competitionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "CaltechDallas2005"
+            }
+          },
+          "rank": {
+            "type": "object",
+            "properties": {
+              "singles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "eventId": {
+                      "type": "string",
+                      "example": "333"
+                    },
+                    "best": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 7158
+                    },
+                    "rank": {
+                      "type": "object",
+                      "properties": {
+                        "world": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 179062
+                        },
+                        "continent": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 46433
+                        },
+                        "country": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 35643
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "averages": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "eventId": {
+                      "type": "string",
+                      "example": "333"
+                    },
+                    "best": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 8078
+                    },
+                    "rank": {
+                      "type": "object",
+                      "properties": {
+                        "world": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 173100
+                        },
+                        "continent": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 46433
+                        },
+                        "country": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 35643
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "results": {
+            "type": "object",
+            "properties": {
+              "CaltechDallas2005": {
+                "type": "object",
+                "properties": {
+                  "333": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "round": {
+                          "type": "string",
+                          "example": "First round"
+                        },
+                        "position": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 26
+                        },
+                        "best": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 7158
+                        },
+                        "average": {
+                          "type": "integer",
+                          "format": "int64",
+                          "example": 8078
+                        },
+                        "format": {
+                          "type": "string",
+                          "example": "Average of 5"
+                        },
+                        "solves": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": [7158, 9055, 7710, 8768, 7757]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "Competitions": {
         "allOf": [
           {
@@ -269,6 +600,24 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/Competition"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Persons": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Overview"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
