@@ -1,0 +1,305 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "World Cube Association API",
+    "description": "Welcome to the unofficial World Cube Association (WCA) Public REST API documentation! Here, you'll find all the information you need to integrate our API seamlessly into your projects. Access competition data, results, competitor profiles, rankings, and more. Get started with our endpoints and response structures.",
+    "contact": {
+      "email": "ingelbrecht_robin@hotmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "The source code of the API",
+    "url": "https://github.com/robiningelbrecht/wca-rest-api"
+  },
+  "servers": [
+    {
+      "url": "https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master"
+    }
+  ],
+  "tags": [
+    {
+      "name": "general",
+      "description": "Some general/generic endpoints"
+    },
+    {
+      "name": "competition",
+      "description": "Competition related API calls"
+    },
+    {
+      "name": "person",
+      "description": "Person related API calls"
+    },
+    {
+      "name": "rank",
+      "description": "Rank related API calls"
+    },
+    {
+      "name": "result",
+      "description": "Result related API calls"
+    }
+  ],
+  "paths": {
+    "/api/countries.json": {
+      "get": {
+        "tags": [
+          "general"
+        ],
+        "summary": "Fetch all countries",
+        "description": "Fetch all countries",
+        "operationId": "getCountries",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Country"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events.json": {
+      "get": {
+        "tags": [
+          "general"
+        ],
+        "summary": "Fetch all event types",
+        "description": "Fetch all event types",
+        "operationId": "getEvents",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/competitions{-page-[0-9]}.json": {
+      "get": {
+        "tags": [
+          "competition"
+        ],
+        "summary": "Fetch all competitions",
+        "description": "Fetch all competitions",
+        "operationId": "getCompetitions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Page that needs to be fetched",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-page-1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competitions"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Country": {
+        "type": "object",
+        "properties": {
+          "iso2Code": {
+            "type": "string",
+            "example": "BE"
+          },
+          "name": {
+            "type": "string",
+            "example": "Belgium"
+          }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "333"
+          },
+          "name": {
+            "type": "string",
+            "example": "3x3x3 Cube"
+          },
+          "format": {
+            "type": "string",
+            "example": "time",
+            "enum": [
+              "time",
+              "number",
+              "multi"
+            ]
+          }
+        }
+      },
+      "Competition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "BrizZonSylwesterOpen2023"
+          },
+          "name": {
+            "type": "string",
+            "example": "BrizZon Sylwester Open 2023"
+          },
+          "city": {
+            "type": "string",
+            "example": "Poznań"
+          },
+          "country": {
+            "type": "string",
+            "example": "PL"
+          },
+          "date": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "format": "date"
+              },
+              "till": {
+                "type": "string",
+                "format": "date"
+              },
+              "numberOfDays": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              }
+            }
+          },
+          "isCanceled": {
+            "type": "boolean",
+            "example": false
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "333"
+            }
+          },
+          "wcaDelegate": {
+            "type": "string"
+          },
+          "organiser": {
+            "type": "string"
+          },
+          "venue": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Klub BrizZon"
+              },
+              "address": {
+                "type": "string",
+                "example": "ul. Karpia 10, 61-619 Poznań"
+              },
+              "details": {
+                "type": "string"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "type": "number",
+                    "example": 52.444748
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "example": 16.948881
+                  }
+                }
+              }
+            }
+          },
+          "information": {
+            "type": "string"
+          },
+          "externalWebsite": {
+            "type": "string"
+          }
+        }
+      },
+      "Competitions": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Overview"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Competition"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Overview": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "size": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1000
+              }
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          }
+        }
+      }
+    }
+  }
+}
