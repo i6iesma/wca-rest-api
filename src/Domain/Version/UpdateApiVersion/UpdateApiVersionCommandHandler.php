@@ -21,9 +21,9 @@ readonly class UpdateApiVersionCommandHandler implements CommandHandler
     public function handle(DomainCommand $command): void
     {
         assert($command instanceof UpdateApiVersion);
-        $versionInfo = Json::decode(file_get_contents('https://www.worldcubeassociation.org/api/v0/export/public'));
+        $versionInfo = file_get_contents('https://www.worldcubeassociation.org/api/v0/export/public');
 
-        $exportDate = SerializableDateTime::fromString($versionInfo['export_date']);
+        $exportDate = SerializableDateTime::fromString(Json::decode($versionInfo)['export_date']);
 
         $readMe = file_get_contents(Settings::getAppRoot().'/README.MD');
         $readMe = preg_replace(
@@ -33,6 +33,6 @@ readonly class UpdateApiVersionCommandHandler implements CommandHandler
         );
         file_put_contents(Settings::getAppRoot().'/README.md', $readMe);
 
-        $this->apiFileWriter->write('version', Json::encode($versionInfo));
+        $this->apiFileWriter->write('version', $versionInfo);
     }
 }
