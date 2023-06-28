@@ -84,6 +84,26 @@ readonly class CompetitionRepository
 
     private function buildResult(array $result): Competition
     {
+        $wcaDelegates = [$result['wcaDelegate']];
+        if(preg_match_all('/\[\{(?<name>[\s\S]+)\}\{mailto:(?<email>[\s\S]+)\}\]/U', $result['wcaDelegate'], $matches)){
+            $wcaDelegates = [];
+            foreach($matches['name'] as $key => $match){
+                $wcaDelegates[] = [
+                    'name'=> $match,
+                    'email'=> $matches['email'][$key]
+                ];
+            }
+        }
+        $organisers = [$result['organiser']];
+        if(preg_match_all('/\[\{(?<name>[\s\S]+)\}\{mailto:(?<email>[\s\S]+)\}\]/U', $result['organiser'] ?? '', $matches)){
+            $organisers = [];
+            foreach($matches['name'] as $key => $match){
+                $organisers[] = [
+                    'name'=> $match,
+                    'email'=> $matches['email'][$key]
+                ];
+            }
+        }
         return Competition::fromState(
             $result['id'],
             $result['name'],
@@ -95,7 +115,7 @@ readonly class CompetitionRepository
             ),
             $result['cancelled'],
             explode(' ', $result['eventSpecs']),
-            $result['wcaDelegate'],
+            $wcaDelegates,
             Venue::fromValues(
                 $result['venue'],
                 $result['venueAddress'],
@@ -105,7 +125,7 @@ readonly class CompetitionRepository
                     $result['longitude'],
                 )
             ),
-            $result['organiser'],
+            $organisers,
             $result['information'],
             $result['external_website'],
         );

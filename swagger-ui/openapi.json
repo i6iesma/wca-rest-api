@@ -418,11 +418,37 @@
               "example": "333"
             }
           },
-          "wcaDelegate": {
-            "type": "string"
+          "wcaDelegates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john-doe@worldcubeassociation.org"
+                }
+              }
+            }
           },
-          "organiser": {
-            "type": "string"
+          "organisers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john-doe@worldcubeassociation.org"
+                }
+              }
+            }
           },
           "venue": {
             "type": "object",
