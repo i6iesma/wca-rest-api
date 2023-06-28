@@ -25,6 +25,11 @@ readonly class Event implements Item
         );
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     /**
      * @return array<mixed>
      */

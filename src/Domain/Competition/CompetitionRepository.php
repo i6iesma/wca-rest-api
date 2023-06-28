@@ -22,6 +22,7 @@ readonly class CompetitionRepository
         Pagination $pagination,
         Country $country = null,
         int $year = null,
+        string $eventId = null,
     ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -42,6 +43,11 @@ readonly class CompetitionRepository
         if ($year) {
             $queryBuilder->andWhere('comp.year = :year')
                 ->setParameter('year', $year);
+        }
+
+        if ($eventId) {
+            $queryBuilder->andWhere('comp.eventSpecs LIKE :event')
+                ->setParameter('event', '%'.$eventId.'%');
         }
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
