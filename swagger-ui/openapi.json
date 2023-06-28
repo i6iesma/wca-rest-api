@@ -128,7 +128,7 @@
         }
       }
     },
-    "/api/competitions/country/{country}.json": {
+    "/api/competitions/{country}.json": {
       "get": {
         "tags": [
           "competition"
@@ -162,7 +162,7 @@
         }
       }
     },
-    "/api/competitions/year/{year}.json": {
+    "/api/competitions/{year}.json": {
       "get": {
         "tags": [
           "competition"

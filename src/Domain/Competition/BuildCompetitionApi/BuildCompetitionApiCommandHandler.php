@@ -60,7 +60,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 $country
             );
             $this->apiFileWriter->write(
-                'competitions/country/'.$country->getIso2Code(),
+                'competitions/'.$country->getIso2Code(),
                 Json::encode($overview)
             );
         }
@@ -75,7 +75,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 continue;
             }
             $this->apiFileWriter->write(
-                'competitions/year/'.$year,
+                'competitions/'.$year,
                 Json::encode($overview)
             );
         }

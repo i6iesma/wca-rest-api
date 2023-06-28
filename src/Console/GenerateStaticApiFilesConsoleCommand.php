@@ -6,6 +6,7 @@ use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
 use App\Domain\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Event\BuildEventApi\BuildEventApi;
 use App\Domain\Person\BuildPersonApi\BuildPersonApi;
+use App\Domain\Rank\BuildRankApi\BuildRankApi;
 use App\Domain\Version\UpdateApiVersion\UpdateApiVersion;
 use App\Infrastructure\CQRS\CommandBus;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -49,10 +50,11 @@ class GenerateStaticApiFilesConsoleCommand extends Command
             $this->commandBus->dispatch(new BuildPersonApi());
         }
         if (in_array('rank', $apisToRebuild)) {
-
+            $output->writeln('Building rank API...');
+            $this->commandBus->dispatch(new BuildRankApi());
         }
         if (in_array('result', $apisToRebuild)) {
-
+            $output->writeln('Building result API...');
         }
 
         $output->writeln('Updating API version...');

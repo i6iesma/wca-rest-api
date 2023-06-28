@@ -15,8 +15,8 @@ readonly class Coordinates implements \JsonSerializable
         int $longitude
     ): self {
         return new self(
-            Latitude::fromString((string)($latitude / 1000000)),
-            Longitude::fromString((string)($longitude / 1000000))
+            Latitude::fromString((string) ($latitude / 1000000)),
+            Longitude::fromString((string) ($longitude / 1000000))
         );
     }
 

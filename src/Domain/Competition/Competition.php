@@ -28,7 +28,7 @@ readonly class Competition implements Item
     }
 
     /**
-     * @param string[] $events
+     * @param string[]     $events
      * @param array<mixed> $wcaDelegates
      * @param array<mixed> $organisers
      */
