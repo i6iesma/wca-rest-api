@@ -196,6 +196,40 @@
         }
       }
     },
+    "/api/competitions/{id}.json": {
+      "get": {
+        "tags": [
+          "competition"
+        ],
+        "summary": "Fetch a competition by a given id",
+        "description": "Fetch a competition by a given id",
+        "operationId": "getCompetitionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the competition to fetch",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "BrizZonSylwesterOpen2023"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/persons{-page-[0-9]}.json": {
       "get": {
         "tags": [
@@ -230,7 +264,7 @@
         }
       }
     },
-    "/api/person/{id}.json": {
+    "/api/persons/{id}.json": {
       "get": {
         "tags": [
           "person"
@@ -264,7 +298,7 @@
         }
       }
     },
-    "/api/person/{name}.json": {
+    "/api/persons/{name}.json": {
       "get": {
         "tags": [
           "person"

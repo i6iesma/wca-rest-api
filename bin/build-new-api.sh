@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
-APIS_TO_REBUILD=$1
-
-COLOR_RED='\033[0;31m'
-NC='\033[0m' # No Color
-
 if [ $# -lt 1 ]; then
     echo -e "${COLOR_RED}Provide a comma separated list of the APIs you want to rebuild ${NC}"
     exit 1;
 fi
+
+APIS_TO_REBUILD=$1
+
+COLOR_RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 # Check if there's a new version
 NEW_VERSION=$(curl -s -L https://www.worldcubeassociation.org/api/v0/export/public)

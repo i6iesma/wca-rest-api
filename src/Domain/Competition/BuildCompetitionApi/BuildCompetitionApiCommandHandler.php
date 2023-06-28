@@ -45,7 +45,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
             /** @var \App\Domain\Competition\Competition $item */
             foreach ($overview->getItems() as $item) {
-                $this->apiFileWriter->write('competition/'.$item->getId(), Json::encode($item));
+                $this->apiFileWriter->write('competitions/'.$item->getId(), Json::encode($item));
             }
 
             $pagination = $pagination->next();

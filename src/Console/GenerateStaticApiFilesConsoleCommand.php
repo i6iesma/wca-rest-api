@@ -48,6 +48,12 @@ class GenerateStaticApiFilesConsoleCommand extends Command
             $output->writeln('Building person API...');
             $this->commandBus->dispatch(new BuildPersonApi());
         }
+        if (in_array('rank', $apisToRebuild)) {
+
+        }
+        if (in_array('result', $apisToRebuild)) {
+
+        }
 
         $output->writeln('Updating API version...');
         $this->commandBus->dispatch(new UpdateApiVersion());
