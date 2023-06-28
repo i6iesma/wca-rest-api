@@ -28,6 +28,9 @@ readonly class Venue implements \JsonSerializable
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

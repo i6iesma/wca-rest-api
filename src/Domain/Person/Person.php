@@ -15,12 +15,20 @@ readonly class Person implements Item
         private string $id,
         private string $name,
         private Iso2Code $country,
+        /** @var string[] */
         private array $competitionIds,
+        /** @var Rank[] */
         private array $ranks,
+        /** @var Result[] */
         private array $results,
     ) {
     }
 
+    /**
+     * @param string[] $competitionIds
+     * @param Rank[] $ranks
+     * @param Result[] $results
+     */
     public static function fromState(
         string $id,
         string $name,
@@ -49,6 +57,9 @@ readonly class Person implements Item
         return Slug::fromString($this->name);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         $singles = array_filter($this->ranks, fn (Rank $rank) => RankType::SINGLE === $rank->getRankType());

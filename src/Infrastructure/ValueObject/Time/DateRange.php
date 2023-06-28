@@ -31,6 +31,9 @@ readonly class DateRange implements \JsonSerializable
         return new self($from, $till);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

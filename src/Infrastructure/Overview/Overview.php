@@ -4,6 +4,7 @@ namespace App\Infrastructure\Overview;
 
 class Overview implements \JsonSerializable
 {
+    /** @var \App\Infrastructure\Overview\Item[] */
     private array $items = [];
 
     private function __construct(
@@ -19,6 +20,9 @@ class Overview implements \JsonSerializable
         return new self($pagination, $total);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [
@@ -33,6 +37,9 @@ class Overview implements \JsonSerializable
         $this->items[] = $item;
     }
 
+    /**
+     * @return \App\Infrastructure\Overview\Item[]
+     */
     public function getItems(): array
     {
         return $this->items;

@@ -25,6 +25,9 @@ readonly class Event implements Item
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

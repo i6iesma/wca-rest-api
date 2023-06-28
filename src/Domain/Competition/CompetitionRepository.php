@@ -45,7 +45,7 @@ readonly class CompetitionRepository
         }
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
-        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
+        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchOne();
 
         if (0 === count($results)) {
             return Overview::empty(Pagination::default());
@@ -66,6 +66,9 @@ readonly class CompetitionRepository
         return $overview;
     }
 
+    /**
+     * @return \App\Domain\Competition\Competition[]
+     */
     public function findByPerson(string $personId): array
     {
         $query = '
@@ -82,6 +85,9 @@ readonly class CompetitionRepository
         return array_map(fn (array $result) => $this->buildResult($result), $results);
     }
 
+    /**
+     * @param array<mixed> $result
+     */
     private function buildResult(array $result): Competition
     {
         $wcaDelegates = [$result['wcaDelegate']];

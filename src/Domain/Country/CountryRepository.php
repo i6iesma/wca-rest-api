@@ -22,7 +22,7 @@ readonly class CountryRepository
             ->orderBy('iso2', 'ASC');
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
-        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
+        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchOne();
 
         $overview = Overview::empty(Pagination::default(), $total);
         foreach ($results as $result) {

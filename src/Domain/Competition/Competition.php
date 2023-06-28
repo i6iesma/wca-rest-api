@@ -15,15 +15,23 @@ readonly class Competition implements Item
         private Iso2Code $country,
         private DateRange $date,
         private bool $isCanceled,
+        /** @var string[] */
         private array $events,
+        /** @var array<mixed> */
         private array $wcaDelegates,
         private Venue $venue,
-        private ?array $organisers = [],
+        /** @var array<mixed> */
+        private array $organisers = [],
         private ?string $information = null,
         private ?string $externalWebsite = null,
     ) {
     }
 
+    /**
+     * @param string[] $events
+     * @param array<mixed> $wcaDelegates
+     * @param array<mixed> $organisers
+     */
     public static function fromState(
         string $id,
         string $name,
@@ -54,6 +62,9 @@ readonly class Competition implements Item
         );
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

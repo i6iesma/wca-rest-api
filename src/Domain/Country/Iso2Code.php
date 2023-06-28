@@ -18,6 +18,6 @@ readonly class Iso2Code extends NonEmptyStringLiteral
             throw new \InvalidArgumentException('Invalid ISO2 code');
         }
 
-        return new self($string);
+        return new static($string);
     }
 }

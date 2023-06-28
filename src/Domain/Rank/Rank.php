@@ -72,6 +72,9 @@ readonly class Rank implements Item
         return $this->countryRank;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

@@ -15,10 +15,14 @@ readonly class Result implements Item
         private int $best,
         private int $average,
         private string $format,
+        /** @var int[] */
         private array $solves,
     ) {
     }
 
+    /**
+     * @param int[] $solves
+     */
     public static function fromState(
         string $competitionId,
         string $personId,
@@ -78,11 +82,17 @@ readonly class Result implements Item
         return $this->format;
     }
 
+    /**
+     * @return int[]
+     */
     public function getSolves(): array
     {
         return $this->solves;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

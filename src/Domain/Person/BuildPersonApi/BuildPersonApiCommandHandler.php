@@ -21,6 +21,8 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
 
     public function handle(DomainCommand $command): void
     {
+        // @TODO: Add more useful props to Person VO
+        // @TODO: Example: https://www.worldcubeassociation.org/persons/2012PARK03
         assert($command instanceof BuildPersonApi);
 
         $overview = $this->personRepository->findOneBy(

@@ -11,6 +11,9 @@ readonly class RankRepository
     ) {
     }
 
+    /**
+     * @return \App\Domain\Rank\Rank[]
+     */
     public function findByPerson(string $personId): array
     {
         $query = '

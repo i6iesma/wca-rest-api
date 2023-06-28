@@ -24,6 +24,9 @@ readonly class Country implements Item
         return $this->iso2Code;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

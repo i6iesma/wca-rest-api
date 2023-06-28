@@ -4,13 +4,16 @@ namespace App\Domain\Result;
 
 use Doctrine\DBAL\Connection;
 
-class ResultRepository
+readonly class ResultRepository
 {
     public function __construct(
         private Connection $connection
     ) {
     }
 
+    /**
+     * @return \App\Domain\Result\Result[]
+     */
     public function findByPerson(string $personId): array
     {
         $query = '

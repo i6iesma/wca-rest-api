@@ -34,7 +34,7 @@ readonly class PersonRepository
             ->addOrderBy('id', 'ASC');
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
-        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchAssociative()['total'];
+        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchOne();
 
         if (0 === count($results)) {
             return Overview::empty(Pagination::default());

@@ -53,6 +53,9 @@ readonly class Pagination implements \JsonSerializable
         return $this->limit;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize(): array
     {
         return [
