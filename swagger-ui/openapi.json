@@ -208,7 +208,7 @@
           {
             "name": "event",
             "in": "path",
-            "description": "The event to filter the competitions on.  For a list of valid events, check `/api/events.json`",
+            "description": "The event to filter the competitions on. For a list of valid events, check `/api/events.json`",
             "required": false,
             "schema": {
               "type": "string",
