@@ -196,6 +196,50 @@
         }
       }
     },
+    "/api/competitions/{event}{-page-[0-9]}.json": {
+      "get": {
+        "tags": [
+          "competition"
+        ],
+        "summary": "Fetch all competitions for a given event",
+        "description": "Fetch all competitions  for a given event",
+        "operationId": "getCompetitionsByEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "path",
+            "description": "The event to filter the competitions on.  For a list of valid events, check `/api/events.json`",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "333"
+            }
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Page that needs to be fetched",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "-page-1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competitions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/competitions/{id}.json": {
       "get": {
         "tags": [
