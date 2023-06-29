@@ -38,6 +38,9 @@ fi
 # Delete all existing API files
 echo "Building API..."
 
+if [[ "$APIS_TO_REBUILD" == *"continent"* ]]; then
+  rm -Rf api/continents.json
+fi
 if [[ "$APIS_TO_REBUILD" == *"country"* ]]; then
   rm -Rf api/countries.json
 fi

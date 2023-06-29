@@ -2,7 +2,7 @@
 
 namespace App\Domain\Person;
 
-use App\Domain\Country\Iso2Code;
+use App\Domain\Continent\Country\Iso2Code;
 use App\Domain\Rank\Rank;
 use App\Domain\Rank\RankType;
 use App\Domain\Result\Result;

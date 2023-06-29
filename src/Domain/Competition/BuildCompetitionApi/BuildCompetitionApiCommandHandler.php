@@ -4,7 +4,7 @@ namespace App\Domain\Competition\BuildCompetitionApi;
 
 use App\Domain\ApiFileWriter;
 use App\Domain\Competition\CompetitionRepository;
-use App\Domain\Country\CountryRepository;
+use App\Domain\Continent\Country\CountryRepository;
 use App\Domain\Event\EventRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
@@ -66,7 +66,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
     {
         $countries = $this->countryRepository->findAll();
 
-        /** @var \App\Domain\Country\Country $country */
+        /** @var \App\Domain\Continent\Country\Country $country */
         foreach ($countries->getItems() as $country) {
             $overview = $this->competitionRepository->findOneBy(
                 Pagination::fromOffsetAndLimit(0, 10000),

@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Domain\Country\BuildCountryApi;
+namespace App\Domain\Continent\BuildContinentApi;
 
 use App\Domain\ApiFileWriter;
-use App\Domain\Country\CountryRepository;
+use App\Domain\Continent\ContinentRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
 use App\Infrastructure\Serialization\Json;
 
 #[AsCommandHandler]
-readonly class BuildCountryApiCommandHandler implements CommandHandler
+readonly class BuildContinentApiCommandHandler implements CommandHandler
 {
     public function __construct(
-        private CountryRepository $countryRepository,
+        private ContinentRepository $continentRepository,
         private ApiFileWriter $apiFileWriter
     ) {
     }
 
     public function handle(DomainCommand $command): void
     {
-        assert($command instanceof BuildCountryApi);
+        assert($command instanceof BuildContinentApi);
 
-        $overview = $this->countryRepository->findAll();
-        $this->apiFileWriter->write('countries', Json::encode($overview));
+        $overview = $this->continentRepository->findAll();
+        $this->apiFileWriter->write('continents', Json::encode($overview));
     }
 }

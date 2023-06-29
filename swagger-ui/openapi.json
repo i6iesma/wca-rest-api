@@ -44,6 +44,31 @@
     }
   ],
   "paths": {
+    "/api/continents.json": {
+      "get": {
+        "tags": [
+          "general"
+        ],
+        "summary": "Fetch all continents",
+        "description": "Fetch all continents",
+        "operationId": "getContinents",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Continent"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/countries.json": {
       "get": {
         "tags": [
@@ -379,6 +404,19 @@
   },
   "components": {
     "schemas": {
+      "Continent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "europe"
+          },
+          "name": {
+            "type": "string",
+            "example": "Europe"
+          }
+        }
+      },
       "Country": {
         "type": "object",
         "properties": {

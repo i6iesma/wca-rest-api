@@ -3,7 +3,7 @@
 namespace App\Domain\Rank\BuildRankApi;
 
 use App\Domain\ApiFileWriter;
-use App\Domain\Country\CountryRepository;
+use App\Domain\Continent\Country\CountryRepository;
 use App\Domain\Event\EventRepository;
 use App\Domain\Rank\RankRepository;
 use App\Domain\Rank\RankType;
@@ -57,7 +57,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
             }
         }
 
-        /** @var \App\Domain\Country\Country $country */
+        /** @var \App\Domain\Continent\Country\Country $country */
         foreach ($countries->getItems() as $country) {
             foreach (RankType::cases() as $rankType) {
                 /** @var \App\Domain\Event\Event $event */

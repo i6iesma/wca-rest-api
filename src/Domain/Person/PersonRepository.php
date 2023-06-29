@@ -4,7 +4,7 @@ namespace App\Domain\Person;
 
 use App\Domain\Competition\Competition;
 use App\Domain\Competition\CompetitionRepository;
-use App\Domain\Country\Iso2Code;
+use App\Domain\Continent\Country\Iso2Code;
 use App\Domain\Rank\RankRepository;
 use App\Domain\Result\ResultRepository;
 use App\Infrastructure\Overview\Overview;

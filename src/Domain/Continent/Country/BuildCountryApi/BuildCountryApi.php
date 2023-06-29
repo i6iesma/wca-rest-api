@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Country\BuildCountryApi;
+namespace App\Domain\Continent\Country\BuildCountryApi;
 
 use App\Infrastructure\CQRS\DomainCommand;
 

@@ -3,7 +3,8 @@
 namespace App\Console;
 
 use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
-use App\Domain\Country\BuildCountryApi\BuildCountryApi;
+use App\Domain\Continent\BuildContinentApi\BuildContinentApi;
+use App\Domain\Continent\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Event\BuildEventApi\BuildEventApi;
 use App\Domain\Person\BuildPersonApi\BuildPersonApi;
 use App\Domain\Rank\BuildRankApi\BuildRankApi;
@@ -33,6 +34,10 @@ class GenerateStaticApiFilesConsoleCommand extends Command
     {
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
+        if (in_array('continent', $apisToRebuild)) {
+            $output->writeln('Building continent API...');
+            $this->commandBus->dispatch(new BuildContinentApi());
+        }
         if (in_array('country', $apisToRebuild)) {
             $output->writeln('Building country API...');
             $this->commandBus->dispatch(new BuildCountryApi());

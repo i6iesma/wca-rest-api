@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Country;
+namespace App\Domain\Continent\Country;
 
 use App\Infrastructure\Overview\Overview;
 use App\Infrastructure\Overview\Pagination;

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Competition;
 
-use App\Domain\Country\Iso2Code;
+use App\Domain\Continent\Country\Iso2Code;
 use App\Infrastructure\Overview\Item;
 use App\Infrastructure\ValueObject\Time\DateRange;
 

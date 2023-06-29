@@ -2,8 +2,8 @@
 
 namespace App\Domain\Competition;
 
-use App\Domain\Country\Country;
-use App\Domain\Country\Iso2Code;
+use App\Domain\Continent\Country\Country;
+use App\Domain\Continent\Country\Iso2Code;
 use App\Infrastructure\Overview\Overview;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\ValueObject\Geography\Coordinates;
