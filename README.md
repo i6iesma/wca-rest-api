@@ -24,7 +24,10 @@ The reason for doing so is:
 
 I'm in no way affiliated or part of the official WCA software team.
 
-https://wca-rest-api.robiningelbrecht.be/
+## Getting started
+
+The full documentation and specs are available on
+[https://wca-rest-api.robiningelbrecht.be/](https://wca-rest-api.robiningelbrecht.be/)
 
 ## Examples 
 
@@ -90,7 +93,3 @@ TODO
 ----
 * api/results/{competition}.json
 * api/results/{competition}/{event}.json
-
-> This information is based on competition results owned and maintained by the
-> World Cube Association, published at https://worldcubeassociation.org/results
-> as of <!--START_SECTION:version-date-->June 29, 2023<!--END_SECTION:version-date-->.
