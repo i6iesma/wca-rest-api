@@ -3,6 +3,7 @@
 namespace App\Domain\Rank\BuildRankApi;
 
 use App\Domain\ApiFileWriter;
+use App\Domain\Continent\ContinentRepository;
 use App\Domain\Continent\Country\CountryRepository;
 use App\Domain\Event\EventRepository;
 use App\Domain\Rank\RankRepository;
@@ -21,6 +22,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
         private RankRepository $rankRepository,
         private EventRepository $eventRepository,
         private CountryRepository $countryRepository,
+        private ContinentRepository $continentRepository,
         private ApiFileWriter $apiFileWriter
     ) {
     }
@@ -31,6 +33,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
 
         $events = $this->eventRepository->findAll();
         $countries = $this->countryRepository->findAll();
+        $continents = $this->continentRepository->findAll();
 
         foreach (RankType::cases() as $rankType) {
             /** @var \App\Domain\Event\Event $event */
@@ -54,14 +57,9 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                     ),
                     Json::encode($overview)
                 );
-            }
-        }
 
-        /** @var \App\Domain\Continent\Country\Country $country */
-        foreach ($countries->getItems() as $country) {
-            foreach (RankType::cases() as $rankType) {
-                /** @var \App\Domain\Event\Event $event */
-                foreach ($events->getItems() as $event) {
+                /** @var \App\Domain\Continent\Country\Country $country */
+                foreach ($countries->getItems() as $country) {
                     $overview = $this->rankRepository->findOneBy(
                         Pagination::default(),
                         $rankType,
@@ -77,6 +75,30 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                         sprintf(
                             'rank/%s/%s/%s',
                             $country->getIso2Code(),
+                            $rankType->value,
+                            $event->getId()
+                        ),
+                        Json::encode($overview)
+                    );
+                }
+
+                /** @var \App\Domain\Continent\Continent $continent */
+                foreach ($continents->getItems() as $continent) {
+                    $overview = $this->rankRepository->findOneBy(
+                        Pagination::default(),
+                        $rankType,
+                        RegionType::CONTINENT,
+                        $event->getId(),
+                        $continent->getId()
+                    );
+
+                    if ($overview->isEmpty()) {
+                        continue;
+                    }
+                    $this->apiFileWriter->write(
+                        sprintf(
+                            'rank/%s/%s/%s',
+                            $continent->getSlug(),
                             $rankType->value,
                             $event->getId()
                         ),

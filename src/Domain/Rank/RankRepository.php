@@ -33,12 +33,15 @@ readonly class RankRepository
 
         if (RegionType::WORLD === $regionType) {
             $queryBuilder->addOrderBy('r.worldRank');
+            $queryBuilder->andWhere('r.worldRank != 0');
         } elseif (RegionType::CONTINENT === $regionType) {
             $queryBuilder->addOrderBy('r.continentRank');
+            $queryBuilder->andWhere('r.continentRank != 0');
             $queryBuilder->andWhere('c.continentId = :region');
             $queryBuilder->setParameter('region', $region);
         } elseif (RegionType::COUNTRY === $regionType) {
             $queryBuilder->addOrderBy('r.countryRank');
+            $queryBuilder->andWhere('r.countryRank != 0');
             $queryBuilder->andWhere('c.iso2 = :region');
             $queryBuilder->setParameter('region', $region);
         }
