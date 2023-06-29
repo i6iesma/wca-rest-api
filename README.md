@@ -1,3 +1,29 @@
+<h1 align="center">Unofficial World Cube Association (WCA) Public API</h1>
+
+<p align="center">
+    <img src="swagger-ui/wca.png" 
+         alt="WCA">
+</p>
+
+---
+
+Welcome to the unofficial [World Cube Association](https://worldcubeassociation.org) (WCA) Public API documentation! 
+Here, you'll find all the information you need to integrate our API seamlessly into your projects. 
+Access competition data, results, competitor profiles, rankings, and more.
+
+**Note**: This API is served through static json files on *GitHub*, that means the structure of the endpoints have limitations. 
+The reason for doing so is:
+
+* The data doesn't change that much, max once a day
+* Static file based API is very fast
+* I don't want to pay for any hosting because it would get very expensive, very fast
+
+> This information is based on competition results owned and maintained by the
+> World Cube Association, published at https://worldcubeassociation.org/results
+> as of <!--START_SECTION:version-date-->June 29, 2023<!--END_SECTION:version-date-->.
+
+I'm in no way affiliated or part of the official WCA software team.
+
 https://wca-rest-api.robiningelbrecht.be/
 
 ## Examples 
@@ -62,12 +88,9 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 
 TODO
 ----
-* api/rank/{region}/{type}/{event}.json
 * api/results/{competition}.json
 * api/results/{competition}/{event}.json
 
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
 > as of <!--START_SECTION:version-date-->June 29, 2023<!--END_SECTION:version-date-->.
-
-I'm in no way affiliated or part of the official WCA software team.

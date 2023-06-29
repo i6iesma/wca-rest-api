@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: World Cube Association API
   description: |-
-    Welcome to the unofficial World Cube Association (WCA) Public REST API documentation! Here, you'll find all the information you need to integrate our API seamlessly into your projects. Access competition data, results, competitor profiles, rankings, and more.
+    Welcome to the unofficial World Cube Association (WCA) Public API documentation! Here, you'll find all the information you need to integrate our API seamlessly into your projects. Access competition data, results, competitor profiles, rankings, and more.
 
     **Note:** This API is served through static json files on *GitHub*, that means the structure of the endpoints have limitations. The reason for doing so is:
     
