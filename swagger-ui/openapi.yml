@@ -263,6 +263,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Person'
+  /api/rank/{region}/{type}/{event}.json:
+    get:
+      tags:
+        - rank
+      summary: Fetch the ranking for a given region, type and event
+      description: Fetch the ranking for a given region, type and event (first 1000 places)
+      operationId: getRank
+      parameters:
+        - name: region
+          in: path
+          description: The region to filter the rankings on. Can be "world" or one of the ids in `api/continents.json` or `api/countries.json`
+          required: true
+          schema:
+            type: string
+            example: 'world'
+        - name: type
+          in: path
+          description: The type to filter the rankings on
+          required: true
+          schema:
+            type: string
+            example: 'single'
+            enum:
+              - single
+              - average
+        - name: event
+          in: path
+          description: The event to filter the rankings on. For a list of valid events, check `/api/events.json`
+          required: true
+          schema:
+            type: string
+            example: '333'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ranks'
 components:
   schemas:
     Continent:
@@ -502,6 +541,40 @@ components:
                             - 7710
                             - 8768
                             - 7757
+    Rank:
+      type: object
+      properties:
+        rankType:
+          type: string
+          example: single
+          enum:
+            - single
+            - average
+        personId:
+          type: string
+          example: 2005AUST01
+        eventId:
+          type: string
+          example: '333'
+        best:
+          type: integer
+          format: int64
+          example: 7158
+        rank:
+          type: object
+          properties:
+            world:
+              type: integer
+              format: int64
+              example: 179062
+            continent:
+              type: integer
+              format: int64
+              example: 46433
+            country:
+              type: integer
+              format: int64
+              example: 35643
     Competitions:
       allOf:
         - $ref: '#/components/schemas/Overview'
@@ -520,6 +593,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Person'
+    Ranks:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Rank'
     Overview:
       type: object
       properties:
