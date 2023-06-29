@@ -30,6 +30,7 @@ fi
 ##echo "Importing WCA export to database..."
 ##mysql --host="host.docker.internal" --user=root --password=root wca < wca-export/WCA_export.sql
 # Add indexes for faster processing
+##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Persons (id)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Results (personId)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksSingle (personId)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"

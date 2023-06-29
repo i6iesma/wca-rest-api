@@ -2,6 +2,8 @@
 
 namespace App\Domain\Rank;
 
+use App\Infrastructure\Overview\Overview;
+use App\Infrastructure\Overview\Pagination;
 use Doctrine\DBAL\Connection;
 
 readonly class RankRepository
@@ -9,6 +11,66 @@ readonly class RankRepository
     public function __construct(
         private Connection $connection
     ) {
+    }
+
+    public function findOneBy(
+        Pagination $pagination,
+        RankType $rankType,
+        RegionType $regionType,
+        string $eventId,
+        string $region = null
+    ): Overview {
+        $queryBuilder = $this->connection->createQueryBuilder();
+
+        $queryBuilder->select('SQL_CALC_FOUND_ROWS r.*, c.iso2')
+            ->from(RankType::SINGLE === $rankType ? 'RanksSingle' : 'RanksAverage', 'r')
+            ->innerJoin('r', 'Persons', 'p', 'r.personId = p.id')
+            ->innerJoin('p', 'Countries', 'c', 'p.countryId = c.id')
+            ->andWhere('r.eventId = :event')
+            ->setParameter('event', $eventId)
+            ->setFirstResult($pagination->getOffset())
+            ->setMaxResults($pagination->getLimit());
+
+        if (RegionType::WORLD === $regionType) {
+            $queryBuilder->addOrderBy('r.worldRank');
+        } elseif (RegionType::CONTINENT === $regionType) {
+            $queryBuilder->addOrderBy('r.continentRank');
+            $queryBuilder->andWhere('c.continentId = :region');
+            $queryBuilder->setParameter('region', $region);
+        } elseif (RegionType::COUNTRY === $regionType) {
+            $queryBuilder->addOrderBy('r.countryRank');
+            $queryBuilder->andWhere('c.iso2 = :region');
+            $queryBuilder->setParameter('region', $region);
+        }
+
+        $results = $queryBuilder->executeQuery()->fetchAllAssociative();
+        $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchOne();
+
+        if (0 === count($results)) {
+            return Overview::empty(Pagination::default());
+        }
+
+        $overview = Overview::empty(
+            count($results) == $pagination->getPageSize() ? $pagination : $pagination::fromPageNumberAndSize(
+                $pagination->getPageNumber(),
+                count($results)
+            ),
+            $total
+        );
+
+        foreach ($results as $result) {
+            $overview->addItem(Rank::fromState(
+                $rankType,
+                $result['personId'],
+                $result['eventId'],
+                $result['best'],
+                $result['worldRank'],
+                $result['continentRank'],
+                $result['countryRank'],
+            ));
+        }
+
+        return $overview;
     }
 
     /**

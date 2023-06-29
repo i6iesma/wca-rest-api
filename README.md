@@ -2,7 +2,6 @@ https://wca-rest-api.robiningelbrecht.be/
 
 TODO
 ----
-* api/competitions/{event}.json
 * api/rank/{region}/{type}/{event}.json
 * api/results/{competition}.json
 * api/results/{competition}/{event}.json
