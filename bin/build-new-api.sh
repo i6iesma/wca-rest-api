@@ -32,8 +32,12 @@ fi
 # Add indexes for faster processing
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Persons (id)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Results (personId)"
+##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX competitionId_index ON Results (competitionId)"
+##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON Results (eventId)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksSingle (personId)"
+##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksSingle (eventId)"
 ##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"
+##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksAverage (eventId)"
 
 # Delete all existing API files
 echo "Building API..."

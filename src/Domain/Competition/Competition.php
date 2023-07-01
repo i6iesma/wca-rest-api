@@ -87,4 +87,9 @@ readonly class Competition implements Item
     {
         return $this->id;
     }
+
+    public function getEvents(): array
+    {
+        return $this->events;
+    }
 }

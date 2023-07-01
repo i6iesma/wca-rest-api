@@ -8,6 +8,7 @@ use App\Domain\Continent\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Event\BuildEventApi\BuildEventApi;
 use App\Domain\Person\BuildPersonApi\BuildPersonApi;
 use App\Domain\Rank\BuildRankApi\BuildRankApi;
+use App\Domain\Result\BuildResultApi\BuildResultApi;
 use App\Domain\Version\UpdateApiVersion\UpdateApiVersion;
 use App\Infrastructure\CQRS\CommandBus;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -60,6 +61,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
         }
         if (in_array('result', $apisToRebuild)) {
             $output->writeln('Building result API...');
+            $this->commandBus->dispatch(new BuildResultApi());
         }
 
         $output->writeln('Updating API version...');

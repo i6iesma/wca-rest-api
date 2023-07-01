@@ -20,7 +20,7 @@ The reason for doing so is:
 
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
-> as of <!--START_SECTION:version-date-->June 29, 2023<!--END_SECTION:version-date-->.
+> as of <!--START_SECTION:version-date-->July 01, 2023<!--END_SECTION:version-date-->.
 
 I'm in no way affiliated or part of the official WCA software team.
 
@@ -28,6 +28,10 @@ I'm in no way affiliated or part of the official WCA software team.
 
 The full documentation and specs are available on
 [https://wca-rest-api.robiningelbrecht.be/](https://wca-rest-api.robiningelbrecht.be/)
+
+## Development
+
+TODO
 
 ## Examples 
 
@@ -89,7 +93,7 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/europe/single/444.json'
 ```
 
-TODO
-----
+## TODO
 * api/results/{competition}.json
 * api/results/{competition}/{event}.json
+Index JOINS
