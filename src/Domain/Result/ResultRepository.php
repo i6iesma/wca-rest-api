@@ -10,24 +10,27 @@ readonly class ResultRepository
 {
     public function __construct(
         private Connection $connection
-    ) {
+    )
+    {
     }
 
     public function findOneBy(
-        Pagination $pagination,
         string $competitionId,
         string $eventId = null,
-    ): Overview {
+    ): Overview
+    {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select('r.*, rt.name as roundName, f.name as formatName')
             ->from('Results', 'r')
             ->innerJoin('r', 'RoundTypes', 'rt', 'r.roundTypeId = rt.id')
             ->innerJoin('r', 'Formats', 'f', 'r.formatId = f.id')
             ->innerJoin('r', 'Competitions', 'c', 'r.competitionId = c.id')
+            ->innerJoin('r', 'Events', 'e', 'r.eventId = e.id')
             ->andWhere('r.competitionId = :competitionId')
             ->setParameter('competitionId', $competitionId)
-            ->setFirstResult($pagination->getOffset())
-            ->setMaxResults($pagination->getLimit());
+            ->addOrderBy('e.rank', 'ASC')
+            ->addOrderBy('rt.rank', 'DESC')
+            ->addOrderBy('r.pos', 'ASC');
 
         if ($eventId) {
             $queryBuilder
@@ -43,8 +46,8 @@ readonly class ResultRepository
         }
 
         $overview = Overview::empty(
-            count($results) == $pagination->getPageSize() ? $pagination : $pagination::fromPageNumberAndSize(
-                $pagination->getPageNumber(),
+            Pagination::fromPageNumberAndSize(
+                1,
                 count($results)
             ),
             $total
@@ -93,7 +96,7 @@ readonly class ResultRepository
             'personId' => $personId,
         ])->fetchAllAssociative();
 
-        return array_map(fn (array $result) => Result::fromState(
+        return array_map(fn(array $result) => Result::fromState(
             $result['competitionId'],
             $result['personId'],
             $result['eventId'],

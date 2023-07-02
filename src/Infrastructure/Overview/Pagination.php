@@ -28,6 +28,11 @@ readonly class Pagination implements \JsonSerializable
         return new self();
     }
 
+    public static function all(): Pagination
+    {
+        return new self(0, 10000000);
+    }
+
     public function getLimit(): int
     {
         return $this->limit;

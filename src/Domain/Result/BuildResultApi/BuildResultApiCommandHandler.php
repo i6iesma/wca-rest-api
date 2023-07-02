@@ -26,13 +26,12 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
         assert($command instanceof BuildResultApi);
 
         $competitions = $this->competitionRepository->findOneBy(
-            Pagination::fromOffsetAndLimit(0, 100000)
+            Pagination::all()
         );
 
         /** @var \App\Domain\Competition\Competition $competition */
         foreach ($competitions->getItems() as $competition) {
             $overview = $this->resultRepository->findOneBy(
-                Pagination::default(),
                 $competition->getId()
             );
 
@@ -47,7 +46,6 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
 
             foreach ($competition->getEvents() as $eventId) {
                 $overview = $this->resultRepository->findOneBy(
-                    Pagination::default(),
                     $competition->getId(),
                     $eventId
                 );

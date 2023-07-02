@@ -20,18 +20,33 @@ The reason for doing so is:
 
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
-> as of <!--START_SECTION:version-date-->July 01, 2023<!--END_SECTION:version-date-->.
+> as of <!--START_SECTION:version-date-->July 02, 2023<!--END_SECTION:version-date-->.
 
 I'm in no way affiliated or part of the official WCA software team.
+
+## TODO
+Index JOINS
 
 ## Getting started
 
 The full documentation and specs are available on
 [https://wca-rest-api.robiningelbrecht.be/](https://wca-rest-api.robiningelbrecht.be/)
 
-## Development
+## Local development
 
-TODO
+If you'd like to help on the development of this project, or you just want to run un locally,
+run following commands:
+
+```bash
+# Clone repo
+> git clone git@github.com:robiningelbrecht/wca-rest-api.git
+# Build docker containers
+> docker-compose up -d --build
+# Install dependencies
+> docker-compose run --rm php-cli composer install
+# Build all the static API files.
+> docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,person,rank,result"
+```
 
 ## Examples 
 
@@ -39,13 +54,7 @@ TODO
 
 ```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/continents.json'
-```
-
-```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/countries.json'
-```
-
-```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/events.json'
 ```
 
@@ -93,7 +102,9 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/europe/single/444.json'
 ```
 
-## TODO
-* api/results/{competition}.json
-* api/results/{competition}/{event}.json
-Index JOINS
+### Results
+
+```bash
+curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023.json'
+curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023/333.json'
+```

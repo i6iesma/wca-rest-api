@@ -302,6 +302,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Ranks'
+  /api/result/{competition}.json:
+    get:
+      tags:
+        - results
+      summary: Fetch the results for a given competition
+      description: Fetch the results for a given competition
+      operationId: getResultsByCompetition
+      parameters:
+        - name: competition
+          in: path
+          description: The competition to filter the results on
+          required: true
+          schema:
+            type: string
+            example: 'BrizZonSylwesterOpen2023'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Results'
+  /api/result/{competition}/{event}.json:
+    get:
+      tags:
+        - results
+      summary: Fetch the results for a given competition
+      description: Fetch the results for a given competition
+      operationId: getResultsByCompetition
+      parameters:
+        - name: competition
+          in: path
+          description: The competition to filter the results on
+          required: true
+          schema:
+            type: string
+            example: 'BrizZonSylwesterOpen2023'
+        - name: event
+          in: path
+          description: The event to filter the results on
+          required: true
+          schema:
+            type: string
+            example: '333'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Results'
 components:
   schemas:
     Continent:
@@ -575,6 +626,44 @@ components:
               type: integer
               format: int64
               example: 35643
+    Result:
+      type: object
+      properties:
+        competitionId:
+          type: string
+          example: BrizZonSylwesterOpen2023
+        personId:
+          type: string
+          example: 2005AUST01
+        round:
+          type: string
+          example: First round
+        position:
+          type: integer
+          format: int64
+          example: 26
+        best:
+          type: integer
+          format: int64
+          example: 7158
+        average:
+          type: integer
+          format: int64
+          example: 8078
+        format:
+          type: string
+          example: Average of 5
+        solves:
+          type: array
+          items:
+            type: integer
+            format: int64
+            example:
+              - 7158
+              - 9055
+              - 7710
+              - 8768
+              - 7757
     Competitions:
       allOf:
         - $ref: '#/components/schemas/Overview'
@@ -602,6 +691,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Rank'
+    Results:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Result'
     Overview:
       type: object
       properties:

@@ -11,6 +11,8 @@ APIS_TO_REBUILD=$1
 COLOR_RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+START=`date +%s`
+
 # Check if there's a new version
 NEW_VERSION=$(curl -s -L https://www.worldcubeassociation.org/api/v0/export/public)
 CURRENT_VERSION="`cat api/version.json 2>/dev/null`"
@@ -66,3 +68,6 @@ fi
 
 # Build API.
 bin/console app:api:build $APIS_TO_REBUILD
+
+END=`date +%s`
+echo Execution time was `expr $END - $START` seconds.
