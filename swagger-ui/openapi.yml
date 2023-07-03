@@ -305,7 +305,7 @@ paths:
   /api/result/{competition}.json:
     get:
       tags:
-        - results
+        - result
       summary: Fetch the results for a given competition
       description: Fetch the results for a given competition
       operationId: getResultsByCompetition
@@ -327,7 +327,7 @@ paths:
   /api/result/{competition}/{event}.json:
     get:
       tags:
-        - results
+        - result
       summary: Fetch the results for a given competition
       description: Fetch the results for a given competition
       operationId: getResultsByCompetition
