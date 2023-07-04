@@ -18,7 +18,7 @@ The reason for doing so is:
 * Static file based API is very fast
 * I don't want to pay for any hosting because it would get very expensive, very fast
 
-The API is updated once a day so rankings and results are not real-time. They could be off by max 23h.
+The API is updated once a day so rankings and results are not real-time.
 
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
