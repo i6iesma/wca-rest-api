@@ -36,35 +36,35 @@ class GenerateStaticApiFilesConsoleCommand extends Command
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
         if (in_array('continent', $apisToRebuild)) {
-            $output->writeln('Building continent API...');
+            $output->writeln('  - Building continent API...');
             $this->commandBus->dispatch(new BuildContinentApi());
         }
         if (in_array('country', $apisToRebuild)) {
-            $output->writeln('Building country API...');
+            $output->writeln('  - Building country API...');
             $this->commandBus->dispatch(new BuildCountryApi());
         }
         if (in_array('event', $apisToRebuild)) {
-            $output->writeln('Building event API...');
+            $output->writeln('  - Building event API...');
             $this->commandBus->dispatch(new BuildEventApi());
         }
         if (in_array('competition', $apisToRebuild)) {
-            $output->writeln('Building competition API...');
+            $output->writeln('  - Building competition API...');
             $this->commandBus->dispatch(new BuildCompetitionApi());
         }
         if (in_array('person', $apisToRebuild)) {
-            $output->writeln('Building person API...');
+            $output->writeln('  - Building person API...');
             $this->commandBus->dispatch(new BuildPersonApi());
         }
         if (in_array('rank', $apisToRebuild)) {
-            $output->writeln('Building rank API...');
+            $output->writeln('  - Building rank API...');
             $this->commandBus->dispatch(new BuildRankApi());
         }
         if (in_array('result', $apisToRebuild)) {
-            $output->writeln('Building result API...');
+            $output->writeln('  - Building result API...');
             $this->commandBus->dispatch(new BuildResultApi());
         }
 
-        $output->writeln('Updating API version...');
+        $output->writeln('  - Updating API version...');
         $this->commandBus->dispatch(new UpdateApiVersion());
 
         return Command::SUCCESS;

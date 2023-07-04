@@ -20,7 +20,7 @@ The reason for doing so is:
 
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
-> as of <!--START_SECTION:version-date-->July 02, 2023<!--END_SECTION:version-date-->.
+> as of <!--START_SECTION:version-date-->July 03, 2023<!--END_SECTION:version-date-->.
 
 I'm in no way affiliated or part of the official WCA software team.
 

@@ -1,1 +1,1 @@
-{"pagination":{"page":1,"size":1},"total":1,"items":[{"rankType":"average","personId":"2012BALT01","eventId":"clock","best":1744,"rank":{"world":5083,"continent":1808,"country":1}}]}
+{"pagination":{"page":1,"size":2},"total":2,"items":[{"rankType":"average","personId":"2012BALT01","eventId":"clock","best":1744,"rank":{"world":5148,"continent":1826,"country":1}},{"rankType":"average","personId":"2022CASI01","eventId":"clock","best":2388,"rank":{"world":7298,"continent":2551,"country":2}}]}
