@@ -18,14 +18,13 @@ The reason for doing so is:
 * Static file based API is very fast
 * I don't want to pay for any hosting because it would get very expensive, very fast
 
+The API is updated once a day so rankings and results are not real-time. They could be off by max 23h.
+
 > This information is based on competition results owned and maintained by the
 > World Cube Association, published at https://worldcubeassociation.org/results
 > as of <!--START_SECTION:version-date-->July 03, 2023<!--END_SECTION:version-date-->.
 
 I'm in no way affiliated or part of the official WCA software team.
-
-## TODO
-Index JOINS
 
 ## Getting started
 
@@ -47,6 +46,8 @@ run following commands:
 # Build all the static API files.
 > docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,person,rank,result"
 ```
+
+Currently the API takes ~2h to build, but I'm working on an improvement that should lower this to ~1h
 
 ## Examples 
 
