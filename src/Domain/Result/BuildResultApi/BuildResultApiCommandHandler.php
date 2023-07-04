@@ -25,29 +25,14 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildResultApi);
 
-        $competitions = $this->competitionRepository->findOneBy(
-            Pagination::all()
-        );
+        $pagination = Pagination::default();
+        do {
+            $competitions = $this->competitionRepository->findOneBy($pagination);
 
-        /** @var \App\Domain\Competition\Competition $competition */
-        foreach ($competitions->getItems() as $competition) {
-            $overview = $this->resultRepository->findOneBy(
-                $competition->getId()
-            );
-
-            if ($overview->isEmpty()) {
-                continue;
-            }
-
-            $this->apiFileWriter->write(
-                sprintf('results/%s', $competition->getId()),
-                Json::encode($overview)
-            );
-
-            foreach ($competition->getEvents() as $eventId) {
+            /** @var \App\Domain\Competition\Competition $competition */
+            foreach ($competitions->getItems() as $competition) {
                 $overview = $this->resultRepository->findOneBy(
-                    $competition->getId(),
-                    $eventId
+                    $competition->getId()
                 );
 
                 if ($overview->isEmpty()) {
@@ -55,10 +40,28 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
                 }
 
                 $this->apiFileWriter->write(
-                    sprintf('results/%s/%s', $competition->getId(), $eventId),
+                    sprintf('results/%s', $competition->getId()),
                     Json::encode($overview)
                 );
+
+                foreach ($competition->getEvents() as $eventId) {
+                    $overview = $this->resultRepository->findOneBy(
+                        $competition->getId(),
+                        $eventId
+                    );
+
+                    if ($overview->isEmpty()) {
+                        continue;
+                    }
+
+                    $this->apiFileWriter->write(
+                        sprintf('results/%s/%s', $competition->getId(), $eventId),
+                        Json::encode($overview)
+                    );
+                }
             }
-        }
+
+            $pagination = $pagination->next();
+        } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $competitions->getTotal());
     }
 }

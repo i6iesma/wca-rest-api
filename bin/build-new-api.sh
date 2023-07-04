@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 if [ $# -lt 1 ]; then
     echo -e "${COLOR_RED}Provide a comma separated list of the APIs you want to rebuild ${NC}"
@@ -19,27 +18,29 @@ CURRENT_VERSION="`cat api/version.json 2>/dev/null`"
 
 if [ "$NEW_VERSION" == "$CURRENT_VERSION" ]; then
     echo "No new version detected, exiting, bye."
-    ##exit 0
+    exit 0
 fi
 
 # Download and unzip WCA export.
-##rm -Rf wca-export
-##mkdir wca-export
-##curl https://www.worldcubeassociation.org/export/results/WCA_export.sql.zip --output "wca-export/export.zip"
-##echo "Unzipping WCA export..."
-##unzip wca-export/export.zip -d wca-export
+rm -Rf wca-export
+mkdir wca-export
+echo "Downloading WCA export..."
+curl https://www.worldcubeassociation.org/export/results/WCA_export.sql.zip --silent --output "wca-export/export.zip" > /dev/null
+
+echo "Unzipping WCA export..."
+unzip wca-export/export.zip -d wca-export
 # Import SQL file into db.
-##echo "Importing WCA export to database..."
-##mysql --host="host.docker.internal" --user=root --password=root wca < wca-export/WCA_export.sql
+echo "Importing WCA export to database..."
+mysql --host="host.docker.internal" --user=root --password=root wca < wca-export/WCA_export.sql
 # Add indexes for faster processing
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Persons (id)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Results (personId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX competitionId_index ON Results (competitionId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON Results (eventId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksSingle (personId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksSingle (eventId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"
-##mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksAverage (eventId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Persons (id)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON Results (personId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX competitionId_index ON Results (competitionId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON Results (eventId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksSingle (personId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksSingle (eventId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"
+mysql --host="host.docker.internal" --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksAverage (eventId)"
 
 # Delete all existing API files
 echo "Building API..."

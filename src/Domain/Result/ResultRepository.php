@@ -10,15 +10,13 @@ readonly class ResultRepository
 {
     public function __construct(
         private Connection $connection
-    )
-    {
+    ) {
     }
 
     public function findOneBy(
         string $competitionId,
         string $eventId = null,
-    ): Overview
-    {
+    ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select('r.*, rt.name as roundName, f.name as formatName')
             ->from('Results', 'r')
@@ -96,7 +94,7 @@ readonly class ResultRepository
             'personId' => $personId,
         ])->fetchAllAssociative();
 
-        return array_map(fn(array $result) => Result::fromState(
+        return array_map(fn (array $result) => Result::fromState(
             $result['competitionId'],
             $result['personId'],
             $result['eventId'],
