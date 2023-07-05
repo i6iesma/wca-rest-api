@@ -10,6 +10,7 @@ use App\Domain\Person\BuildPersonApi\BuildPersonApi;
 use App\Domain\Rank\BuildRankApi\BuildRankApi;
 use App\Domain\Result\BuildResultApi\BuildResultApi;
 use App\Domain\Version\UpdateApiVersion\UpdateApiVersion;
+use App\Domain\Version\VersionRepository;
 use App\Infrastructure\CQRS\CommandBus;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,6 +24,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 {
     public function __construct(
         private readonly CommandBus $commandBus,
+        private readonly VersionRepository $versionRepository,
     ) {
         parent::__construct();
     }
@@ -36,6 +38,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
     {
         $output->writeln('Building API...');
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
+        // $participatedInCompetitionsSince = $this->versionRepository->getLastExportDate()->modify('-1days');
 
         if (in_array('continent', $apisToRebuild)) {
             $output->writeln('  - Building continent API...');
