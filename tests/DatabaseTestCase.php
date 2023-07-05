@@ -2,10 +2,9 @@
 
 namespace App\Tests;
 
+use App\Infrastructure\Environment\Settings;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\SchemaTool;
 
 abstract class DatabaseTestCase extends ContainerTestCase
 {
@@ -44,12 +43,11 @@ abstract class DatabaseTestCase extends ContainerTestCase
 
     private function createTestDatabase(): void
     {
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $this->getContainer()->get(EntityManagerInterface::class);
+        /** @var Connection $connection */
+        $connection = $this->getContainer()->get(Connection::class);
 
-        $schemaTool = new SchemaTool($entityManager);
-        $classes = $entityManager->getMetadataFactory()->getAllMetadata();
-        $schemaTool->dropSchema($classes);
-        $schemaTool->createSchema($classes);
+        $connection->executeStatement(
+            file_get_contents(Settings::getAppRoot().'/tests/create-database.sql')
+        );
     }
 }

@@ -5,10 +5,10 @@ namespace App\Domain;
 use App\Infrastructure\Overview\Pagination;
 use League\Flysystem\Filesystem;
 
-readonly class ApiFileWriter
+class ApiFileWriter
 {
     public function __construct(
-        private Filesystem $filesystem
+        private readonly Filesystem $filesystem
     ) {
     }
 

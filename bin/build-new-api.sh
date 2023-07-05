@@ -42,31 +42,6 @@ mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca 
 mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"
 mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca -e "CREATE INDEX eventId_index ON RanksAverage (eventId)"
 
-# Delete all existing API files
-echo "Building API..."
-
-if [[ "$APIS_TO_REBUILD" == *"continent"* ]]; then
-  rm -Rf api/continents.json
-fi
-if [[ "$APIS_TO_REBUILD" == *"country"* ]]; then
-  rm -Rf api/countries.json
-fi
-if [[ "$APIS_TO_REBUILD" == *"event"* ]]; then
-  rm -Rf api/events.json
-fi
-if [[ "$APIS_TO_REBUILD" == *"competition"* ]]; then
-  rm -Rf api/competition*
-fi
-if [[ "$APIS_TO_REBUILD" == *"person"* ]]; then
-  rm -Rf api/person*
-fi
-if [[ "$APIS_TO_REBUILD" == *"rank"* ]]; then
-  rm -Rf api/rank*
-fi
-if [[ "$APIS_TO_REBUILD" == *"result"* ]]; then
-  rm -Rf api/result*
-fi
-
 # Build API.
 bin/console app:api:build $APIS_TO_REBUILD
 

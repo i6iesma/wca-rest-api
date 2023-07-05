@@ -16,6 +16,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 #[AsCommand(name: 'app:api:build', description: 'Build API')]
 class GenerateStaticApiFilesConsoleCommand extends Command
@@ -33,34 +34,56 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $output->writeln('Building API...');
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
         if (in_array('continent', $apisToRebuild)) {
             $output->writeln('  - Building continent API...');
+
+            $process = new Process(['rm', '-Rf', 'api/continents.json']);
+            $process->run();
             $this->commandBus->dispatch(new BuildContinentApi());
         }
         if (in_array('country', $apisToRebuild)) {
             $output->writeln('  - Building country API...');
+
+            $process = new Process(['rm', '-Rf', 'api/countries.json']);
+            $process->run();
             $this->commandBus->dispatch(new BuildCountryApi());
         }
         if (in_array('event', $apisToRebuild)) {
             $output->writeln('  - Building event API...');
+
+            $process = new Process(['rm', '-Rf', 'api/events.json']);
+            $process->run();
             $this->commandBus->dispatch(new BuildEventApi());
         }
         if (in_array('competition', $apisToRebuild)) {
             $output->writeln('  - Building competition API...');
+
+            $process = new Process(['rm', '-Rf', 'competition*']);
+            $process->run();
             $this->commandBus->dispatch(new BuildCompetitionApi());
         }
         if (in_array('person', $apisToRebuild)) {
             $output->writeln('  - Building person API...');
+
+            $process = new Process(['rm', '-Rf', 'person*']);
+            $process->run();
             $this->commandBus->dispatch(new BuildPersonApi());
         }
         if (in_array('rank', $apisToRebuild)) {
             $output->writeln('  - Building rank API...');
+
+            $process = new Process(['rm', '-Rf', 'rank*']);
+            $process->run();
             $this->commandBus->dispatch(new BuildRankApi());
         }
         if (in_array('result', $apisToRebuild)) {
             $output->writeln('  - Building result API...');
+
+            $process = new Process(['rm', '-Rf', 'result*']);
+            $process->run();
             $this->commandBus->dispatch(new BuildResultApi());
         }
 
