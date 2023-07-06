@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Domain\Event\BuildEventApi;
+namespace App\Domain\Competition\Championship\BuildChampionshipApi;
 
 use App\Domain\ApiFileWriter;
-use App\Domain\Event\EventRepository;
+use App\Domain\Competition\Championship\ChampionshipRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
 use App\Infrastructure\Serialization\Json;
 
 #[AsCommandHandler]
-readonly class BuildEventApiCommandHandler implements CommandHandler
+readonly class BuildChampionshipApiCommandHandler implements CommandHandler
 {
     public function __construct(
-        private EventRepository $eventRepository,
+        private ChampionshipRepository $championshipRepository,
         private ApiFileWriter $apiFileWriter
     ) {
     }
 
     public function handle(DomainCommand $command): void
     {
-        assert($command instanceof BuildEventApi);
+        assert($command instanceof BuildChampionshipApi);
 
-        $overview = $this->eventRepository->findAll();
-        $this->apiFileWriter->write('events', Json::encode($overview));
+        $overview = $this->championshipRepository->findAll();
+        $this->apiFileWriter->write('championships', Json::encode($overview));
     }
 }

@@ -2,7 +2,32 @@
 
 namespace App\Domain\Competition\Championship;
 
-class Championship
-{
+use App\Domain\Competition\Competition;
+use App\Infrastructure\Overview\Item;
 
+readonly class Championship implements Item
+{
+    private function __construct(
+        private Competition $competition,
+        private string $region,
+    ) {
+    }
+
+    public static function fromCompetitionAndRegion(
+        Competition $competition,
+        string $region,
+    ): self {
+        return new self($competition, $region);
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            ...$this->competition->jsonSerialize(),
+            'region' => $this->region,
+        ];
+    }
 }

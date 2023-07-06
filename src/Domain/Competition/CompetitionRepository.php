@@ -4,6 +4,7 @@ namespace App\Domain\Competition;
 
 use App\Domain\Continent\Country\Country;
 use App\Domain\Continent\Country\Iso2Code;
+use App\Infrastructure\Exception\EntityNotFound;
 use App\Infrastructure\Overview\Overview;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\ValueObject\Geography\Coordinates;
@@ -101,6 +102,26 @@ readonly class CompetitionRepository
         ])->fetchAllAssociative();
 
         return array_map(fn (array $result) => $this->buildResult($result), $results);
+    }
+
+    public function find(string $competitionId): Competition
+    {
+        $query = '
+            SELECT comp.*, c.iso2
+            FROM Competitions comp
+            INNER JOIN Countries c ON comp.countryId = c.id
+            WHERE comp.id = :competitionId
+        ';
+
+        $result = $this->connection->executeQuery($query, [
+            'competitionId' => $competitionId,
+        ])->fetchAssociative();
+
+        if (!$result) {
+            throw new EntityNotFound();
+        }
+
+        return $this->buildResult($result);
     }
 
     /**

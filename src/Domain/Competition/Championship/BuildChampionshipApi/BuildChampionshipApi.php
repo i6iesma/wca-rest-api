@@ -2,7 +2,8 @@
 
 namespace App\Domain\Competition\Championship\BuildChampionshipApi;
 
-class BuildChampionshipApi
-{
+use App\Infrastructure\CQRS\DomainCommand;
 
+class BuildChampionshipApi extends DomainCommand
+{
 }

@@ -25,6 +25,8 @@ tags:
     description: Some general/generic endpoints
   - name: competition
     description: Competition related API calls
+  - name: championship
+    description: Championship related API calls
   - name: person
     description: Person related API calls
   - name: rank
@@ -289,6 +291,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competition'
+  /api/championships.json:
+    get:
+      tags:
+        - championship
+      summary: Fetch all championships
+      description: Fetch all championships
+      operationId: getChampionships
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Championships'
   /api/persons{-page-[0-9]}.json:
     get:
       tags:
@@ -563,6 +579,14 @@ components:
           type: string
         externalWebsite:
           type: string
+    Championship:
+      allOf:
+        - $ref: '#/components/schemas/Competition'
+        - type: object
+          properties:
+            region:
+              type: string
+              example: world
     Person:
       type: object
       properties:
@@ -765,6 +789,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Competition'
+    Championships:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Championship'
     Persons:
       allOf:
         - $ref: '#/components/schemas/Overview'

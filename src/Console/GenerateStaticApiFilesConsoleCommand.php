@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
+use App\Domain\Competition\Championship\BuildChampionshipApi\BuildChampionshipApi;
 use App\Domain\Continent\BuildContinentApi\BuildContinentApi;
 use App\Domain\Continent\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Event\BuildEventApi\BuildEventApi;
@@ -60,6 +61,12 @@ class GenerateStaticApiFilesConsoleCommand extends Command
             $then = $this->clock->now();
             $output->write('  - Building competition API...');
             $this->commandBus->dispatch(new BuildCompetitionApi());
+            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+        }
+        if (in_array('championship', $apisToRebuild)) {
+            $then = $this->clock->now();
+            $output->write('  - Building championship API...');
+            $this->commandBus->dispatch(new BuildChampionshipApi());
             $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
         }
         if (in_array('person', $apisToRebuild)) {
