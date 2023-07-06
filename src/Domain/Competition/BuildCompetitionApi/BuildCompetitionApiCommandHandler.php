@@ -69,7 +69,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
         /** @var \App\Domain\Continent\Country\Country $country */
         foreach ($countries->getItems() as $country) {
             $overview = $this->competitionRepository->findOneBy(
-                Pagination::fromOffsetAndLimit(0, 10000),
+                Pagination::all(),
                 country: $country
             );
             $this->apiFileWriter->write(
@@ -95,6 +95,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             );
 
             foreach (range(1, 12) as $month) {
+                $monthWithLeadingZero = str_pad($month, 2, '0', STR_PAD_LEFT);
                 $overview = $this->competitionRepository->findOneBy(
                     Pagination::all(),
                     year: $year,
@@ -104,11 +105,12 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                     continue;
                 }
                 $this->apiFileWriter->write(
-                    'competitions/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT),
+                    'competitions/'.$year.'/'.$monthWithLeadingZero,
                     Json::encode($overview)
                 );
 
                 foreach (range(1, 31) as $day) {
+                    $dayWithLeadingZero = str_pad($day, 2, '0', STR_PAD_LEFT);
                     $overview = $this->competitionRepository->findOneBy(
                         Pagination::all(),
                         year: $year,
@@ -119,7 +121,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                         continue;
                     }
                     $this->apiFileWriter->write(
-                        'competitions/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT).'/'.$day,
+                        'competitions/'.$year.'/'.$monthWithLeadingZero.'/'.$dayWithLeadingZero,
                         Json::encode($overview)
                     );
                 }
