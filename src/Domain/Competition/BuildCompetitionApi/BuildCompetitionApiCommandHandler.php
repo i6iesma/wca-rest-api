@@ -29,7 +29,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
         $this->buildAllCompetitions();
         $this->buildCompetitionsPerCountry();
-        $this->buildCompetitionsPerYear();
+        $this->buildCompetitionsPerDate();
         $this->buildCompetitionsPerEvent();
     }
 
@@ -79,7 +79,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
         }
     }
 
-    private function buildCompetitionsPerYear(): void
+    private function buildCompetitionsPerDate(): void
     {
         foreach (range(1980, (int) date('Y') + 1) as $year) {
             $overview = $this->competitionRepository->findOneBy(
@@ -93,6 +93,37 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 'competitions/'.$year,
                 Json::encode($overview)
             );
+
+            foreach (range(1, 12) as $month) {
+                $overview = $this->competitionRepository->findOneBy(
+                    Pagination::all(),
+                    year: $year,
+                    month: $month
+                );
+                if ($overview->isEmpty()) {
+                    continue;
+                }
+                $this->apiFileWriter->write(
+                    'competitions/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT),
+                    Json::encode($overview)
+                );
+
+                foreach (range(1, 31) as $day) {
+                    $overview = $this->competitionRepository->findOneBy(
+                        Pagination::all(),
+                        year: $year,
+                        month: $month,
+                        day: $day
+                    );
+                    if ($overview->isEmpty()) {
+                        continue;
+                    }
+                    $this->apiFileWriter->write(
+                        'competitions/'.$year.'/'.str_pad($month, 2, '0', STR_PAD_LEFT).'/'.$day,
+                        Json::encode($overview)
+                    );
+                }
+            }
         }
     }
 

@@ -22,6 +22,8 @@ readonly class CompetitionRepository
         Pagination $pagination,
         Country $country = null,
         int $year = null,
+        int $month = null,
+        int $day = null,
         string $eventId = null,
     ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
@@ -43,6 +45,16 @@ readonly class CompetitionRepository
         if ($year) {
             $queryBuilder->andWhere('comp.year = :year')
                 ->setParameter('year', $year);
+        }
+
+        if ($year && $month) {
+            $queryBuilder->andWhere('comp.month = :month')
+                ->setParameter('month', $month);
+        }
+
+        if ($year && $month && $day) {
+            $queryBuilder->andWhere('comp.day = :day')
+                ->setParameter('day', $day);
         }
 
         if ($eventId) {
