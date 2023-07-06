@@ -13,15 +13,15 @@
                 "country": "AU",
                 "numberOfCompetitions": 3,
                 "competitionIds": [
-                    "WC2017",
                     "WC2011",
+                    "WC2017",
                     "WSMO2018"
                 ],
+                "numberOfChampionships": 2,
                 "championshipIds": [
                     "WC2011",
                     "WC2017"
                 ],
-                "numberOfChampionships": 2,
                 "rank": {
                     "singles": [
                         {
@@ -1521,10 +1521,10 @@
                     "WC2017",
                     "YouOnlyNeeda3x3AZ2023"
                 ],
+                "numberOfChampionships": 1,
                 "championshipIds": [
                     "WC2017"
                 ],
-                "numberOfChampionships": 1,
                 "rank": {
                     "singles": [
                         {
@@ -2055,15 +2055,15 @@
                 "country": "AU",
                 "numberOfCompetitions": 3,
                 "competitionIds": [
-                    "WC2017",
                     "WC2011",
+                    "WC2017",
                     "WSMO2018"
                 ],
+                "numberOfChampionships": 2,
                 "championshipIds": [
                     "WC2011",
                     "WC2017"
                 ],
-                "numberOfChampionships": 2,
                 "rank": {
                     "singles": [
                         {
@@ -3563,10 +3563,10 @@
                     "WC2017",
                     "YouOnlyNeeda3x3AZ2023"
                 ],
+                "numberOfChampionships": 1,
                 "championshipIds": [
                     "WC2017"
                 ],
-                "numberOfChampionships": 1,
                 "rank": {
                     "singles": [
                         {
@@ -4090,15 +4090,15 @@
         "country": "AU",
         "numberOfCompetitions": 3,
         "competitionIds": [
-            "WC2017",
             "WC2011",
+            "WC2017",
             "WSMO2018"
         ],
+        "numberOfChampionships": 2,
         "championshipIds": [
             "WC2011",
             "WC2017"
         ],
-        "numberOfChampionships": 2,
         "rank": {
             "singles": [
                 {
@@ -5595,15 +5595,15 @@
         "country": "AU",
         "numberOfCompetitions": 3,
         "competitionIds": [
-            "WC2017",
             "WC2011",
+            "WC2017",
             "WSMO2018"
         ],
+        "numberOfChampionships": 2,
         "championshipIds": [
             "WC2011",
             "WC2017"
         ],
-        "numberOfChampionships": 2,
         "rank": {
             "singles": [
                 {
@@ -7103,10 +7103,10 @@
             "WC2017",
             "YouOnlyNeeda3x3AZ2023"
         ],
+        "numberOfChampionships": 1,
         "championshipIds": [
             "WC2017"
         ],
-        "numberOfChampionships": 1,
         "rank": {
             "singles": [
                 {
@@ -7631,10 +7631,10 @@
             "WC2017",
             "YouOnlyNeeda3x3AZ2023"
         ],
+        "numberOfChampionships": 1,
         "championshipIds": [
             "WC2017"
         ],
-        "numberOfChampionships": 1,
         "rank": {
             "singles": [
                 {

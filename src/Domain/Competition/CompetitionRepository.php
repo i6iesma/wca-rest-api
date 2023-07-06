@@ -86,24 +86,19 @@ readonly class CompetitionRepository
     }
 
     /**
-     * @TODO: refactor to only fetch ids, will be faster.
-     *
-     * @return \App\Domain\Competition\Competition[]
+     * @return string[]
      */
-    public function findByPerson(string $personId): array
+    public function findCompetitionIdsByPerson(string $personId): array
     {
         $query = '
-            SELECT comp.*, c.iso2
+            SELECT id
             FROM Competitions comp
-            INNER JOIN Countries c ON comp.countryId = c.id
             WHERE comp.id IN (SELECT DISTINCT competitionId FROM Results WHERE personId = :personId)
         ';
 
-        $results = $this->connection->executeQuery($query, [
+        return $this->connection->executeQuery($query, [
             'personId' => $personId,
-        ])->fetchAllAssociative();
-
-        return array_map(fn (array $result) => $this->buildResult($result), $results);
+        ])->fetchFirstColumn();
     }
 
     public function find(string $competitionId): Competition

@@ -42,21 +42,19 @@ readonly class ChampionshipRepository
     }
 
     /**
-     * @return \App\Domain\Competition\Championship\Championship[]
+     * @return string[]
      */
-    public function findByPerson(string $personId): array
+    public function findChampionshipIdsByPerson(string $personId): array
     {
         $query = '
-            SELECT *
+            SELECT competition_id
             FROM championships champ
             WHERE champ.competition_id IN (SELECT DISTINCT competitionId FROM Results WHERE personId = :personId)
         ';
 
-        $results = $this->connection->executeQuery($query, [
+        return $this->connection->executeQuery($query, [
             'personId' => $personId,
-        ])->fetchAllAssociative();
-
-        return array_map(fn (array $result) => $this->buildResult($result), $results);
+        ])->fetchFirstColumn();
     }
 
     /**
