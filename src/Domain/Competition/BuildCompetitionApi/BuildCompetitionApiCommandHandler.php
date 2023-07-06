@@ -95,7 +95,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             );
 
             foreach (range(1, 12) as $month) {
-                $monthWithLeadingZero = str_pad($month, 2, '0', STR_PAD_LEFT);
+                $monthWithLeadingZero = str_pad((string) $month, 2, '0', STR_PAD_LEFT);
                 $overview = $this->competitionRepository->findOneBy(
                     Pagination::all(),
                     year: $year,
@@ -110,7 +110,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 );
 
                 foreach (range(1, 31) as $day) {
-                    $dayWithLeadingZero = str_pad($day, 2, '0', STR_PAD_LEFT);
+                    $dayWithLeadingZero = str_pad((string) $day, 2, '0', STR_PAD_LEFT);
                     $overview = $this->competitionRepository->findOneBy(
                         Pagination::all(),
                         year: $year,
