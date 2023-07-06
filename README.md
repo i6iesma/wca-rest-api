@@ -70,6 +70,8 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 
 ```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023.json'
+curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/08.json'
+curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/08/13.json'
 ```
 
 ```bash
