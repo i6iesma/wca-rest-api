@@ -83,7 +83,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
     {
         foreach (range(1980, (int) date('Y') + 1) as $year) {
             $overview = $this->competitionRepository->findOneBy(
-                Pagination::fromOffsetAndLimit(0, 10000),
+                Pagination::all(),
                 year: $year
             );
             if ($overview->isEmpty()) {

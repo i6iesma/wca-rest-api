@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 if [ $# -lt 1 ]; then
     echo -e "${COLOR_RED}Provide a comma separated list of the APIs you want to rebuild ${NC}"
@@ -29,9 +30,11 @@ curl https://www.worldcubeassociation.org/export/results/WCA_export.sql.zip --si
 
 echo "Unzipping WCA export..."
 unzip wca-export/export.zip -d wca-export
+
 # Import SQL file into db.
 echo "Importing WCA export to database..."
 mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca < wca-export/WCA_export.sql
+
 # Add indexes for faster processing
 mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca -e "CREATE INDEX personId_index ON Persons (id)"
 mysql --host="host.docker.internal" --user=root --password=root --port=3307 wca -e "CREATE INDEX personId_index ON Results (personId)"
