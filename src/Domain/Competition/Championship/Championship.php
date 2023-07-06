@@ -21,6 +21,11 @@ readonly class Championship implements Item
         return new self($competition, $region);
     }
 
+    public function getId(): string
+    {
+        return $this->competition->getId();
+    }
+
     /**
      * @return array<mixed>
      */

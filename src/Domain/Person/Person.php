@@ -21,6 +21,8 @@ readonly class Person implements Item
         private array $ranks,
         /** @var Result[] */
         private array $results,
+        /** @var string[] */
+        private array $championshipIds,
     ) {
     }
 
@@ -36,6 +38,7 @@ readonly class Person implements Item
         array $competitionIds,
         array $ranks,
         array $results,
+        array $championshipIds,
     ): self {
         return new self(
             $id,
@@ -44,6 +47,7 @@ readonly class Person implements Item
             $competitionIds,
             $ranks,
             $results,
+            $championshipIds
         );
     }
 
@@ -85,6 +89,8 @@ readonly class Person implements Item
             'country' => $this->country,
             'numberOfCompetitions' => count($this->competitionIds),
             'competitionIds' => $this->competitionIds,
+            'numberOfChampionships' => count($this->championshipIds),
+            'championshipIds' => $this->championshipIds,
             'rank' => [
                 'singles' => array_map(fn (Rank $rank) => [
                     'eventId' => $rank->getEventId(),
@@ -106,6 +112,11 @@ readonly class Person implements Item
                 ], array_values($averages)),
             ],
             'results' => $results,
+            'medals' => [
+                'gold' => count(array_filter($this->results, fn (Result $result) => 1 == $result->getPosition())),
+                'silver' => count(array_filter($this->results, fn (Result $result) => 2 == $result->getPosition())),
+                'bronze' => count(array_filter($this->results, fn (Result $result) => 3 == $result->getPosition())),
+            ],
         ];
     }
 }

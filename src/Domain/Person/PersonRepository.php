@@ -2,6 +2,8 @@
 
 namespace App\Domain\Person;
 
+use App\Domain\Competition\Championship\Championship;
+use App\Domain\Competition\Championship\ChampionshipRepository;
 use App\Domain\Competition\Competition;
 use App\Domain\Competition\CompetitionRepository;
 use App\Domain\Continent\Country\Iso2Code;
@@ -17,6 +19,7 @@ readonly class PersonRepository
         private Connection $connection,
         private RankRepository $rankRepository,
         private CompetitionRepository $competitionRepository,
+        private ChampionshipRepository $championshipRepository,
         private ResultRepository $resultRepository,
     ) {
     }
@@ -55,7 +58,8 @@ readonly class PersonRepository
                 Iso2Code::fromString($result['iso2']),
                 array_map(fn (Competition $competition) => $competition->getId(), $this->competitionRepository->findByPerson($result['id'])),
                 $this->rankRepository->findByPerson($result['id']),
-                $this->resultRepository->findByPerson($result['id'])
+                $this->resultRepository->findByPerson($result['id']),
+                array_map(fn (Championship $championship) => $championship->getId(), $this->championshipRepository->findByPerson($result['id'])),
             ));
         }
 

@@ -611,6 +611,15 @@ components:
           items:
             type: string
             example: CaltechDallas2005
+        numberOfChampionships:
+          type: integer
+          format: int64
+          example: 1
+        championshipIds:
+          type: array
+          items:
+            type: string
+            example: WC2011
         rank:
           type: object
           properties:

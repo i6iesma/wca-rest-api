@@ -17,6 +17,11 @@
                     "WC2011",
                     "WSMO2018"
                 ],
+                "championshipIds": [
+                    "WC2011",
+                    "WC2017"
+                ],
+                "numberOfChampionships": 2,
                 "rank": {
                     "singles": [
                         {
@@ -1499,6 +1504,11 @@
                             }
                         ]
                     }
+                },
+                "medals": {
+                    "gold": 30,
+                    "silver": 10,
+                    "bronze": 4
                 }
             },
             {
@@ -1511,6 +1521,10 @@
                     "WC2017",
                     "YouOnlyNeeda3x3AZ2023"
                 ],
+                "championshipIds": [
+                    "WC2017"
+                ],
+                "numberOfChampionships": 1,
                 "rank": {
                     "singles": [
                         {
@@ -2018,6 +2032,11 @@
                             }
                         ]
                     }
+                },
+                "medals": {
+                    "gold": 13,
+                    "silver": 3,
+                    "bronze": 2
                 }
             }
         ]
@@ -2040,6 +2059,11 @@
                     "WC2011",
                     "WSMO2018"
                 ],
+                "championshipIds": [
+                    "WC2011",
+                    "WC2017"
+                ],
+                "numberOfChampionships": 2,
                 "rank": {
                     "singles": [
                         {
@@ -3522,6 +3546,11 @@
                             }
                         ]
                     }
+                },
+                "medals": {
+                    "gold": 30,
+                    "silver": 10,
+                    "bronze": 4
                 }
             },
             {
@@ -3534,6 +3563,10 @@
                     "WC2017",
                     "YouOnlyNeeda3x3AZ2023"
                 ],
+                "championshipIds": [
+                    "WC2017"
+                ],
+                "numberOfChampionships": 1,
                 "rank": {
                     "singles": [
                         {
@@ -4041,6 +4074,11 @@
                             }
                         ]
                     }
+                },
+                "medals": {
+                    "gold": 13,
+                    "silver": 3,
+                    "bronze": 2
                 }
             }
         ]
@@ -4056,6 +4094,11 @@
             "WC2011",
             "WSMO2018"
         ],
+        "championshipIds": [
+            "WC2011",
+            "WC2017"
+        ],
+        "numberOfChampionships": 2,
         "rank": {
             "singles": [
                 {
@@ -5538,6 +5581,11 @@
                     }
                 ]
             }
+        },
+        "medals": {
+            "gold": 30,
+            "silver": 10,
+            "bronze": 4
         }
     },
     "persons\/feliks-zemdegs": {
@@ -5551,6 +5599,11 @@
             "WC2011",
             "WSMO2018"
         ],
+        "championshipIds": [
+            "WC2011",
+            "WC2017"
+        ],
+        "numberOfChampionships": 2,
         "rank": {
             "singles": [
                 {
@@ -7033,6 +7086,11 @@
                     }
                 ]
             }
+        },
+        "medals": {
+            "gold": 30,
+            "silver": 10,
+            "bronze": 4
         }
     },
     "persons\/2012PARK03": {
@@ -7045,6 +7103,10 @@
             "WC2017",
             "YouOnlyNeeda3x3AZ2023"
         ],
+        "championshipIds": [
+            "WC2017"
+        ],
+        "numberOfChampionships": 1,
         "rank": {
             "singles": [
                 {
@@ -7552,6 +7614,11 @@
                     }
                 ]
             }
+        },
+        "medals": {
+            "gold": 13,
+            "silver": 3,
+            "bronze": 2
         }
     },
     "persons\/max-park": {
@@ -7564,6 +7631,10 @@
             "WC2017",
             "YouOnlyNeeda3x3AZ2023"
         ],
+        "championshipIds": [
+            "WC2017"
+        ],
+        "numberOfChampionships": 1,
         "rank": {
             "singles": [
                 {
@@ -8071,6 +8142,11 @@
                     }
                 ]
             }
+        },
+        "medals": {
+            "gold": 13,
+            "silver": 3,
+            "bronze": 2
         }
     }
 }

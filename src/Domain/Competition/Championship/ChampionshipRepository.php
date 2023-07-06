@@ -42,6 +42,24 @@ readonly class ChampionshipRepository
     }
 
     /**
+     * @return \App\Domain\Competition\Championship\Championship[]
+     */
+    public function findByPerson(string $personId): array
+    {
+        $query = '
+            SELECT *
+            FROM championships champ
+            WHERE champ.competition_id IN (SELECT DISTINCT competitionId FROM Results WHERE personId = :personId)
+        ';
+
+        $results = $this->connection->executeQuery($query, [
+            'personId' => $personId,
+        ])->fetchAllAssociative();
+
+        return array_map(fn (array $result) => $this->buildResult($result), $results);
+    }
+
+    /**
      * @param array<mixed> $result
      */
     private function buildResult(array $result): Championship

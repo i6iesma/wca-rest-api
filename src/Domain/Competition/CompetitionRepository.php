@@ -86,6 +86,8 @@ readonly class CompetitionRepository
     }
 
     /**
+     * @TODO: refactor to only fetch ids, will be faster.
+     *
      * @return \App\Domain\Competition\Competition[]
      */
     public function findByPerson(string $personId): array
