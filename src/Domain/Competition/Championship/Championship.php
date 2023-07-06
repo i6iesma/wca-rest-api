@@ -4,6 +4,7 @@ namespace App\Domain\Competition\Championship;
 
 use App\Domain\Competition\Competition;
 use App\Infrastructure\Overview\Item;
+use App\Infrastructure\ValueObject\String\Slug;
 
 readonly class Championship implements Item
 {
@@ -27,7 +28,7 @@ readonly class Championship implements Item
     {
         return [
             ...$this->competition->jsonSerialize(),
-            'region' => $this->region,
+            'region' => Slug::fromString($this->region),
         ];
     }
 }

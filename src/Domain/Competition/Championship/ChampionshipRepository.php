@@ -48,7 +48,6 @@ readonly class ChampionshipRepository
     {
         return Championship::fromCompetitionAndRegion(
             $this->competitionRepository->find($result['competition_id']),
-            // @TODO: slugify this.
             $result['championship_type'],
         );
     }
