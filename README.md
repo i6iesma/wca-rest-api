@@ -44,7 +44,7 @@ run following commands:
 # Install dependencies
 > docker-compose run --rm php-cli composer install
 # Build all the static API files.
-> docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,championship,person,rank,result"
+> docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,championship,person,rank,result,version"
 ```
 
 ## Examples 

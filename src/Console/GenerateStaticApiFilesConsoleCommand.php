@@ -87,11 +87,12 @@ class GenerateStaticApiFilesConsoleCommand extends Command
             $this->commandBus->dispatch(new BuildResultApi());
             $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
         }
-
-        $then = $this->clock->now();
-        $output->write('  - Updating API version...');
-        $this->commandBus->dispatch(new UpdateApiVersion());
-        $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+        if (in_array('version', $apisToRebuild)) {
+            $then = $this->clock->now();
+            $output->write('  - Updating API version...');
+            $this->commandBus->dispatch(new UpdateApiVersion());
+            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+        }
 
         return Command::SUCCESS;
     }
