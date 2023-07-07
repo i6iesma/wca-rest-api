@@ -98,7 +98,6 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 
 ```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons/2012PARK03.json'
-curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons/max-park.json'
 ```
 
 ### Rank

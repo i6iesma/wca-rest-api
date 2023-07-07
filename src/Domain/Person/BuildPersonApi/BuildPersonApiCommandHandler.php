@@ -49,7 +49,6 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
             /** @var \App\Domain\Person\Person $item */
             foreach ($overview->getItems() as $item) {
                 $this->apiFileWriter->write('persons/'.$item->getId(), Json::encode($item));
-                $this->apiFileWriter->write('persons/'.$item->getSlug(), Json::encode($item));
                 $progressBar->advance();
             }
 

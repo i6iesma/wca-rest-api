@@ -91,7 +91,6 @@ class GenerateStaticApiFilesConsoleCommand extends Command
     private function initializeProgressBar(OutputInterface $output): ProgressBar
     {
         $progressBar = new ProgressBar($output, 0);
-        $progressBar->setFormat('verbose');
         $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% [%elapsed:6s%]');
 
         return $progressBar;

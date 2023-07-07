@@ -33,6 +33,10 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
 
         $pagination = Pagination::default();
         do {
+            // @TODO: Results for a comp never change,  they are final
+            // @TODO: So we only need to fetch and write the ones that are not in the API yet.
+            // @TODO: We can do this by checking if a file exists yes/no.
+            // @TODO: This will greatly improve the build speed.
             $competitions = $this->competitionRepository->findOneBy($pagination);
 
             /** @var \App\Domain\Competition\Competition $competition */

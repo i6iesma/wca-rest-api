@@ -349,28 +349,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Person'
-  /api/persons/{name}.json:
-    get:
-      tags:
-        - person
-      summary: Fetch a person by a given name
-      description: Fetch a person by a given name
-      operationId: getPersonByName
-      parameters:
-        - name: name
-          in: path
-          description: Name (slug) of the person to fetch
-          required: true
-          schema:
-            type: string
-            example: john-doe
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Person'
   /api/rank/{region}/{type}/{event}.json:
     get:
       tags:

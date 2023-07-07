@@ -38,10 +38,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
         $countries = $this->countryRepository->findAll();
         $continents = $this->continentRepository->findAll();
 
-        $progressBar->setMaxSteps(
-            (count(RankType::cases()) * $events->getTotal() * $countries->getTotal()) +
-            (count(RankType::cases()) * $events->getTotal() * $continents->getTotal())
-        );
+        $progressBar->setMaxSteps(count(RankType::cases()) * $events->getTotal());
 
         foreach (RankType::cases() as $rankType) {
             /** @var \App\Domain\Event\Event $event */
@@ -54,6 +51,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                 );
 
                 if ($overview->isEmpty()) {
+                    $progressBar->advance();
                     continue;
                 }
                 $this->apiFileWriter->write(
@@ -77,7 +75,6 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                     );
 
                     if ($overview->isEmpty()) {
-                        $progressBar->advance();
                         continue;
                     }
                     $this->apiFileWriter->write(
@@ -89,7 +86,6 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                         ),
                         Json::encode($overview)
                     );
-                    $progressBar->advance();
                 }
 
                 /** @var \App\Domain\Continent\Continent $continent */
@@ -103,7 +99,6 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                     );
 
                     if ($overview->isEmpty()) {
-                        $progressBar->advance();
                         continue;
                     }
                     $this->apiFileWriter->write(
@@ -115,9 +110,11 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                         ),
                         Json::encode($overview)
                     );
-                    $progressBar->advance();
                 }
+                $progressBar->advance();
             }
         }
+        // @TODO: Uncomment.
+        // $progressBar->finish();
     }
 }
