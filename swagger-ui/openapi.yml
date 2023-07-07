@@ -25,8 +25,6 @@ tags:
     description: Some general/generic endpoints
   - name: competition
     description: Competition related API calls
-  - name: championship
-    description: Championship related API calls
   - name: person
     description: Person related API calls
   - name: rank
@@ -294,7 +292,7 @@ paths:
   /api/championships.json:
     get:
       tags:
-        - championship
+        - competition
       summary: Fetch all championships
       description: Fetch all championships
       operationId: getChampionships
