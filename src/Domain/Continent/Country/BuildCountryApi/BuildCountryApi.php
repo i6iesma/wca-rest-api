@@ -2,8 +2,8 @@
 
 namespace App\Domain\Continent\Country\BuildCountryApi;
 
-use App\Domain\ProgressAwareDomainCommand;
 use App\Infrastructure\CQRS\DomainCommand;
+use App\Infrastructure\CQRS\ProgressAwareDomainCommand;
 
 class BuildCountryApi extends DomainCommand
 {

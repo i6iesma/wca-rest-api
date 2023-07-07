@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Continent\Country\BuildCountryApi;
 
+use App\Console\Progress;
 use App\Domain\ApiFileWriter;
 use App\Domain\Continent\Country\BuildCountryApi\BuildCountryApi;
 use App\Domain\Continent\Country\BuildCountryApi\BuildCountryApiCommandHandler;
@@ -9,6 +10,7 @@ use App\Tests\DatabaseTestCase;
 use App\Tests\SpyApiFileWriter;
 use League\Flysystem\Filesystem;
 use Spatie\Snapshots\MatchesSnapshots;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildCountryApiCommandHandlerTest extends DatabaseTestCase
 {
@@ -19,7 +21,9 @@ class BuildCountryApiCommandHandlerTest extends DatabaseTestCase
 
     public function testHandle(): void
     {
-        $this->buildCountryApiCommandHandler->handle(new BuildCountryApi());
+        $this->buildCountryApiCommandHandler->handle(new BuildCountryApi(
+            new Progress($this->createMock(OutputInterface::class))
+        ));
         $this->assertMatchesJsonSnapshot($this->apiFileWriter->getWrites());
     }
 

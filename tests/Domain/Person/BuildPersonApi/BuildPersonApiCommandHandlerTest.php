@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Person\BuildPersonApi;
 
+use App\Console\Progress;
 use App\Domain\ApiFileWriter;
 use App\Domain\Person\BuildPersonApi\BuildPersonApi;
 use App\Domain\Person\BuildPersonApi\BuildPersonApiCommandHandler;
@@ -9,6 +10,7 @@ use App\Tests\DatabaseTestCase;
 use App\Tests\SpyApiFileWriter;
 use League\Flysystem\Filesystem;
 use Spatie\Snapshots\MatchesSnapshots;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildPersonApiCommandHandlerTest extends DatabaseTestCase
 {
@@ -19,7 +21,9 @@ class BuildPersonApiCommandHandlerTest extends DatabaseTestCase
 
     public function testHandle(): void
     {
-        $this->buildPersonApiCommandHandler->handle(new BuildPersonApi());
+        $this->buildPersonApiCommandHandler->handle(new BuildPersonApi(
+            new Progress($this->createMock(OutputInterface::class))
+        ));
         $this->assertMatchesJsonSnapshot($this->apiFileWriter->getWrites());
     }
 

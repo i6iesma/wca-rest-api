@@ -2,8 +2,8 @@
 
 namespace App\Domain\Competition\BuildCompetitionApi;
 
-use App\Domain\ProgressAwareDomainCommand;
 use App\Infrastructure\CQRS\DomainCommand;
+use App\Infrastructure\CQRS\ProgressAwareDomainCommand;
 
 class BuildCompetitionApi extends DomainCommand
 {

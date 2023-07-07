@@ -15,7 +15,6 @@ use App\Infrastructure\CQRS\CommandBus;
 use Lcobucci\Clock\Clock;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,63 +36,60 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // @TODO: add total execution time.
+        $then = $this->clock->now();
+
         $output->writeln('Building API...');
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
         if (in_array('continent', $apisToRebuild)) {
             $output->writeln('  - Building continent API...');
-            $this->commandBus->dispatch(new BuildContinentApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildContinentApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('country', $apisToRebuild)) {
             $output->writeln('  - Building country API...');
-            $this->commandBus->dispatch(new BuildCountryApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildCountryApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('event', $apisToRebuild)) {
             $output->writeln('  - Building event API...');
-            $this->commandBus->dispatch(new BuildEventApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildEventApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('competition', $apisToRebuild)) {
             $output->writeln('  - Building competition API...');
-            $this->commandBus->dispatch(new BuildCompetitionApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildCompetitionApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('championship', $apisToRebuild)) {
             $output->writeln('  - Building championship API...');
-            $this->commandBus->dispatch(new BuildChampionshipApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildChampionshipApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('person', $apisToRebuild)) {
             $output->writeln('  - Building person API...');
-            $this->commandBus->dispatch(new BuildPersonApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildPersonApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('rank', $apisToRebuild)) {
             $output->writeln('  - Building rank API...');
-            $this->commandBus->dispatch(new BuildRankApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildRankApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('result', $apisToRebuild)) {
             $output->writeln('  - Building result API...');
-            $this->commandBus->dispatch(new BuildResultApi($this->initializeProgressBar($output)));
+            $this->commandBus->dispatch(new BuildResultApi(new Progress($output)));
             $output->writeln('');
         }
         if (in_array('version', $apisToRebuild)) {
             $output->writeln('  - Updating API version...');
             $this->commandBus->dispatch(new UpdateApiVersion());
         }
+        $output->writeln(sprintf(
+            'Total execution time: <comment>%d secs</comment>',
+            $this->clock->now()->getTimestamp() - $then->getTimestamp())
+        );
 
         return Command::SUCCESS;
-    }
-
-    private function initializeProgressBar(OutputInterface $output): ProgressBar
-    {
-        $progressBar = new ProgressBar($output, 0);
-        $progressBar->setFormat('  %current%/%max% [%bar%] %percent:3s%% [%elapsed:6s%]');
-
-        return $progressBar;
     }
 }

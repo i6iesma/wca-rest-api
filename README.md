@@ -47,6 +47,14 @@ run following commands:
 > docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,championship,person,rank,result,version"
 ```
 
+### Test suite
+
+When you've completed the local setup, you can run the test suite by running
+
+```bash
+> docker-compose run --rm php-cli vendor/bin/phpunit"
+```
+
 ## Examples 
 
 ### General

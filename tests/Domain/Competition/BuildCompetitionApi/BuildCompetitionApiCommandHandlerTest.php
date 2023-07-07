@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Competition\BuildCompetitionApi;
 
+use App\Console\Progress;
 use App\Domain\ApiFileWriter;
 use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApi;
 use App\Domain\Competition\BuildCompetitionApi\BuildCompetitionApiCommandHandler;
@@ -9,6 +10,7 @@ use App\Tests\DatabaseTestCase;
 use App\Tests\SpyApiFileWriter;
 use League\Flysystem\Filesystem;
 use Spatie\Snapshots\MatchesSnapshots;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildCompetitionApiCommandHandlerTest extends DatabaseTestCase
 {
@@ -20,7 +22,9 @@ class BuildCompetitionApiCommandHandlerTest extends DatabaseTestCase
 
     public function testHandle(): void
     {
-        $this->buildCompetitionApiCommandHandler->handle(new BuildCompetitionApi());
+        $this->buildCompetitionApiCommandHandler->handle(new BuildCompetitionApi(
+            new Progress($this->createMock(OutputInterface::class))
+        ));
         foreach ($this->apiFileWriter->getWrites() as $name => $write) {
             $this->snapshotName = $name;
             $this->assertMatchesJsonSnapshot($write);
