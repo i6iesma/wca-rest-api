@@ -2,8 +2,8 @@
 
 namespace App\Domain\Continent\Country\BuildCountryApi;
 
-use App\Domain\ApiFileWriter;
 use App\Domain\Continent\Country\CountryRepository;
+use App\Domain\FileWriter;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
@@ -14,7 +14,7 @@ readonly class BuildCountryApiCommandHandler implements CommandHandler
 {
     public function __construct(
         private CountryRepository $countryRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

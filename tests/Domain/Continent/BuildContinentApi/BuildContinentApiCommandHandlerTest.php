@@ -3,12 +3,11 @@
 namespace App\Tests\Domain\Continent\BuildContinentApi;
 
 use App\Console\Progress;
-use App\Domain\ApiFileWriter;
 use App\Domain\Continent\BuildContinentApi\BuildContinentApi;
 use App\Domain\Continent\BuildContinentApi\BuildContinentApiCommandHandler;
+use App\Domain\FileWriter;
 use App\Tests\DatabaseTestCase;
 use App\Tests\SpyApiFileWriter;
-use League\Flysystem\Filesystem;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,7 +16,7 @@ class BuildContinentApiCommandHandlerTest extends DatabaseTestCase
     use MatchesSnapshots;
 
     private BuildContinentApiCommandHandler $buildContinentApiCommandHandler;
-    private ApiFileWriter $apiFileWriter;
+    private FileWriter $apiFileWriter;
 
     public function testHandle(): void
     {
@@ -31,8 +30,8 @@ class BuildContinentApiCommandHandlerTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        $this->apiFileWriter = new SpyApiFileWriter($this->createMock(Filesystem::class));
-        $this->getContainer()->set(ApiFileWriter::class, $this->apiFileWriter);
+        $this->apiFileWriter = new SpyApiFileWriter();
+        $this->getContainer()->set(FileWriter::class, $this->apiFileWriter);
 
         $this->buildContinentApiCommandHandler = $this->getContainer()->get(BuildContinentApiCommandHandler::class);
     }

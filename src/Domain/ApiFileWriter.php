@@ -2,13 +2,14 @@
 
 namespace App\Domain;
 
+use App\Infrastructure\Environment\Settings;
 use App\Infrastructure\Overview\Pagination;
 use League\Flysystem\Filesystem;
 
-class ApiFileWriter
+readonly class ApiFileWriter implements FileWriter
 {
     public function __construct(
-        private readonly Filesystem $filesystem
+        private Filesystem $filesystem
     ) {
     }
 
@@ -31,5 +32,10 @@ class ApiFileWriter
             sprintf('/api/%s-page-%s.json', trim($fileName, '/'), $pagination->getPageNumber()),
             $contents
         );
+    }
+
+    public function fileExists(string $path): bool
+    {
+        return file_exists(sprintf('%s/api/%s', Settings::getAppRoot(), $path));
     }
 }

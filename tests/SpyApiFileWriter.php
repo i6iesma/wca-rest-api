@@ -2,11 +2,11 @@
 
 namespace App\Tests;
 
-use App\Domain\ApiFileWriter;
+use App\Domain\FileWriter;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Serialization\Json;
 
-class SpyApiFileWriter extends ApiFileWriter
+class SpyApiFileWriter implements FileWriter
 {
     private array $writes = [];
 
@@ -23,5 +23,10 @@ class SpyApiFileWriter extends ApiFileWriter
     public function getWrites(): array
     {
         return $this->writes;
+    }
+
+    public function fileExists(string $path): bool
+    {
+        return false;
     }
 }

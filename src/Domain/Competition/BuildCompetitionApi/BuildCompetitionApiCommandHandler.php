@@ -2,10 +2,10 @@
 
 namespace App\Domain\Competition\BuildCompetitionApi;
 
-use App\Domain\ApiFileWriter;
 use App\Domain\Competition\CompetitionRepository;
 use App\Domain\Continent\Country\CountryRepository;
 use App\Domain\Event\EventRepository;
+use App\Domain\FileWriter;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
@@ -20,7 +20,7 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
         private CompetitionRepository $competitionRepository,
         private CountryRepository $countryRepository,
         private EventRepository $eventRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

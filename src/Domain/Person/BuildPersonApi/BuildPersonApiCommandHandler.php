@@ -2,7 +2,7 @@
 
 namespace App\Domain\Person\BuildPersonApi;
 
-use App\Domain\ApiFileWriter;
+use App\Domain\FileWriter;
 use App\Domain\Person\PersonRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
@@ -15,7 +15,7 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
 {
     public function __construct(
         private PersonRepository $personRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

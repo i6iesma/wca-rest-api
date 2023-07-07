@@ -2,12 +2,12 @@
 
 namespace App\Domain\Version;
 
-use App\Domain\ApiFileWriter;
+use App\Domain\FileWriter;
 
 readonly class VersionRepository
 {
     public function __construct(
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

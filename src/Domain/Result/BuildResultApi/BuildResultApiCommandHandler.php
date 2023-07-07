@@ -2,13 +2,12 @@
 
 namespace App\Domain\Result\BuildResultApi;
 
-use App\Domain\ApiFileWriter;
 use App\Domain\Competition\CompetitionRepository;
+use App\Domain\FileWriter;
 use App\Domain\Result\ResultRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
-use App\Infrastructure\Environment\Settings;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Serialization\Json;
 
@@ -18,7 +17,7 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
     public function __construct(
         private ResultRepository $resultRepository,
         private CompetitionRepository $competitionRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 
@@ -38,7 +37,7 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
 
             /** @var \App\Domain\Competition\Competition $competition */
             foreach ($competitions->getItems() as $competition) {
-                if (file_exists(sprintf('%s/api/results/%s.json', Settings::getAppRoot(), $competition->getId()))) {
+                if ($this->apiFileWriter->fileExists(sprintf('results/%s.json', $competition->getId()))) {
                     // Results for a comp should never change, they are final
                     // So we only need to fetch and write the ones that are not in the API yet.
                     // We can do this by checking if the file exists.

@@ -3,12 +3,11 @@
 namespace App\Tests\Domain\Competition\Championship\BuildChampionshipApi;
 
 use App\Console\Progress;
-use App\Domain\ApiFileWriter;
 use App\Domain\Competition\Championship\BuildChampionshipApi\BuildChampionshipApi;
 use App\Domain\Competition\Championship\BuildChampionshipApi\BuildChampionshipApiCommandHandler;
+use App\Domain\FileWriter;
 use App\Tests\DatabaseTestCase;
 use App\Tests\SpyApiFileWriter;
-use League\Flysystem\Filesystem;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,7 +16,7 @@ class BuildChampionshipApiCommandHandlerTest extends DatabaseTestCase
     use MatchesSnapshots;
 
     private BuildChampionshipApiCommandHandler $buildChampionshipApiCommandHandler;
-    private ApiFileWriter $apiFileWriter;
+    private FileWriter $apiFileWriter;
 
     public function testHandle(): void
     {
@@ -31,8 +30,8 @@ class BuildChampionshipApiCommandHandlerTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        $this->apiFileWriter = new SpyApiFileWriter($this->createMock(Filesystem::class));
-        $this->getContainer()->set(ApiFileWriter::class, $this->apiFileWriter);
+        $this->apiFileWriter = new SpyApiFileWriter();
+        $this->getContainer()->set(FileWriter::class, $this->apiFileWriter);
 
         $this->buildChampionshipApiCommandHandler = $this->getContainer()->get(BuildChampionshipApiCommandHandler::class);
     }

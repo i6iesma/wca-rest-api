@@ -2,10 +2,10 @@
 
 namespace App\Domain\Rank\BuildRankApi;
 
-use App\Domain\ApiFileWriter;
 use App\Domain\Continent\ContinentRepository;
 use App\Domain\Continent\Country\CountryRepository;
 use App\Domain\Event\EventRepository;
+use App\Domain\FileWriter;
 use App\Domain\Rank\RankRepository;
 use App\Domain\Rank\RankType;
 use App\Domain\Rank\RegionType;
@@ -23,7 +23,7 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
         private EventRepository $eventRepository,
         private CountryRepository $countryRepository,
         private ContinentRepository $continentRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

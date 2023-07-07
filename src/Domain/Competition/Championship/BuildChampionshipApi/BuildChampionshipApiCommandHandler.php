@@ -2,8 +2,8 @@
 
 namespace App\Domain\Competition\Championship\BuildChampionshipApi;
 
-use App\Domain\ApiFileWriter;
 use App\Domain\Competition\Championship\ChampionshipRepository;
+use App\Domain\FileWriter;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
@@ -14,7 +14,7 @@ readonly class BuildChampionshipApiCommandHandler implements CommandHandler
 {
     public function __construct(
         private ChampionshipRepository $championshipRepository,
-        private ApiFileWriter $apiFileWriter
+        private FileWriter $apiFileWriter
     ) {
     }
 

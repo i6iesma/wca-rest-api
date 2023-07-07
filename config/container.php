@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\ApiFileWriter;
+use App\Domain\FileWriter;
 use App\Infrastructure\Console\ConsoleCommandContainer;
 use App\Infrastructure\Environment\Environment;
 use App\Infrastructure\Environment\Settings;
@@ -18,6 +20,8 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 use Symfony\Component\Console\Application;
 use Twig\Environment as TwigEnvironment;
 use Twig\Loader\FilesystemLoader;
+
+use function DI\get;
 
 $appRoot = Settings::getAppRoot();
 
@@ -59,9 +63,10 @@ return [
     },
     // Settings.
     Settings::class => DI\factory([Settings::class, 'load']),
-    ServerRequestFactoryInterface::class => \DI\get(ServerRequestFactory::class),
+    ServerRequestFactoryInterface::class => get(ServerRequestFactory::class),
     // File system.
     Filesystem::class => DI\autowire()->constructorParameter('adapter', new LocalFilesystemAdapter(
         Settings::getAppRoot()
     )),
+    FileWriter::class => DI\get(ApiFileWriter::class),
 ];
