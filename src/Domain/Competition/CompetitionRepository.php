@@ -101,6 +101,16 @@ readonly class CompetitionRepository
         ])->fetchFirstColumn();
     }
 
+    public function countUniqueCompetitionDays(): int
+    {
+        $query = "
+          SELECT COUNT(DISTINCT DATE(CONCAT_WS('-', `year`, `month`, `day`)))
+           FROM Competitions
+        ";
+
+        return (int) $this->connection->executeQuery($query)->fetchOne();
+    }
+
     public function find(string $competitionId): Competition
     {
         $query = '

@@ -22,7 +22,14 @@ readonly class BuildChampionshipApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildChampionshipApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->setMaxSteps(2);
+        $progressBar->start();
+
         $overview = $this->championshipRepository->findAll();
+        $progressBar->advance();
+
         $this->apiFileWriter->write('championships', Json::encode($overview));
+        $progressBar->finish();
     }
 }

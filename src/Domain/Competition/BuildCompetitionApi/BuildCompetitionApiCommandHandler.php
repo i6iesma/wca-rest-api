@@ -11,6 +11,7 @@ use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Serialization\Json;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 #[AsCommandHandler]
 readonly class BuildCompetitionApiCommandHandler implements CommandHandler
@@ -27,13 +28,27 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildCompetitionApi);
 
-        $this->buildAllCompetitions();
-        $this->buildCompetitionsPerCountry();
-        $this->buildCompetitionsPerDate();
-        $this->buildCompetitionsPerEvent();
+        $progressBar = $command->getProgressBar();
+        $progressBar->start();
+
+        $allCompetitions = $this->competitionRepository->findOneBy(
+            Pagination::fromOffsetAndLimit(0, 1),
+        );
+        $allCountries = $this->countryRepository->findAll();
+        $allEvents = $this->eventRepository->findAll();
+        $progressBar->setMaxSteps(
+            $allCompetitions->getTotal() + $allCountries->getTotal() + $allEvents->getTotal() + $this->competitionRepository->countUniqueCompetitionDays()
+        );
+
+        $this->buildAllCompetitions($progressBar);
+        $this->buildCompetitionsPerCountry($progressBar);
+        $this->buildCompetitionsPerDate($progressBar);
+        $this->buildCompetitionsPerEvent($progressBar);
+
+        $progressBar->finish();
     }
 
-    private function buildAllCompetitions(): void
+    private function buildAllCompetitions(ProgressBar $progressBar): void
     {
         $overview = $this->competitionRepository->findOneBy(
             Pagination::default(),
@@ -56,13 +71,14 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
             /** @var \App\Domain\Competition\Competition $item */
             foreach ($overview->getItems() as $item) {
                 $this->apiFileWriter->write('competitions/'.$item->getId(), Json::encode($item));
+                $progressBar->advance();
             }
 
             $pagination = $pagination->next();
         } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
     }
 
-    private function buildCompetitionsPerCountry(): void
+    private function buildCompetitionsPerCountry(ProgressBar $progressBar): void
     {
         $countries = $this->countryRepository->findAll();
 
@@ -76,10 +92,11 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                 'competitions/'.$country->getIso2Code(),
                 Json::encode($overview)
             );
+            $progressBar->advance();
         }
     }
 
-    private function buildCompetitionsPerDate(): void
+    private function buildCompetitionsPerDate(ProgressBar $progressBar): void
     {
         foreach (range(1980, (int) date('Y') + 1) as $year) {
             $overview = $this->competitionRepository->findOneBy(
@@ -124,12 +141,13 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
                         'competitions/'.$year.'/'.$monthWithLeadingZero.'/'.$dayWithLeadingZero,
                         Json::encode($overview)
                     );
+                    $progressBar->advance();
                 }
             }
         }
     }
 
-    private function buildCompetitionsPerEvent(): void
+    private function buildCompetitionsPerEvent(ProgressBar $progressBar): void
     {
         $events = $this->eventRepository->findAll();
         /** @var \App\Domain\Event\Event $event */
@@ -161,6 +179,8 @@ readonly class BuildCompetitionApiCommandHandler implements CommandHandler
 
                 $pagination = $pagination->next();
             } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
+
+            $progressBar->advance();
         }
     }
 }

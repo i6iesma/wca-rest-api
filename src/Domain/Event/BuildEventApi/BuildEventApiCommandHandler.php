@@ -22,7 +22,14 @@ readonly class BuildEventApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildEventApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->setMaxSteps(2);
+        $progressBar->start();
+
         $overview = $this->eventRepository->findAll();
+        $progressBar->advance();
+
         $this->apiFileWriter->write('events', Json::encode($overview));
+        $progressBar->finish();
     }
 }

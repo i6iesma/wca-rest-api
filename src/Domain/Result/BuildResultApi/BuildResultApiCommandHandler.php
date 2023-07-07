@@ -25,6 +25,12 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildResultApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->start();
+        $progressBar->setMaxSteps(
+            $this->competitionRepository->findOneBy(Pagination::fromOffsetAndLimit(0, 1))->getTotal()
+        );
+
         $pagination = Pagination::default();
         do {
             $competitions = $this->competitionRepository->findOneBy($pagination);
@@ -59,9 +65,11 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
                         Json::encode($overview)
                     );
                 }
+                $progressBar->advance();
             }
 
             $pagination = $pagination->next();
         } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $competitions->getTotal());
+        $progressBar->finish();
     }
 }

@@ -22,7 +22,14 @@ readonly class BuildContinentApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildContinentApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->setMaxSteps(2);
+        $progressBar->start();
+
         $overview = $this->continentRepository->findAll();
+        $progressBar->advance();
+
         $this->apiFileWriter->write('continents', Json::encode($overview));
+        $progressBar->finish();
     }
 }

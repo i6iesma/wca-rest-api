@@ -15,6 +15,7 @@ use App\Infrastructure\CQRS\CommandBus;
 use Lcobucci\Clock\Clock;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,65 +41,59 @@ class GenerateStaticApiFilesConsoleCommand extends Command
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
         if (in_array('continent', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building continent API...');
-            $this->commandBus->dispatch(new BuildContinentApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building continent API...');
+            $this->commandBus->dispatch(new BuildContinentApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('country', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building country API...');
-            $this->commandBus->dispatch(new BuildCountryApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building country API...');
+            $this->commandBus->dispatch(new BuildCountryApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('event', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building event API...');
-            $this->commandBus->dispatch(new BuildEventApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building event API...');
+            $this->commandBus->dispatch(new BuildEventApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('competition', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building competition API...');
-            $this->commandBus->dispatch(new BuildCompetitionApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building competition API...');
+            $this->commandBus->dispatch(new BuildCompetitionApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('championship', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building championship API...');
-            $this->commandBus->dispatch(new BuildChampionshipApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building championship API...');
+            $this->commandBus->dispatch(new BuildChampionshipApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('person', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building person API...');
-            $this->commandBus->dispatch(new BuildPersonApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building person API...');
+            $this->commandBus->dispatch(new BuildPersonApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('rank', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building rank API...');
-            $this->commandBus->dispatch(new BuildRankApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building rank API...');
+            $this->commandBus->dispatch(new BuildRankApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('result', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Building result API...');
-            $this->commandBus->dispatch(new BuildResultApi());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
+            $output->writeln('  - Building result API...');
+            $this->commandBus->dispatch(new BuildResultApi($this->initializeProgressBar($output)));
+            $output->writeln('');
         }
         if (in_array('version', $apisToRebuild)) {
-            $then = $this->clock->now();
-            $output->write('  - Updating API version...');
+            $output->writeln('  - Updating API version...');
             $this->commandBus->dispatch(new UpdateApiVersion());
-            $output->writeln(sprintf(' [%s sec]', $this->calculateExecutionTimeInSeconds($then)));
         }
 
         return Command::SUCCESS;
     }
 
-    private function calculateExecutionTimeInSeconds(\DateTimeImmutable $then): int
+    private function initializeProgressBar(OutputInterface $output): ProgressBar
     {
-        return $this->clock->now()->getTimestamp() - $then->getTimestamp();
+        $progressBar = new ProgressBar($output, 0);
+        $progressBar->setFormat('verbose');
+        $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% [%elapsed:6s%]');
+
+        return $progressBar;
     }
 }

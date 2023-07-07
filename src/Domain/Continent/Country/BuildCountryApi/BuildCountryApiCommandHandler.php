@@ -22,7 +22,14 @@ readonly class BuildCountryApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildCountryApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->setMaxSteps(2);
+        $progressBar->start();
+
         $overview = $this->countryRepository->findAll();
+        $progressBar->advance();
+
         $this->apiFileWriter->write('countries', Json::encode($overview));
+        $progressBar->finish();
     }
 }

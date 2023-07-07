@@ -23,9 +23,14 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
     {
         assert($command instanceof BuildPersonApi);
 
+        $progressBar = $command->getProgressBar();
+        $progressBar->start();
+
         $overview = $this->personRepository->findOneBy(
             Pagination::default(),
         );
+
+        $progressBar->setMaxSteps($overview->getTotal());
 
         $this->apiFileWriter->write('persons', Json::encode($overview));
 
@@ -45,9 +50,11 @@ readonly class BuildPersonApiCommandHandler implements CommandHandler
             foreach ($overview->getItems() as $item) {
                 $this->apiFileWriter->write('persons/'.$item->getId(), Json::encode($item));
                 $this->apiFileWriter->write('persons/'.$item->getSlug(), Json::encode($item));
+                $progressBar->advance();
             }
 
             $pagination = $pagination->next();
         } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
+        $progressBar->finish();
     }
 }
