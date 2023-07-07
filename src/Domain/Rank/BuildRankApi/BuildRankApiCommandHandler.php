@@ -38,7 +38,8 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
         $countries = $this->countryRepository->findAll();
         $continents = $this->continentRepository->findAll();
 
-        $progressBar->setMaxSteps(count(RankType::cases()) * $events->getTotal());
+        $progressBar->setMaxSteps(count(RankType::cases()) * $events->getTotal() + 1);
+        $progressBar->advance();
 
         foreach (RankType::cases() as $rankType) {
             /** @var \App\Domain\Event\Event $event */
@@ -114,7 +115,6 @@ readonly class BuildRankApiCommandHandler implements CommandHandler
                 $progressBar->advance();
             }
         }
-        // @TODO: Uncomment.
-        // $progressBar->finish();
+        $progressBar->finish();
     }
 }
