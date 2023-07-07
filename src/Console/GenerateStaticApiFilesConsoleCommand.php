@@ -37,6 +37,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // @TODO: add total execution time.
         $output->writeln('Building API...');
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
 
@@ -91,7 +92,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
     private function initializeProgressBar(OutputInterface $output): ProgressBar
     {
         $progressBar = new ProgressBar($output, 0);
-        $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% [%elapsed:6s%]');
+        $progressBar->setFormat('  %current%/%max% [%bar%] %percent:3s%% [%elapsed:6s%]');
 
         return $progressBar;
     }

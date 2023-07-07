@@ -8,6 +8,7 @@ use App\Domain\Result\ResultRepository;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
+use App\Infrastructure\Environment\Settings;
 use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Serialization\Json;
 
@@ -33,14 +34,17 @@ readonly class BuildResultApiCommandHandler implements CommandHandler
 
         $pagination = Pagination::default();
         do {
-            // @TODO: Results for a comp never change,  they are final
-            // @TODO: So we only need to fetch and write the ones that are not in the API yet.
-            // @TODO: We can do this by checking if a file exists yes/no.
-            // @TODO: This will greatly improve the build speed.
             $competitions = $this->competitionRepository->findOneBy($pagination);
 
             /** @var \App\Domain\Competition\Competition $competition */
             foreach ($competitions->getItems() as $competition) {
+                if (file_exists(sprintf('%s/api/results/%s.json', Settings::getAppRoot(), $competition->getId()))) {
+                    // Results for a comp should never change, they are final
+                    // So we only need to fetch and write the ones that are not in the API yet.
+                    // We can do this by checking if the file exists.
+                    $progressBar->advance();
+                    continue;
+                }
                 $overview = $this->resultRepository->findOneBy(
                     $competition->getId()
                 );
