@@ -6,11 +6,11 @@ jobs:
     name: Build API
     runs-on: ubuntu-latest
     services:
-      mysql --host="127.0.0.1" --port=3306:
-        image: mysql --host="127.0.0.1" --port=3306:8.0
+      mysql:
+        image: mysql:8.0
         env:
-          mysql --host="127.0.0.1" --port=3306_DATABASE: wca
-          mysql --host="127.0.0.1" --port=3306_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wca
+          MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
 
