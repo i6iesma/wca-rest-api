@@ -30,6 +30,7 @@ readonly class Person implements Item
      * @param string[] $competitionIds
      * @param Rank[]   $ranks
      * @param Result[] $results
+     * @param string[] $championshipIds
      */
     public static function fromState(
         string $id,

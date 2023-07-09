@@ -9,7 +9,7 @@ interface FileWriter
     public function write(
         string $fileName,
         string $contents,
-    );
+    ): void;
 
     public function writeWithPagination(
         string $fileName,

@@ -13,7 +13,7 @@ readonly class Progress
         OutputInterface $output
     ) {
         $this->progressBar = new ProgressBar($output, 0);
-        $this->progressBar->setFormat('  %current%/%max% [%bar%] %percent:3s%% [<comment>%elapsed:6s%</comment>]');
+        $this->progressBar->setFormat('  %percent:3s%% [%bar%] %current%/%max% [<comment>%elapsed:6s%</comment>]');
     }
 
     public function getProgressBar(): ProgressBar

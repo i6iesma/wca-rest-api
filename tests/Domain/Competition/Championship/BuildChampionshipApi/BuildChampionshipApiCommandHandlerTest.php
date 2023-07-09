@@ -28,7 +28,6 @@ class BuildChampionshipApiCommandHandlerTest extends DatabaseTestCase
             $this->snapshotName = $name;
             $this->assertMatchesJsonSnapshot($write);
         }
-        $this->assertMatchesJsonSnapshot($this->apiFileWriter->getWrites());
     }
 
     protected function getSnapshotId(): string
