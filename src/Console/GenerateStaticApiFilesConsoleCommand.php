@@ -85,10 +85,19 @@ class GenerateStaticApiFilesConsoleCommand extends Command
             $output->writeln('  - Updating API version...');
             $this->commandBus->dispatch(new UpdateApiVersion());
         }
+
+        $executionTime = $this->clock->now()->getTimestamp() - $then->getTimestamp();
+        $unit = 'secs';
+        if ($executionTime > 60) {
+            $executionTime = floor($executionTime / 60);
+            $unit = 'min';
+        }
+
         $output->writeln(sprintf(
-            'Total execution time: <comment>%d secs</comment>',
-            $this->clock->now()->getTimestamp() - $then->getTimestamp())
-        );
+            'Total execution time: <comment>%d %s</comment>',
+            $executionTime,
+            $unit
+        ));
 
         return Command::SUCCESS;
     }

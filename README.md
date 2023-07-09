@@ -1,7 +1,7 @@
 <h1 align="center">Unofficial World Cube Association (WCA) Public API</h1>
 
 <p align="center">
-    <img src="swagger-ui/wca.png" 
+    <img src="docs/wca.png" 
          alt="WCA">
 </p>
 
@@ -47,9 +47,40 @@ run following commands:
 > docker-compose run --rm php-cli bin/build-new-api.sh "continent,country,event,competition,championship,person,rank,result,version"
 ```
 
+This should result in following CLI output:
+
+```bash
+Downloading WCA export...
+Unzipping WCA export...
+Archive:  wca-export/export.zip
+  inflating: wca-export/metadata.json  
+  inflating: wca-export/README.md    
+  inflating: wca-export/WCA_export.sql  
+Importing WCA export to database...
+Building API...
+  - Building continent API...
+  2/2 [============================] 100% [< 1 sec]
+  - Building country API...
+  2/2 [============================] 100% [< 1 sec]
+  - Building event API...
+  2/2 [============================] 100% [< 1 sec]
+  - Building competition API...
+  12487/12487 [============================] 100% [ 1 min]
+  - Building championship API...
+  582/582 [============================] 100% [7 secs]
+  - Building person API...
+  199304/199304 [============================] 100% [51 mins]
+  - Building rank API...
+  43/43 [============================] 100% [24 mins]
+  - Building result API...
+  10028/10028 [============================] 100% [5 secs]
+  - Updating API version...
+Total execution time: 77 min
+```
+
 ### Test suite
 
-When you've completed the local setup, you can run the test suite by running
+When you've completed the local setup, you can run the test suite:
 
 ```bash
 > docker-compose run --rm php-cli vendor/bin/phpunit

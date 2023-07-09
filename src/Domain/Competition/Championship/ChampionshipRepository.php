@@ -17,8 +17,7 @@ readonly class ChampionshipRepository
 
     public function findOneBy(
         Pagination $pagination,
-    ): Overview
-    {
+    ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
 
         $queryBuilder->select('SQL_CALC_FOUND_ROWS champ.*')
