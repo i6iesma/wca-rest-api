@@ -39,6 +39,8 @@ run following commands:
 ```bash
 # Clone repo
 > git clone git@github.com:robiningelbrecht/wca-rest-api.git
+# Setup .env file
+> cp .env.dist .env
 # Build docker containers
 > docker-compose up -d --build
 # Install dependencies
