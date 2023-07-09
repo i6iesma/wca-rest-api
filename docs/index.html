@@ -23,10 +23,16 @@
 <script>
     Redoc.init('./openapi.yml', {
         'expandResponses': '200',
+        'disableSearch': true,
+        'hideLoading': true,
+        'nativeScrollbars': false,
+        'pathInMiddlePanel': false,
+        'hideSingleRequestSampleTab': true,
+        'sideNavStyle': 'summary-only',
         'theme': {
             'logo': {
                 'gutter': '8px'
-            }
+            },
         }
     }, document.getElementById('redoc-container'))
 </script>

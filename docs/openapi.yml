@@ -150,6 +150,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Continents'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/continents.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/continents.json');
+            echo $response->getBody()->getContent();
   /api/countries.json:
     get:
       tags:
@@ -164,6 +172,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Countries'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/countries.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/countries.json');
+            echo $response->getBody()->getContent();
   /api/events.json:
     get:
       tags:
@@ -178,6 +194,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Events'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/events.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/events.json');
+            echo $response->getBody()->getContent();
   /api/competitions{-page-[0-9]}.json:
     get:
       tags:
@@ -202,6 +226,15 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions-page-2.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{country}.json:
     get:
       tags:
@@ -226,6 +259,14 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BE.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BE.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{year}.json:
     get:
       tags:
@@ -250,6 +291,14 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{year}/{month}.json:
     get:
       tags:
@@ -293,6 +342,14 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/08.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/08.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{year}/{month}/{day}.json:
     get:
       tags:
@@ -346,6 +403,14 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/08/13.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/2023/09/13.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{event}{-page-[0-9]}.json:
     get:
       tags:
@@ -377,6 +442,15 @@ paths:
                 $ref: '#/components/schemas/Competitions'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/333.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/333-page-2.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/333.json');
+            echo $response->getBody()->getContent();
   /api/competitions/{id}.json:
     get:
       tags:
@@ -401,6 +475,14 @@ paths:
                 $ref: '#/components/schemas/Competition'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2023.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2023.json');
+            echo $response->getBody()->getContent();
   /api/championships.json:
     get:
       tags:
@@ -415,6 +497,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Championships'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships.json');
+            echo $response->getBody()->getContent();
   /api/championships/{id}.json:
     get:
       tags:
@@ -439,6 +529,14 @@ paths:
                 $ref: '#/components/schemas/Championship'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships/WC2023.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships/WC2023.json');
+            echo $response->getBody()->getContent();
   /api/persons{-page-[0-9]}.json:
     get:
       tags:
@@ -463,6 +561,15 @@ paths:
                 $ref: '#/components/schemas/Persons'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons-page-2.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons.json');
+            echo $response->getBody()->getContent();
   /api/persons/{id}.json:
     get:
       tags:
@@ -487,6 +594,14 @@ paths:
                 $ref: '#/components/schemas/Person'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons/2012PARK03.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons/2012PARK03.json');
+            echo $response->getBody()->getContent();
   /api/rank/{region}/{type}/{event}.json:
     get:
       tags:
@@ -528,6 +643,16 @@ paths:
                 $ref: '#/components/schemas/Ranks'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/world/single/333.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/BE/average/222.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/europe/single/444.json''
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/world/single/333.json');
+            echo $response->getBody()->getContent();
   /api/result/{competition}.json:
     get:
       tags:
@@ -552,6 +677,14 @@ paths:
                 $ref: '#/components/schemas/Results'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023.json');
+            echo $response->getBody()->getContent();
   /api/result/{competition}/{event}.json:
     get:
       tags:
@@ -583,6 +716,14 @@ paths:
                 $ref: '#/components/schemas/Results'
         '404':
           description: 'Not Found'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023/333.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023/333.json');
+            echo $response->getBody()->getContent();
 components:
   schemas:
     Continent:
