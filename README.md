@@ -8,7 +8,7 @@
 ---
 
 Welcome to the unofficial [World Cube Association](https://worldcubeassociation.org) (WCA) Public API documentation! 
-Here, you'll find all the information you need to integrate our API seamlessly into your projects. 
+Here, you'll find all the information you need to integrate this API seamlessly into your projects. 
 Access competition data, results, competitor profiles, rankings, and more.
 
 **Note**: This API is served through static json files on *GitHub*, that means the structure of the endpoints have limitations. 
@@ -95,6 +95,7 @@ curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api
 
 ```bash
 curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships.json'
+curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships/WC2023.json'
 ```
 
 ### Persons

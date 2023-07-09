@@ -23,13 +23,20 @@ readonly class BuildChampionshipApiCommandHandler implements CommandHandler
         assert($command instanceof BuildChampionshipApi);
 
         $progressBar = $command->getProgressBar();
-        $progressBar->setMaxSteps(2);
         $progressBar->start();
 
         $overview = $this->championshipRepository->findAll();
-        $progressBar->advance();
+        $progressBar->setMaxSteps($overview->getTotal() + 1);
 
         $this->apiFileWriter->write('championships', Json::encode($overview));
+        $progressBar->advance();
+
+        /** @var \App\Domain\Competition\Championship\Championship $item */
+        foreach ($overview->getItems() as $item) {
+            $this->apiFileWriter->write('championships/'.$item->getId(), Json::encode($item));
+            $progressBar->advance();
+        }
+
         $progressBar->finish();
     }
 }
