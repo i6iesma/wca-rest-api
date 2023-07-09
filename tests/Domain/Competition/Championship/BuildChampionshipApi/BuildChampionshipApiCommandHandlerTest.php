@@ -17,13 +17,25 @@ class BuildChampionshipApiCommandHandlerTest extends DatabaseTestCase
 
     private BuildChampionshipApiCommandHandler $buildChampionshipApiCommandHandler;
     private FileWriter $apiFileWriter;
+    private string $snapshotName;
 
     public function testHandle(): void
     {
         $this->buildChampionshipApiCommandHandler->handle(new BuildChampionshipApi(
             new Progress($this->createMock(OutputInterface::class))
         ));
+        foreach ($this->apiFileWriter->getWrites() as $name => $write) {
+            $this->snapshotName = $name;
+            $this->assertMatchesJsonSnapshot($write);
+        }
         $this->assertMatchesJsonSnapshot($this->apiFileWriter->getWrites());
+    }
+
+    protected function getSnapshotId(): string
+    {
+        return (new \ReflectionClass($this))->getShortName().'--'.
+            $this->name().'--'.
+            $this->snapshotName;
     }
 
     protected function setUp(): void
