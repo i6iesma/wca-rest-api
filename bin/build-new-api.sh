@@ -15,6 +15,11 @@ NC='\033[0m' # No Color
 NEW_VERSION=$(curl -s -L https://www.worldcubeassociation.org/api/v0/export/public)
 CURRENT_VERSION="`cat api/version.json 2>/dev/null`"
 
+if [ "$NEW_VERSION" == "$CURRENT_VERSION" ]; then
+    echo "No new version detected, exiting, bye."
+    exit 0
+fi
+
 # Download and unzip WCA export.
 rm -Rf wca-export
 mkdir wca-export

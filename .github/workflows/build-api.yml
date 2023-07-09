@@ -1,0 +1,77 @@
+name: Build API
+on:
+  workflow_dispatch:
+jobs:
+  build-api:
+    name: Build API
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: wca
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+
+    steps:
+      # https://github.com/marketplace/actions/setup-php-action
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl
+
+      # https://github.com/marketplace/actions/checkout
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy .env file
+        run: cp .env.github-actions .env && cp .env.github-actions .env.test
+
+      - name: Wait for services to boot
+        run: sleep 10
+
+      - name: Install dependencies
+        run: composer install --prefer-dist
+
+      - name: Build the new api
+        run: |
+          set -e
+          
+          # Check if there's a new version
+          NEW_VERSION=$(curl -s -L https://www.worldcubeassociation.org/api/v0/export/public)
+          CURRENT_VERSION="`cat api/version.json 2>/dev/null`"
+          
+          #if [ "$NEW_VERSION" == "$CURRENT_VERSION" ]; then
+          #  echo "No new version detected, exiting, bye."
+          #  exit 0
+          #fi
+          
+          # Download and unzip WCA export.
+          rm -Rf wca-export
+          mkdir wca-export
+          
+          echo "Downloading WCA export..."
+          curl https://www.worldcubeassociation.org/export/results/WCA_export.sql.zip --silent --output "wca-export/export.zip" > /dev/null
+          
+          echo "Unzipping WCA export..."
+          unzip wca-export/export.zip -d wca-export
+          
+          # Import SQL file into db.
+          echo "Importing WCA export to database..."
+          mysql --user=root --password=root wca < wca-export/WCA_export.sql
+          
+          # Add indexes for faster processing
+          mysql --user=root --password=root wca -e "CREATE INDEX personId_index ON Persons (id)"
+          mysql --user=root --password=root wca -e "CREATE INDEX personId_index ON Results (personId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX competitionId_index ON Results (competitionId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX eventId_index ON Results (eventId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX competitionId_index ON championships (competition_id)"
+          mysql --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksSingle (personId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksSingle (eventId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX personId_index ON RanksAverage (personId)"
+          mysql --user=root --password=root wca -e "CREATE INDEX eventId_index ON RanksAverage (eventId)"
+          
+          # Build API.
+          bin/console app:api:build "continent,country,event,competition,championship,person,rank,result,version"
