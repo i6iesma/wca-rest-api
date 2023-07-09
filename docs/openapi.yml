@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: World Cube Association API
+  title: Unofficial World Cube Association API
   description: |
     # Introduction
     
@@ -54,7 +54,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0
 externalDocs:
   description: The source code of the API
   url: https://github.com/robiningelbrecht/wca-rest-api
