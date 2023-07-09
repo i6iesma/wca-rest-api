@@ -24,7 +24,7 @@ The reason for doing so is:
 
 * The data doesn't change that much, max once a day
 * Static file based API is very fast
-* I don't want to pay for any hosting because it would get very expensive, very fast
+* I don't want to pay for any hosting because it could get very expensive, very fast
 
 The API is updated once a day so rankings and results are not real-time.
 
