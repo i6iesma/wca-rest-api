@@ -9,8 +9,8 @@ info:
     **Note:** This API is served through static json files on *GitHub*, that means the structure of the endpoints have limitations. The reason for doing so is:
     
     * The data doesn't change that much, max once a day
-    * Static file based API is very fast
-    * I don't want to pay for any hosting because it would get very expensive, very fast
+    * Static file based API is (or should be) very fast
+    * I don't want to pay for any hosting because it could get very expensive, very fast
     
     > This information is based on competition results owned and maintained by the
     > World Cube Association, published at https://worldcubeassociation.org/results
