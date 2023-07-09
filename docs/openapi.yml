@@ -96,9 +96,12 @@ tags:
     description: |
       The person API calls contain comprehensive data about people. Among some basic info, the ranking and results are included as well.
   - name: rank
-    description: Rank related API calls
+    description: |
+      The rank API calls only contain the first 1000 places. If you want to fetch a rank of a specific person,
+      use the `api/persons/{id}` API call.
   - name: result
-    description: Result related API calls
+    description: |
+      The result API calls are centered around fetching detailed results per competition.
   - name: continent_model
     x-displayName: Continent
     description: |
@@ -489,7 +492,7 @@ paths:
       tags:
         - rank
       summary: ranking by region, type and event
-      description: Only the first 1000 places
+      description: ''
       operationId: getRank
       parameters:
         - name: region
