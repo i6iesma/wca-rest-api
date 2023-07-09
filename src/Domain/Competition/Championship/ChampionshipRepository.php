@@ -15,13 +15,17 @@ readonly class ChampionshipRepository
     ) {
     }
 
-    public function findAll(): Overview
+    public function findOneBy(
+        Pagination $pagination,
+    ): Overview
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
         $queryBuilder->select('SQL_CALC_FOUND_ROWS champ.*')
             ->from('championships', 'champ')
             ->innerJoin('champ', 'Competitions', 'comp', 'champ.competition_id = comp.id')
+            ->setFirstResult($pagination->getOffset())
+            ->setMaxResults($pagination->getLimit())
             ->addOrderBy('comp.year', 'DESC')
             ->addOrderBy('comp.month', 'DESC')
             ->addOrderBy('comp.day', 'DESC');
@@ -33,7 +37,14 @@ readonly class ChampionshipRepository
             return Overview::empty(Pagination::default());
         }
 
-        $overview = Overview::empty(Pagination::default(), $total);
+        $overview = Overview::empty(
+            count($results) == $pagination->getPageSize() ? $pagination : $pagination::fromPageNumberAndSize(
+                $pagination->getPageNumber(),
+                count($results)
+            ),
+            $total
+        );
+
         foreach ($results as $result) {
             $overview->addItem($this->buildResult($result));
         }

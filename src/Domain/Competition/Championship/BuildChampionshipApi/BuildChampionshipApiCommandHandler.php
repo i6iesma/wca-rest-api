@@ -7,6 +7,7 @@ use App\Domain\FileWriter;
 use App\Infrastructure\Attribute\AsCommandHandler;
 use App\Infrastructure\CQRS\CommandHandler\CommandHandler;
 use App\Infrastructure\CQRS\DomainCommand;
+use App\Infrastructure\Overview\Pagination;
 use App\Infrastructure\Serialization\Json;
 
 #[AsCommandHandler]
@@ -25,17 +26,34 @@ readonly class BuildChampionshipApiCommandHandler implements CommandHandler
         $progressBar = $command->getProgressBar();
         $progressBar->start();
 
-        $overview = $this->championshipRepository->findAll();
+        $overview = $this->championshipRepository->findOneBy(
+            Pagination::default(),
+        );
         $progressBar->setMaxSteps($overview->getTotal() + 1);
 
         $this->apiFileWriter->write('championships', Json::encode($overview));
         $progressBar->advance();
 
-        /** @var \App\Domain\Competition\Championship\Championship $item */
-        foreach ($overview->getItems() as $item) {
-            $this->apiFileWriter->write('championships/'.$item->getId(), Json::encode($item));
-            $progressBar->advance();
-        }
+        $pagination = Pagination::default();
+        do {
+            $overview = $this->championshipRepository->findOneBy(
+                $pagination,
+            );
+
+            $this->apiFileWriter->writeWithPagination(
+                'championships',
+                $pagination,
+                Json::encode($overview)
+            );
+
+            /** @var \App\Domain\Competition\Championship\Championship $item */
+            foreach ($overview->getItems() as $item) {
+                $this->apiFileWriter->write('championships/'.$item->getId(), Json::encode($item));
+                $progressBar->advance();
+            }
+
+            $pagination = $pagination->next();
+        } while (($pagination->getPageNumber() - 1) * $pagination->getPageSize() < $overview->getTotal());
 
         $progressBar->finish();
     }
