@@ -6,6 +6,14 @@ jobs:
   test-suite:
     name: PHPStan, PHPcs & Testsuite
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: wca
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
 
     steps:
       # https://github.com/marketplace/actions/setup-php-action
@@ -33,12 +41,15 @@ jobs:
             phpstan.neon
             phpstan-baseline.neon
             phpunit.xml.dist
-            
+
+      - name: Copy .env file
+        run: cp .env.github-actions .env && cp .env.github-actions .env.test
+
+      - name: Wait for services to boot
+        run: sleep 10
 
       - name: Install dependencies
-        run: |
-          cp .env.github-actions .env
-          composer install --prefer-dist
+        run: composer install --prefer-dist
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse
