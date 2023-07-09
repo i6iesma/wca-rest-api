@@ -465,7 +465,7 @@ paths:
           required: true
           schema:
             type: string
-            example: BrizZonSylwesterOpen2023
+            example: BrizZonSylwesterOpen2022
       responses:
         '200':
           description: ''
@@ -478,10 +478,10 @@ paths:
       x-code-samples:
         - lang: 'cURL'
           source: |
-            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2023.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2022.json'
         - lang: PHP - Guzzle
           source: |
-            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2023.json');
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/competitions/BrizZonSylwesterOpen2022.json');
             echo $response->getBody()->getContent();
   /api/championships{-page-[0-9]}.json:
     get:
@@ -1028,7 +1028,7 @@ components:
       properties:
         competitionId:
           type: string
-          example: BrizZonSylwesterOpen2023
+          example: BrizZonSylwesterOpen2022
         personId:
           type: string
           example: 2005AUST01
@@ -1056,11 +1056,11 @@ components:
             type: integer
             format: int64
             example:
-              - 7158
-              - 9055
-              - 7710
-              - 8768
-              - 7757
+              7158
+              9055
+              7710
+              8768
+              7757
     Continents:
       allOf:
         - $ref: '#/components/schemas/Overview'
