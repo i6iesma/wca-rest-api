@@ -34,6 +34,16 @@ readonly class UpdateApiVersionCommandHandler implements CommandHandler
         );
         file_put_contents(Settings::getAppRoot().'/README.md', $readMe);
 
+        // Update API docs as well.
+        /** @var string $apiDocs */
+        $apiDocs = file_get_contents(Settings::getAppRoot().'/docs/openapi.yml');
+        $apiDocs = preg_replace(
+            '/<!--START_SECTION:version-date-->[\s\S]+<!--END_SECTION:version-date-->/',
+            sprintf('<!--START_SECTION:version-date-->%s<!--END_SECTION:version-date-->', $exportDate->format('F d, Y')),
+            $apiDocs
+        );
+        file_put_contents(Settings::getAppRoot().'/docs/openapi.yml', $apiDocs);
+
         $this->versionRepository->save($versionInfo);
     }
 }

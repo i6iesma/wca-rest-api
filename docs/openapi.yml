@@ -12,6 +12,10 @@ info:
     * Static file based API is very fast
     * I don't want to pay for any hosting because it would get very expensive, very fast
     
+    > This information is based on competition results owned and maintained by the
+    > World Cube Association, published at https://worldcubeassociation.org/results
+    > as of <!--START_SECTION:version-date-->July 08, 2023<!--END_SECTION:version-date-->.
+    
     ## Overviews
     
     Every list of items is structured in the same way and contains 3 properties:
@@ -77,11 +81,20 @@ x-tagGroups:
       - result_model
 tags:
   - name: general
-    description: Some general/generic endpoints
+    description: |
+      The general endpoints are mainly here to determine the identifiers you can use for subsequent requests.
+      For example: If you need to provide an `{event}` in a request, you can use `api/events.json` 
+      to determine the list of allowed values. Same goes for `{continent}` and `{country}`.
   - name: competition
-    description: Competition related API calls
+    description: |
+      The competition API calls offer access to various endpoints that provide comprehensive information about competitions.
+  - name: championship
+    description: |
+      The championship API calls offer access to various endpoints that provide comprehensive information about competitions.
+      These are very similar to the competition API calls because championships are glorified competitions 😉.
   - name: person
-    description: Person related API calls
+    description: |
+      The person API calls contain comprehensive data about people. Among some basic info, the ranking and results are included as well.
   - name: rank
     description: Rank related API calls
   - name: result
@@ -123,8 +136,9 @@ paths:
     get:
       tags:
         - general
-      summary: Fetch all continents
-      description: Fetch all continents
+      summary: continents
+      description: |
+        This API call provides a list of continents used by the WCA, including their names and unique identifiers.
       operationId: getContinents
       responses:
         '200':
@@ -137,8 +151,8 @@ paths:
     get:
       tags:
         - general
-      summary: Fetch all countries
-      description: Fetch all countries
+      summary: countries
+      description: This API call provides a list of countries used by the WCA, including their names and ISO2 codes.
       operationId: getCountries
       responses:
         '200':
@@ -151,8 +165,8 @@ paths:
     get:
       tags:
         - general
-      summary: Fetch all event types
-      description: Fetch all event types
+      summary: events
+      description: This API call provides a list of events types used by the WCA.
       operationId: getEvents
       responses:
         '200':
@@ -165,8 +179,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions
-      description: Fetch all competitions
+      summary: competitions
+      description: ''
       operationId: getCompetitions
       parameters:
         - name: -page-[0-9]
@@ -189,8 +203,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions for a given country
-      description: Fetch all competitions for a given country
+      summary: competitions by country
+      description: ''
       operationId: getCompetitionsByCountry
       parameters:
         - name: country
@@ -213,8 +227,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions for a given year
-      description: Fetch all competitions for a given year
+      summary: competitions by year
+      description: ''
       operationId: getCompetitionsByYear
       parameters:
         - name: year
@@ -237,8 +251,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions for a given year and month
-      description: Fetch all competitions for a given year and month
+      summary: competitions by year and month
+      description: ''
       operationId: getCompetitionsByYearAndMonth
       parameters:
         - name: year
@@ -280,8 +294,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions for a given year, month and day
-      description: Fetch all competitions for a given year, month and day
+      summary: competitions by year, month and day
+      description: ''
       operationId: getCompetitionsByYearAndMonthAndDay
       parameters:
         - name: year
@@ -333,8 +347,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch all competitions for a given event
-      description: Fetch all competitions  for a given event
+      summary: competitions by event
+      description: ''
       operationId: getCompetitionsByEvent
       parameters:
         - name: event
@@ -364,8 +378,8 @@ paths:
     get:
       tags:
         - competition
-      summary: Fetch a competition by a given id
-      description: Fetch a competition by a given id
+      summary: competition by id
+      description: ''
       operationId: getCompetitionById
       parameters:
         - name: id
@@ -388,8 +402,8 @@ paths:
     get:
       tags:
         - championship
-      summary: Fetch all championships
-      description: Fetch all championships
+      summary: championships
+      description: ''
       operationId: getChampionships
       responses:
         '200':
@@ -402,8 +416,8 @@ paths:
     get:
       tags:
         - championship
-      summary: Fetch a championship by a given id
-      description: Fetch a championship by a given id
+      summary: championship by id
+      description: ''
       operationId: getChampionshipById
       parameters:
         - name: id
@@ -426,8 +440,8 @@ paths:
     get:
       tags:
         - person
-      summary: Fetch all persons
-      description: Fetch all persons
+      summary: persons
+      description: ''
       operationId: getPersons
       parameters:
         - name: -page-[0-9]
@@ -450,8 +464,8 @@ paths:
     get:
       tags:
         - person
-      summary: Fetch a person by a given id
-      description: Fetch a person by a given id
+      summary: person by id
+      description: ''
       operationId: getPersonById
       parameters:
         - name: id
@@ -474,8 +488,8 @@ paths:
     get:
       tags:
         - rank
-      summary: Fetch the ranking for a given region, type and event
-      description: Fetch the ranking for a given region, type and event (first 1000 places)
+      summary: ranking by region, type and event
+      description: Only the first 1000 places
       operationId: getRank
       parameters:
         - name: region
@@ -515,8 +529,8 @@ paths:
     get:
       tags:
         - result
-      summary: Fetch the results for a given competition
-      description: Fetch the results for a given competition
+      summary: results by competition
+      description: ''
       operationId: getResultsByCompetition
       parameters:
         - name: competition
@@ -539,8 +553,8 @@ paths:
     get:
       tags:
         - result
-      summary: Fetch the results for a given competition and event
-      description: Fetch the results for a given competition and event
+      summary: results by competition and event
+      description: ''
       operationId: getResultsByCompetitionAndEvent
       parameters:
         - name: competition
