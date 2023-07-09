@@ -11,6 +11,37 @@ info:
     * The data doesn't change that much, max once a day
     * Static file based API is very fast
     * I don't want to pay for any hosting because it would get very expensive, very fast
+    
+    ## Overviews
+    
+    Every list of items is structured in the same way and contains 3 properties:
+    
+    * `pagination` - Contains page info for the current request
+    * `total` - Indicates the total number of items available for this model
+    * `ìtems` - The list of items for the current page
+    
+    ```json
+    {
+      "pagination": {
+        "page": 1,
+        "size": 1000
+      },
+      "total": 3465,
+      "items": []
+    }
+    ```
+    
+    ## Pagination
+    
+    Each page contains a specific number of items (max 1000), allowing you to retrieve data incrementally. By using pagination, 
+    you can request and display only the necessary data at a given time, 
+    which enhances performance and reduces resource consumption. 
+    
+    To determine the total number of pages, 
+    you'll need to divide the total number of items by the page size (which is hardcoded to 1000).
+    
+    To navigate through the pages, you can adjust the page parameter in subsequent requests. 
+    For example, to retrieve the second page of data, you would set `competitions-page-2.json`.
   x-logo:
     url: './wca.png'
     altText: WCA logo
@@ -101,9 +132,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Continent'
+                $ref: '#/components/schemas/Continents'
   /api/countries.json:
     get:
       tags:
@@ -117,9 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Country'
+                $ref: '#/components/schemas/Countries'
   /api/events.json:
     get:
       tags:
@@ -133,9 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/Events'
   /api/competitions{-page-[0-9]}.json:
     get:
       tags:
@@ -869,6 +894,33 @@ components:
               - 7710
               - 8768
               - 7757
+    Continents:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Continent'
+    Countries:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Country'
+    Events:
+      allOf:
+        - $ref: '#/components/schemas/Overview'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
     Competitions:
       allOf:
         - $ref: '#/components/schemas/Overview'
