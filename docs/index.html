@@ -1,40 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta
             name="description"
             content="Unofficial World Cube Association (WCA) Public API"
     />
     <title>Unofficial WCA Public API</title>
-    <link rel="icon" type="image/x-icon" href="wca.ico" />
+    <link rel="icon" type="image/x-icon" href="wca.ico"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
+<nav>
+    <button class="toggle_button" type="button" title="Switch between dark and light mode"
+            aria-label="Switch between dark and light mode">
+        <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon">
+            <path fill="currentColor"
+                  d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+        </svg>
+        <svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon">
+            <path fill="currentColor"
+                  d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path>
+        </svg>
+    </button>
+</nav>
+
 <div id="redoc-container"></div>
-<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
 <script>
-    Redoc.init('./openapi.yml', {
-        'expandResponses': '200',
-        'disableSearch': true,
-        'hideLoading': true,
-        'nativeScrollbars': false,
-        'pathInMiddlePanel': false,
-        'hideSingleRequestSampleTab': true,
-        'sideNavStyle': 'summary-only',
-        'theme': {
-            'logo': {
-                'gutter': '8px'
+    const redark = {
+        codeBlock: {
+            backgroundColor: '#18181b',
+        },
+        colors: {
+            error: {
+                main: '#ef4444',
             },
+            border: {
+                light: '#27272a',
+                dark: '#a1a1aa',
+            },
+            http: {
+                basic: '#71717a',
+                delete: '#ef4444',
+                get: '#1ebc86',
+                head: '#d946ef',
+                link: '#06b6d4',
+                options: '#eab308',
+                patch: '#f97316',
+                post: '#3b82f6',
+                put: '#ec4899',
+            },
+            primary: {
+                main: '#71717a',
+            },
+            responses: {
+                error: {
+                    backgroundColor: 'rgba(239,68,68,0.1)',
+                    borderColor: '#fca5a5',
+                    color: '#ef4444',
+                    tabTextColor: '#ef4444',
+                },
+                info: {
+                    backgroundColor: 'rgba(59,131,246,0.1)',
+                    borderColor: '#93c5fd',
+                    color: '#3b82f6',
+                    tabTextColor: '#3b82f6',
+                },
+                redirect: {
+                    backgroundColor: 'rgba(234,179,8,0.1)',
+                    borderColor: '#fde047',
+                    color: '#eab308',
+                    tabTextColor: '#eab308',
+                },
+                success: {
+                    backgroundColor: 'rgba(34,197,94,0.1)',
+                    borderColor: '#86efac',
+                    color: '#1ebc86',
+                    tabTextColor: '#22c55e',
+                },
+                warning: {
+                    main: '#eab308',
+                },
+            },
+            secondary: {
+                main: '#3f3f46',
+                light: '#27272a',
+            },
+            success: {
+                main: '#22c55e',
+            },
+            text: {
+                primary: '#fafafa',
+                secondary: '#d4d4d8',
+                light: '#3f3f46',
+            },
+        },
+        fab: {
+            backgroundColor: '#52525b',
+            color: '#67e8f9',
+        },
+        rightPanel: {
+            backgroundColor: '#292b37',
+            servers: {
+                overlay: {
+                    backgroundColor: '#27272a',
+                },
+                url: {
+                    backgroundColor: '#18181b',
+                },
+            },
+        },
+        schema: {
+            linesColor: '#d8b4fe',
+            typeNameColor: '#93c5fd',
+            typeTitleColor: '#1d4ed8',
+        },
+        sidebar: {
+            activeTextColor: '#ffffff',
+            backgroundColor: '#292b37',
+            textColor: '#a1a1aa',
+        },
+        typography: {
+            code: {
+                backgroundColor: '#3c3f4f',
+                color: '#ebebed',
+            },
+            links: {
+                color: '#0ea5e9',
+                hover: '#0ea5e9',
+                textDecoration: 'none',
+                hoverTextDecoration: 'underline',
+                visited: '#0ea5e9',
+            },
+        },
+        extensionsHook: (c) => {
+            if (c === 'UnderlinedHeader') {
+                return {
+                    color: '#a1a1aa',
+                    fontWeight: 'bold',
+                    borderBottom: '1px solid #3f3f46',
+                };
+            }
+        },
+    };
+
+    const htmlEl = document.getElementsByTagName('html')[0];
+    let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : (window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light');
+    const toggleSwitch = document.querySelector('button.toggle_button');
+    htmlEl.dataset.theme = currentTheme;
+
+    const switchTheme = () => {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.dataset.theme = currentTheme;
+        localStorage.setItem('theme', currentTheme);
+
+        initRedoc(currentTheme);
+    }
+    toggleSwitch.addEventListener('click', switchTheme, false);
+
+    const initRedoc = (currentTheme) => {
+        let theme =  {
+            logo: {
+                gutter: '8px'
+            }
+        };
+        if(currentTheme === 'dark'){
+            theme = {...redark, ...theme};
         }
-    }, document.getElementById('redoc-container'))
+
+        Redoc.init('./openapi.yml', {
+            'expandResponses': '200',
+            'disableSearch': true,
+            'hideLoading': true,
+            'nativeScrollbars': false,
+            'pathInMiddlePanel': false,
+            'hideSingleRequestSampleTab': true,
+            'sideNavStyle': 'summary-only',
+            'theme': theme,
+        }, document.getElementById('redoc-container'));
+    }
+
+    initRedoc(currentTheme);
 </script>
 </body>
 </html>
