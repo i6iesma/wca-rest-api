@@ -662,7 +662,7 @@ paths:
           source: |
             $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/rank/world/single/333.json');
             echo $response->getBody()->getContent();
-  /api/result/{competition}.json:
+  /api/results/{competition}.json:
     get:
       tags:
         - result
@@ -689,12 +689,12 @@ paths:
       x-code-samples:
         - lang: 'cURL'
           source: |
-            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2022.json'
         - lang: PHP - Guzzle
           source: |
-            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2023.json');
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/results/BrizZonSylwesterOpen2022.json');
             echo $response->getBody()->getContent();
-  /api/result/{competition}/{event}.json:
+  /api/results/{competition}/{event}.json:
     get:
       tags:
         - result
@@ -708,7 +708,7 @@ paths:
           required: true
           schema:
             type: string
-            example: 'BrizZonSylwesterOpen2023'
+            example: 'BrizZonSylwesterOpen2022'
         - name: event
           in: path
           description: The event to filter the results on
