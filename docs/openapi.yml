@@ -224,8 +224,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -257,8 +255,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -289,8 +285,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -340,8 +334,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -401,8 +393,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -440,8 +430,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competitions'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -473,8 +461,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Competition'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -536,8 +522,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Championship'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -568,8 +552,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Persons'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -601,8 +583,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Person'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -650,8 +630,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Ranks'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -684,8 +662,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Results'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
@@ -723,8 +699,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Results'
-        '404':
-          description: 'Not Found'
       x-code-samples:
         - lang: 'cURL'
           source: |
