@@ -70,10 +70,14 @@ nav .toggle_button {
 [data-theme=dark] div.api-content div[data-section-id] > div[data-section-id] > div:nth-child(2) {
     background: var(--blue) !important;
 }
+[data-theme=dark] div[data-section-id^="tag"] > div:nth-child(2) > div > div:nth-child(2){
+    background: var(--blue) !important;
+}
 [data-theme=dark] div.menu-content{
     background: var(--blue) !important;
 }
-[data-theme=dark]  .react-tabs__tab-panel {
+[data-theme=dark] .react-tabs__tab-panel,
+[data-theme=dark] div[data-section-id^="tag"] > div:nth-child(2) > div > div:nth-child(2) > div{
     background: rgb(19, 20, 26) !important;
 }
 
