@@ -15,7 +15,7 @@
 
 ---
 
-Welcome to the unofficial [World Cube Association](https://worldcubeassociation.org) (WCA) Public API documentation! 
+Welcome to the **unofficial** [World Cube Association](https://worldcubeassociation.org) (WCA) Public API documentation! 
 Here, you'll find all the information you need to integrate this API seamlessly into your projects. 
 Access competition data, results, competitor profiles, rankings, and more.
 
