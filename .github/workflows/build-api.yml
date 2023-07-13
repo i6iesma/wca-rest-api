@@ -43,9 +43,6 @@ jobs:
           NEW_VERSION=$(curl -s -L https://www.worldcubeassociation.org/api/v0/export/public)
           CURRENT_VERSION=$(curl -s -L https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/version.json)
           
-          echo $NEW_VERSION
-          echo $CURRENT_VERSION
-          
           if [ "$NEW_VERSION" != "$CURRENT_VERSION" ]; then
             # Download and unzip WCA export.
             rm -Rf wca-export
@@ -74,4 +71,6 @@ jobs:
             
             # Build API.
             bin/console app:api:build "continent,country,event,competition,championship,person,rank,result,version"
+          else
+             echo "No new version detected, exiting, bye."
           fi
