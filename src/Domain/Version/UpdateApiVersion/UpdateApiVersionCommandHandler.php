@@ -26,7 +26,7 @@ readonly class UpdateApiVersionCommandHandler implements CommandHandler
         $exportDate = SerializableDateTime::fromString(Json::decode($versionInfo)['export_date']);
 
         /** @var string $readMe */
-        $readMe = file_get_contents(Settings::getAppRoot().'/README.MD');
+        $readMe = file_get_contents(Settings::getAppRoot().'/README.md');
         $readMe = preg_replace(
             '/<!--START_SECTION:version-date-->[\s\S]+<!--END_SECTION:version-date-->/',
             sprintf('<!--START_SECTION:version-date-->%s<!--END_SECTION:version-date-->', $exportDate->format('F d, Y')),
