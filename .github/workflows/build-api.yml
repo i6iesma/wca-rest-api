@@ -40,4 +40,4 @@ jobs:
           set -e
           
           # Build API.
-          bin/console app:api:build "continent,country,event,competition,championship,person,rank,result,version"
+          bin/console app:api:build "version"
