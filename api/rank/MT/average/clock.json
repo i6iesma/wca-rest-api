@@ -1,1 +1,1 @@
-{"pagination":{"page":1,"size":1},"total":1,"items":[{"rankType":"average","personId":"2022CAUC02","eventId":"clock","best":1518,"rank":{"world":4226,"continent":1525,"country":1}}]}
+{"pagination":{"page":1,"size":2},"total":2,"items":[{"rankType":"average","personId":"2022CAUC02","eventId":"clock","best":808,"rank":{"world":758,"continent":289,"country":1}},{"rankType":"average","personId":"2022CAUC03","eventId":"clock","best":2328,"rank":{"world":7245,"continent":2545,"country":2}}]}

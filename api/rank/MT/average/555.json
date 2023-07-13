@@ -1,1 +1,1 @@
-{"pagination":{"page":1,"size":1},"total":1,"items":[{"rankType":"average","personId":"2019GALE06","eventId":"555","best":13611,"rank":{"world":12703,"continent":3815,"country":1}}]}
+{"pagination":{"page":1,"size":2},"total":2,"items":[{"rankType":"average","personId":"2022CAUC02","eventId":"555","best":9901,"rank":{"world":6178,"continent":1811,"country":1}},{"rankType":"average","personId":"2019GALE06","eventId":"555","best":13611,"rank":{"world":12704,"continent":3816,"country":2}}]}
