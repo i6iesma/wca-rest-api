@@ -51,8 +51,8 @@ info:
     To navigate through the pages, you can adjust the page parameter in subsequent requests. 
     For example, to retrieve the second page of data, you would set `competitions-page-2.json`.
   x-logo:
-    url: './wca.png'
-    altText: WCA logo
+    url: './logo.png'
+    altText: Logo
   contact:
     email: ingelbrecht_robin@hotmail.com
   license:

@@ -1,8 +1,8 @@
 <h1 align="center">Unofficial World Cube Association (WCA) Public API</h1>
 
 <p align="center">
-    <img src="docs/wca.png" 
-         alt="WCA">
+    <img src="docs/logo.png" 
+         alt="WCA" height="220">
 </p>
 
 <p align="center">
