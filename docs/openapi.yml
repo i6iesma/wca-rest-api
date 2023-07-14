@@ -51,7 +51,7 @@ info:
     To navigate through the pages, you can adjust the page parameter in subsequent requests. 
     For example, to retrieve the second page of data, you would set `competitions-page-2.json`.
   x-logo:
-    url: './logo.png'
+    url: './logo-docs.png'
     altText: Logo
   contact:
     email: ingelbrecht_robin@hotmail.com
