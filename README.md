@@ -43,6 +43,12 @@ The full documentation and specs are available at
 
 For any feature requests, help posts, or bug reports, please [open an issue](https://github.com/robiningelbrecht/wca-rest-api/issues/new) in the issue queue. I'll be happy to help you out.
 
+## Entity relations
+
+<p align="center">
+    <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8tP_D4JgaR6QMeDqbsz4kA.png" alt="Entity Relations" />
+</p>
+
 ## Local development
 
 If you'd like to help with the development of this project, or you just want to run it locally,
