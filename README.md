@@ -45,8 +45,11 @@ For any feature requests, help posts, or bug reports, please [open an issue](htt
 
 ## Entity relations
 
+To give you an idea about the relations between the entities and how you can query the API,
+I created the following schema:
+
 <p align="center">
-    <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*8tP_D4JgaR6QMeDqbsz4kA.png" alt="Entity Relations" />
+    <img src="docs/entity-relations.png" alt="Entity Relations" />
 </p>
 
 ## Local development
