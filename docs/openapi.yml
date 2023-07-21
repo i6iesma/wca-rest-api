@@ -9,7 +9,7 @@ info:
     **Note:** This API is served through static JSON files on *GitHub*, which means the structure of the endpoints has limitations. The reason for doing so is:
 
     * The data doesn't change that much, max once a day
-    * Static file based API is (or should be) very fast
+    * Static file-based API is (or should be) very fast
     * I don't want to pay for any hosting because it could get very expensive, very fast
     
     The API is updated once a day so rankings and results are not real-time.
@@ -18,7 +18,7 @@ info:
     > World Cube Association, published at https://www.worldcubeassociation.org/export/results
     > as of <!--START_SECTION:version-date-->July 20, 2023<!--END_SECTION:version-date-->.
     
-    I'm in no way affiliated or part of the official WCA software team.
+    I'm in no way affiliated with or part of the official WCA software team.
     
     ## Overviews
     
