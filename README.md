@@ -41,7 +41,7 @@ The full documentation and specs are available at
 
 ## Feedback
 
-For any feature requests, help posts, or bug reports, please open an issue in the issue queue. I'll be happy to help you out.
+For any feature requests, help posts, or bug reports, please [open an issue](https://github.com/robiningelbrecht/wca-rest-api/issues/new) in the issue queue. I'll be happy to help you out.
 
 ## Local development
 
