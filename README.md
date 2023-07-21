@@ -23,7 +23,7 @@ Access competition data, results, competitor profiles, rankings, and more.
 The reason for doing so is:
 
 * The data doesn't change that much, max once a day
-* Static file based API is (or should be) very fast
+* Static file-based API is (or should be) very fast
 * I don't want to pay for any hosting because it could get very expensive, very fast
 
 The API is updated once a day so rankings and results are not real-time.
@@ -32,17 +32,17 @@ The API is updated once a day so rankings and results are not real-time.
 > World Cube Association, published at https://www.worldcubeassociation.org/export/results
 > as of <!--START_SECTION:version-date-->July 20, 2023<!--END_SECTION:version-date-->.
 
-I'm in no way affiliated or part of the official WCA software team.
+I'm in no way affiliated with or part of the official WCA software team.
 
 ## Getting started
 
-The full documentation and specs are available on
+The full documentation and specs are available at
 [https://wca-rest-api.robiningelbrecht.be/](https://wca-rest-api.robiningelbrecht.be/)
 
 ## Local development
 
-If you'd like to help on the development of this project, or you just want to run it locally,
-run following commands:
+If you'd like to help with the development of this project, or you just want to run it locally,
+run the following commands:
 
 ```bash
 # Clone repo
