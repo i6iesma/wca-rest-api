@@ -39,7 +39,7 @@ I'm in no way affiliated with or part of the official WCA software team.
 The full documentation and specs are available at
 [https://wca-rest-api.robiningelbrecht.be/](https://wca-rest-api.robiningelbrecht.be/)
 
-## Feedbacl
+## Feedback
 
 For any feature requests, help posts, or bug reports, please open an issue in the issue queue. I'll be happy to help you out.
 
