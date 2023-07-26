@@ -40,6 +40,8 @@ class GenerateStaticApiFilesConsoleCommand extends Command
 
         $output->writeln('Building API...');
         $apisToRebuild = explode(',', $input->getArgument('apisToRebuild'));
+        /** @var string $versionInfo */
+        $versionInfo = file_get_contents('https://www.worldcubeassociation.org/api/v0/export/public');
 
         if (in_array('continent', $apisToRebuild)) {
             $output->writeln('  - Building continent API...');
@@ -83,7 +85,7 @@ class GenerateStaticApiFilesConsoleCommand extends Command
         }
         if (in_array('version', $apisToRebuild)) {
             $output->writeln('  - Updating API version...');
-            $this->commandBus->dispatch(new UpdateApiVersion());
+            $this->commandBus->dispatch(new UpdateApiVersion($versionInfo));
         }
 
         $executionTime = $this->clock->now()->getTimestamp() - $then->getTimestamp();
