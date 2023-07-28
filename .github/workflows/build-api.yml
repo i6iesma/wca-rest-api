@@ -17,6 +17,8 @@ jobs:
           - 3306:3306
 
     steps:
+      - name: Test
+        run: jar xvf lol.zip
       # https://github.com/marketplace/actions/setup-php-action
       - name: Setup PHP 8.2
         uses: shivammathur/setup-php@v2
