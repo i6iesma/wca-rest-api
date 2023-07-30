@@ -58,7 +58,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.0.1
 externalDocs:
   description: The source code of the API
   url: https://github.com/robiningelbrecht/wca-rest-api
@@ -533,6 +533,37 @@ paths:
         - lang: PHP - Guzzle
           source: |
             $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships/WC2023.json');
+            echo $response->getBody()->getContent();
+  /api/championships/{type}.json:
+    get:
+      tags:
+        - championship
+      summary: championships by type
+      description: ''
+      operationId: getChampionshipsByType
+      parameters:
+        - name: type
+          in: path
+          description: The type to filter the championships on. Can be "world" or one of the ids in `api/continents.json` or `api/countries.json`
+          required: true
+          schema:
+            type: string
+            example: 'world'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Championships'
+      x-code-samples:
+        - lang: 'cURL'
+          source: |
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships.json'
+            curl --location 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships-page-1.json'
+        - lang: PHP - Guzzle
+          source: |
+            $response = (new Client())->request('GET', 'https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/championships.json');
             echo $response->getBody()->getContent();
   /api/persons{-page-[0-9]}.json:
     get:
