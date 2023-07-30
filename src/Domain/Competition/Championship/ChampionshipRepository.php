@@ -17,6 +17,7 @@ readonly class ChampionshipRepository
 
     public function findOneBy(
         Pagination $pagination,
+        string $championshipType = null
     ): Overview {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -28,6 +29,11 @@ readonly class ChampionshipRepository
             ->addOrderBy('comp.year', 'DESC')
             ->addOrderBy('comp.month', 'DESC')
             ->addOrderBy('comp.day', 'DESC');
+
+        if ($championshipType) {
+            $queryBuilder->andWhere('champ.championship_type = :type');
+            $queryBuilder->setParameter('type', $championshipType);
+        }
 
         $results = $queryBuilder->executeQuery()->fetchAllAssociative();
         $total = $this->connection->executeQuery('SELECT FOUND_ROWS() as total;')->fetchOne();
