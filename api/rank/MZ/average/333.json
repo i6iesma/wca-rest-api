@@ -1,1 +1,1 @@
-{"pagination":{"page":1,"size":1},"total":1,"items":[{"rankType":"average","personId":"2022BACA01","eventId":"333","best":2080,"rank":{"world":62866,"continent":510,"country":1}}]}
+{"pagination":{"page":1,"size":2},"total":2,"items":[{"rankType":"average","personId":"2022BACA01","eventId":"333","best":2080,"rank":{"world":62969,"continent":510,"country":1}},{"rankType":"average","personId":"2023MOLA06","eventId":"333","best":3673,"rank":{"world":128760,"continent":1367,"country":2}}]}
