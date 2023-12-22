@@ -19,7 +19,7 @@ Welcome to the **unofficial** [World Cube Association](https://worldcubeassociat
 Here, you'll find all the information you need to integrate this API seamlessly into your projects. 
 Access competition data, results, competitor profiles, rankings, and more.
 
-**Note**: This API is served through static JON files on *GitHub*, which means the structure of the endpoints has limitations. 
+**Note**: This API is served through static JSON files on *GitHub*, which means the structure of the endpoints has limitations. 
 The reason for doing so is:
 
 * The data doesn't change that much, max once a day
